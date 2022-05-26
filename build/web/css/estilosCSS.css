@@ -1,0 +1,208 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01/05/2022, 12:53:33 AM
+    Author     : amontanez 
+  position: fixed;
+  top: 0;  overflow: hidden;
+  z-index: 99;
+  padding: 90px 10px;
+  transition: 0.4s;
+*/
+
+@media screen and (max-width: 500px) {
+    .navbar a {
+        float: none;
+        display: block;
+    }
+}
+
+.navbar {
+    background-color: #145A32;
+    overflow: auto;
+    text-decoration: none;
+}
+
+.navbar a {
+    float: left;
+    padding: 5px;
+    overflow: auto;
+    color: #FFFFFF;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    float: left;
+    padding: 5px;
+    overflow: auto;
+    color: #FFFFFF;
+    background-color: #43A047;
+    text-decoration: none;
+}
+
+.active {
+    background-color: #43A047;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar a {
+        float: none;
+        display: block;
+    }
+}
+
+/**/
+
+
+
+header{
+
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+.main {
+    padding: 106px;
+    margin-top: 30px;
+    height: 1500px; /* Used in this example to enable scrolling */
+}
+
+
+
+.textArea{
+    width: 50%;
+    max-width: 900px;
+}
+
+.footer {
+    width: 100%;
+    background-color: #196F3D;
+    overflow: auto;
+}
+
+.footer a p{
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+.footer a p:hover {
+    box-shadow:0 4px 10px 0 ;
+}
+
+.footer-center{
+    text-align:center;
+}
+
+/**/
+.columna {
+    float:left;
+} 
+@media (max-width: 500px) {
+    .columna {
+        width:auto;
+        float:none;
+    }
+}
+.columna1 {
+    width:15%;
+}
+.columna2 {
+    width:70%;
+}
+.columna3 {
+    width:15%;
+}
+
+
+/**/
+
+.panelBlog{
+    padding:0.01em 16px;
+    margin-top:16px;
+    margin-bottom:16px;
+    color: #424643;
+    background-color:#CFFEE3;
+    box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)
+}
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+
+.slider{
+    width: 1280px;
+    height: auto;
+    margin: 50px auto 0;
+    overflow: hidden;
+    animation: cambio 15s infinite alternate ease-in-out;
+}
+
+.slider ul{
+    display: flex;
+    padding: 0;
+    width: 400%;
+}
+
+.slider li{
+    list-style: none;
+    width: 100%;
+}
+
+.slider img{
+    width: 100%;
+}
+
+@keyframes cambio{
+    0%{margin-left: 0%;}
+    30%{margin-left: 0%;}
+
+    33%{margin-left: -100%;}
+    63%{margin-left: -100%;}
+
+    66%{margin-left: -200%;}
+    96%{margin-left: -200%;}
+
+}
