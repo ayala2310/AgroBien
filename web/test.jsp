@@ -1,28 +1,79 @@
-<header>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="css/estilosCSS.css">
-</header>
-<div class="slider">
-    <ul>
-        <li>
-            <img src="imagenes/slider1.png" alt="Los Angeles">
-        </li>
-        <li>
-            <img src="imagenes/slider2.jpg" alt="Los Angeles">
-        </li>
-        <li>
-            <img src="imagenes/slider3.jpg" alt="Los Angeles">
-        </li>
-    </ul>
-</div>
-<!--<ul class="menu">
-    <li>
-        <a href="#slide1">1</a>
-    </li>
-    <li>
-        <a href="#slide2">2</a>
-    </li>
-    <li>
-        <a href="#slide3">3</a>
-    </li>
-</ul>-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JS Bin</title>
+    </head>
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+
+        body{
+            width: 100%;
+            height: 100%;
+        }
+
+        div{
+            width: 30%;
+            height: 20%;
+            display: none;
+        }
+
+        #opc1{
+            background: red;
+        }
+
+        #opc2{
+            background: green;
+        }
+
+        .visible{
+            display: block;
+        }
+    </style>
+
+   <body>
+        <select name="elige" id="elige">
+            <option value="">Seleccione una opción</option>
+            <option value="opc1">Específico</option>
+            <option value="opc2">Comercial</option>
+        </select>
+        <div id = "opc1"></div>
+        <div id = "opc2"></div>
+    
+    </body>
+        
+          <script>
+        var visible;
+
+//Ejecuto una función cuando elija una opción del <select>
+        document.querySelector("#elige").addEventListener("change", function () {
+
+            //Tomo al <div> que posea la clase 'visible'
+            visible = document.querySelector(".visible");
+
+            //Si el valor de la opción seleccionada contiene uno o más caracteres
+            if (this.value.length) {
+                //Verifico si hay al menos un <div> con la clase 'visible'
+                if (visible.length) {
+                    //De haberlo, le quito dicha clase
+                    visible.className = "";
+                }
+                //Luego, tomo al <div> cuyo id corresponda con el de la opción seleccionada y le asigno la clase 'visible'
+                document.querySelector("#" + this.value).className = "visible";
+            }
+
+            //Si el valor de la opción seleccionada no contiene caracteres (está vacía)
+            else {
+                //Verifico si hay al menos un <div> con la clase 'visible'
+                if (visible.length) {
+                    //De haberlo, le quito dicha clase
+                    visible.className = "";
+                }
+            }
+        }, false);
+    </script>
+   
+</html>

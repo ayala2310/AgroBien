@@ -27,7 +27,7 @@
 
             .form {
                 background-color: white;
-                width: 400px;
+                width: 800px;
                 height: 70%;
                 border-radius: 8px;
                 padding: 30px 20px;
@@ -35,20 +35,21 @@
             }
 
             .title {
-                font-size: 25px;
+                font-size: 30px;
+                margin-bottom: 35px;
             }
 
             .inputContainer {
                 position: relative;
                 height: 45px;
-                width: 100%;
+                width: 95%;
                 margin-bottom: 15px;
             }
 
             .input {
                 position: absolute;
-                top: -50px;
-                left: 0px;
+                top: 0px;
+                left: 30px;
                 height: 100%;
                 width: 100%;
                 border: 1px solid #DADCE0;
@@ -68,8 +69,8 @@
 
             .submitBtn {
                 position: relative;
-                top: -45px;
-                left: -20px;
+                top: 15px;
+                left: -70px;
                 display: block;
                 margin-left: auto;
                 padding: 15px 30px;
@@ -91,8 +92,8 @@
                 display: inline-block;
                 background: blue;
                 background-color: white;
-                top: -60px;
-                left: 20px;
+                top: -10px;
+                left: 45px;
                 font-size: 14px;
                 font-weight: 600;
                 color: purple;
@@ -101,12 +102,20 @@
             .input:focus{
                 border: 2px solid purple;
             }
-          
-         
+            .columna{
+                float:left;
+            }
+            .columna1 {
+                width:45%;
+            }
+            .columna2 {
+                width:45%;
+            }
+
             .icono{
                 position: relative;
-                top: -50px;
-                left: 330px;
+                top: 1px;
+                left: 310px;
                 margin-left: auto;
                 padding: 15px 30px;
                 border: none;
@@ -118,8 +127,8 @@
             .logo{
                 background-color: red;
                 position: relative;
-                top: -160px;
-                left: 270px;
+                top: -110px;
+                left: -70px;
                 cursor: pointer;
             }
 
@@ -143,11 +152,52 @@
     <body>
         <div class="signupFrm">
             <form class="form" action="LogueoServlet" method="POST">
-                <h3>Bienvenido a AgroBien</h3>
-                <h1 class="title">Inicie sesión con su cuenta de usuario</h1><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/>
+                <h1 class="title">    Registro de nuevo usuario</h1><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/>
+
+                <div class="columna columna1">
+                    <div class="inputContainer">
+                        <input type="text" class="input" name="txtNombres" placeholder="Juan">
+                        <label for="" class="label">Nombres</label>
+                    </div>
+
+                    <div class="inputContainer">
+                        <input type="text" class="input" name="txtApellidos" placeholder="Huamán">
+                        <label for="" class="label">Apellidos</label>
+                    </div>
+                    <div class="inputContainer">
+                        <input type="number" class="input" name="txtDni" placeholder="12345678">
+                        <label for="" class="label">DNI</label>
+                    </div>
+                    <div class="inputContainer">
+                        <input type="number" class="input" name="txtCelular"  placeholder="987654321">
+                        <label for="" class="label">Celular</label>
+                    </div>
+
+                    <div class="inputContainer">
+                        <input type="email" class="input"  name="txtCorreo" placeholder="juan@gmail.com">
+                        <label for="" class="label">Correo</label>
+                    </div>
+                </div>
+
 
                 <div  class="columna columna2">
-                    
+                    <div class="inputContainer">
+                        <input type="text" class="input"  name="txtCiudad" placeholder="Tocache - San Martín">
+                        <label for="" class="label">Ciudad</label>
+                    </div>
+                    <div class="inputContainer">
+                        <select  class="input" name="txtTipo" id="tipo" placeholder="">
+                            <option hidden selected>Agricultor</option>
+                            <option class="input" value="agricultor">Agricultor</option>
+                            <option class="input" value="agronomo">Agrónomo</option>
+                        </select>
+                        <label class="label"for="">Tipo</label>
+
+                    </div>
+                    <div class="inputContainer">
+                        <input type="text" class="input"  name="txtColegiatura" placeholder=" ">
+                        <label for="" class="label">Nro Colegiatura</label>
+                    </div>
                     <div class="inputContainer">
                         <input type="text" class="input"  name="txtUsuario" placeholder=" ">
                         <label for="" class="label">Nombre de Usuario</label>
@@ -159,7 +209,7 @@
                         <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena()"/>
                     </div>
                 </div>
-                <input type="submit" class="submitBtn" name="accion" value="Iniciar Sesión">
+                <input type="submit" class="submitBtn" name="accion" value="Registrar">
                 <%
                     if (request.getParameter("error") == null) {
 

@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class newjsp_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -195,11 +195,52 @@ public final class newjsp_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        <div class=\"signupFrm\">\n");
       out.write("            <form class=\"form\" action=\"LogueoServlet\" method=\"POST\">\n");
-      out.write("                <h3>Bienvenido a AgroBien</h3>\n");
-      out.write("                <h1 class=\"title\">Inicie sesión con su cuenta de usuario</h1><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/>\n");
+      out.write("                <h1 class=\"title\">    Registro de nuevo usuario</h1><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/>\n");
+      out.write("\n");
+      out.write("                <div class=\"columna columna1\">\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"text\" class=\"input\" name=\"txtNombres\" placeholder=\"Juan\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Nombres</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"text\" class=\"input\" name=\"txtApellidos\" placeholder=\"Huamán\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Apellidos</label>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"number\" class=\"input\" name=\"txtDni\" placeholder=\"12345678\">\n");
+      out.write("                        <label for=\"\" class=\"label\">DNI</label>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"number\" class=\"input\" name=\"txtCelular\"  placeholder=\"987654321\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Celular</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"email\" class=\"input\"  name=\"txtCorreo\" placeholder=\"juan@gmail.com\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Correo</label>\n");
+      out.write("                    </div>\n");
+      out.write("                </div>\n");
+      out.write("\n");
       out.write("\n");
       out.write("                <div  class=\"columna columna2\">\n");
-      out.write("                    \n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"text\" class=\"input\"  name=\"txtCiudad\" placeholder=\"Tocache - San Martín\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Ciudad</label>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <select  class=\"input\" name=\"txtTipo\" id=\"tipo\" placeholder=\"\">\n");
+      out.write("                            <option hidden selected>Agricultor</option>\n");
+      out.write("                            <option class=\"input\" value=\"agricultor\">Agricultor</option>\n");
+      out.write("                            <option class=\"input\" value=\"agronomo\">Agrónomo</option>\n");
+      out.write("                        </select>\n");
+      out.write("                        <label class=\"label\"for=\"\">Tipo</label>\n");
+      out.write("\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input type=\"text\" class=\"input\"  name=\"txtColegiatura\" placeholder=\" \">\n");
+      out.write("                        <label for=\"\" class=\"label\">Nro Colegiatura</label>\n");
+      out.write("                    </div>\n");
       out.write("                    <div class=\"inputContainer\">\n");
       out.write("                        <input type=\"text\" class=\"input\"  name=\"txtUsuario\" placeholder=\" \">\n");
       out.write("                        <label for=\"\" class=\"label\">Nombre de Usuario</label>\n");

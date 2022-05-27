@@ -96,23 +96,40 @@ public class LogueoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         UsuarioDAO udao = new UsuarioDAO();
-        String v_error = "";
 
         String accion = request.getParameter("accion");
-        System.out.println("LOG accion: "+accion);
-        if (accion.equalsIgnoreCase("login")) {
+        System.out.println("LOG accion: " + accion);
+        if (accion.equalsIgnoreCase("Iniciar Sesión")) {
             String user = request.getParameter("txtUsuario");
             String pass = request.getParameter("txtPassword");
-            System.out.println("LOG user: "+user);
-            System.out.println("LOG pass: "+pass);
+            System.out.println("LOG user: " + user);
+            System.out.println("LOG pass: " + pass);
             String validado = udao.validarUsuario(user, pass);
-            System.out.println("LOG validado: "+validado);
+            System.out.println("LOG validado: " + validado);
             if (validado.equals("")) {
                 request.getRequestDispatcher("Principal.jsp").forward(request, response);
                 request.setAttribute("usuario", user);
             } else {
-                v_error = "Usuario o contraseña incorrectos.";
-                request.getRequestDispatcher("Login.jsp?error="+validado).forward(request, response);
+                request.getRequestDispatcher("Login.jsp?error=" + validado).forward(request, response);
+            }
+        } else if (accion.equalsIgnoreCase("Registrar")) {
+            String nombres = request.getParameter("txtNombres");
+            String apellidos = request.getParameter("txtApellidos");
+            String dni = request.getParameter("txtDni");
+            String celular = request.getParameter("txtCelular");
+            String correo = request.getParameter("txtCorreo");
+            String ciudad = request.getParameter("txtCiudad");
+            String tipo = request.getParameter("txtTipo");
+            String colegiatura = request.getParameter("txtColegiatura");
+            String usuario = request.getParameter("txtUsuario");
+            String password = request.getParameter("txtPassword");
+
+            String validado = udao.registrarUsuario(nombres, apellidos, dni, celular, correo, ciudad, tipo, colegiatura, usuario, password);
+            if (validado.equals("")) {
+                request.getRequestDispatcher("Principal.jsp").forward(request, response);
+                request.setAttribute("usuario", "Usted se ha registrado con éxito.");
+            } else {
+                request.getRequestDispatcher("Registro.jsp?error=" + validado).forward(request, response);
             }
         } else {
             request.getRequestDispatcher("Login.jsp").forward(request, response);

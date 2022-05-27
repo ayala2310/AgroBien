@@ -50,7 +50,6 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
       out.write("        <title>JSP Page</title>\n");
       out.write("        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n");
-      out.write("\n");
       out.write("    </head>\n");
       out.write("\n");
       out.write("    <script type=\"text/javascript\">\n");
@@ -85,12 +84,12 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                ");
 
                     if (request.getParameter("error") == null) {
-                        
-                    }else if (request.getParameter("error") != "") {
+
+                    } else if (request.getParameter("error") != "") {
                 
       out.write("\n");
       out.write("                <div id=\"msjError\" class=\"alert alert-danger\" role=\"alert\">\n");
-      out.write("                  ");
+      out.write("                    ");
       out.print(request.getParameter("error"));
       out.write("\n");
       out.write("                </div>\n");

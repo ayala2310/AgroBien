@@ -9,6 +9,6 @@ package Modelo;
  *
  * @author amontanez
  */
-public class Especialista {
+public class Agricultor {
     
 }
