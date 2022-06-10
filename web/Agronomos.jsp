@@ -36,10 +36,8 @@
             }
 
             .navbar {
-                background: white;
                 padding-left: 16px;
                 padding-right: 16px;
-                border-bottom: 1px solid #dfe3e8;
                 border-radius: 0;
             }
             .nav img {
@@ -57,7 +55,7 @@
             }
             .navbar .navbar-brand b {
                 font-weight: bold;
-                color: white;		
+                color: white;	
             }
             .navbar .form-inline {
                 display: inline-block;
@@ -254,16 +252,15 @@
             }
             /*  estilos del fondo principal */
             .container-all{
-                position:fixed;
-                max-width: 900px;
+                max-width: 930px;
+                max-height: 500px;
                 width: 100%;
-                left: 17%;
-                border-radius: 8px;
+                border-radius: 6px;
                 overflow: hidden;
-                box-shadow: 5px 5px 20px 1px ;
+                box-shadow: 2px 2px 10px 1px ;
             }
             .slide{
-                display: flex;
+                display:flex;
                 transform: translate3d(0,0,0);
                 transition: all 600ms;
                 animation-name: autoplay;
@@ -281,9 +278,8 @@
                 max-width: 100%;
             }
             .paginaSlider{
-                position: absolute;
+                position: relative;
                 bottom: 20px;
-                left: 0;
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
@@ -392,15 +388,18 @@
 
             .columnaBlog{
                 float:left;
+                height: 40%;
             }
             .columnaBlog1 {
                 width:15%;
             }
             .columnaBlog2 {
                 width:70%;
+                background-color:#dfe3e8;
             }  
             .columnaBlog3 {
                 width:15%;
+                padding:5px;
             }
             .inputContainer {
                 position: relative;
@@ -426,6 +425,7 @@
             .input:focus{
                 border: 1px solid #1aafa0;
             }
+
             .submitBtn {
                 position: relative;
                 top: 0px;
@@ -477,18 +477,171 @@
 
 
             .main {
-                padding: 106px;
-                margin-top: -50px;
+                margin-top: -30px;
+                padding: 10px;
                 height: 1500px; /* Used in this example to enable scrolling */
             }
             .textArea{
                 width: 50%;
                 max-width: 900px;
             }
- .menu{
+            .menu{
                 background-color:#33cabb;
             }
+            .publicarBlog{
+                padding:20px;
+            }
+            .inputBlog{		
+                max-width: 70%;
+            }
+            .searchBlog{		
+                max-width: 40%;
+            }
+            .submitBtnBlog {
+                top: 5px;
+                left: -91%;
+                display: block;
+                margin-left: auto;
+                padding: 5px 8px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+                position:relative;
+            }
+            .submitBtnBlog:hover {
+                background-color: #1aafa0;
+            }
+            .searchBtnBlog {
+                margin-left: auto;
+                padding: 5px 8px;
+                top:5px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .searchBtnBlog:hover {
+                background-color: #1aafa0;
+            }
+
+            #hellobar-bar {
+                position: fixed;
+                display: table;
+                z-index: 5;
+                width: 40%;
+                left:30%;
+                margin: -15px;
+                height: 30px;
+                color: white;
+                border-radius: 6px;
+                font-size: 20px;
+                font-weight: 400;
+                padding: .33em .5em;
+                -webkit-font-smoothing: antialiased;
+                background-color:darksalmon;
+                box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
+            }
+            #hellobar-bar.regular {
+                height: 30px;
+                font-size: 14px;
+                padding: .2em .5em;
+            }
+            .hb-content-wrapper {
+                text-align: center;
+                text-align: center;
+                position: relative;
+                vertical-align: middle;
+            }
+            .hb-content-wrapper p {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            .hb-text-wrapper {
+                margin-right: .67em;
+                line-height: 1.3;
+            }
+            .hb-text-wrapper .hb-headline-text {
+                font-size: 1em;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            #hellobar-bar .hb-cta {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 5px 0;
+                color: #ffffff;
+                background-color: #22af73;
+                border-color: #22af73
+            }
+            .hb-cta-button {
+                opacity: 1;
+                color: #fff;
+                display: block;
+                cursor: pointer;
+                line-height: 1.5;
+                max-width: 22.5em;
+                text-align: center;
+                position: relative;
+                border-radius: 3px;
+                white-space: nowrap;
+                margin: 1.75em auto 0;
+                text-decoration: none;
+                padding: 0;
+                overflow: hidden;
+            }
+            .hb-cta-button .hb-text-holder {
+                border-radius: inherit;
+                padding: 5px 15px;
+            }
+            .hb-close-wrapper {
+                display: table-cell;
+                width: 1.6em;
+            }
+            .hb-close-wrapper .icon-close {
+                font-size: 14px;
+                top: 15px;
+                right: 25px;
+                width: 15px;
+                height: 15px;
+                opacity: .3;
+                color: #000;
+                cursor: pointer;
+                position: absolute;
+                text-align: center;
+                line-height: 15px;
+                z-index: 1000;
+                text-decoration: none;
+            }
+
+            #txtMsgErrorNombres{
+                color: red;
+                position: absolute;
+                top: 0px;
+                left: 30px;
+                font-size: 12px;
+            }
+
+            .idX{
+                border: 1px solid red;
+                border-radius: 7px;
+                font-size: 16px;
+                outline: none;
+                color: red;
+                background: white;
+            }
+            .table-responsive{
+                max-width: 80%;
+            }
+
+
         </style>
+
         <script>
 
 
@@ -515,25 +668,154 @@
                 document.getElementById('cancelar').style.display = 'none';
             }
 
+
+
             // Prevent dropdown menu from closing when click inside the form
             $(document).on("click", ".navbar-right .dropdown-menu", function (e) {
                 e.stopPropagation();
             });
+            /*const tipo = document.querySelector("#txtTipo");
+             const input = document.querySelector("[name=divColegiatura]");
+             tipo.addEventListener("change", () => {
+             if (tipo.value === "agronomo") {
+             input.style.display = 'initial';
+             } else {
+             input.style.display = 'none';
+             }
+             });*/
+
+            function fn_mostrarColegiatura() {
+                tipo = document.getElementById("txtTipo").value;
+                if (tipo === "Agrónomo") {
+                    document.getElementById("divColegiatura").style.display = "block";
+                } else {
+                    document.getElementById("divColegiatura").style.display = "none";
+                }
+            }
+
+            function mostrarRegistro() {
+
+                if (document.getElementById('idPanelRegistro').style.display === "") {
+                    document.getElementById('idPanelRegistro').style.display = "";
+                } else {
+                    document.getElementById('idPanelRegistro').style.display = "";
+                }
+            }
+
+
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('form');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            var cantErrores = 0;
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                if (document.getElementById("txtNombres").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtNombres").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtNombres").style.border = "1px solid #1aafa0";
+                                }
+                                if (document.getElementById("txtApellidos").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtApellidos").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtApellidos").style.border = "1px solid #1aafa0";
+                                }
+                                if (document.getElementById("txtCorreo").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtCorreo").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+                                }
+                                if (document.getElementById("txtCiudad").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtCiudad").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtCiudad").style.border = "1px solid #1aafa0";
+                                }
+                                if (document.getElementById("txtTipo").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtColegiatura").required = false;
+                                    document.getElementById("txtTipo").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtTipo").style.border = "1px solid #1aafa0";
+                                    if (document.getElementById("txtTipo").value === "Agrónomo") {
+                                        document.getElementById("txtColegiatura").required = true;
+                                        if (document.getElementById("txtColegiatura").value === "") {
+                                            cantErrores = cantErrores + 1;
+                                            document.getElementById("txtColegiatura").style.border = "1px solid red";
+                                        } else {
+                                            document.getElementById("txtColegiatura").style.border = "1px solid #1aafa0";
+                                        }
+                                    } else {
+                                        document.getElementById("txtColegiatura").required = false;
+                                    }
+                                }
+
+                                if (document.getElementById("txtUsuario").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtUsuario").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtUsuario").style.border = "1px solid #1aafa0";
+                                }
+                                if (document.getElementById("txtPasswordReg").value === "") {
+                                    cantErrores = cantErrores + 1;
+                                    document.getElementById("txtPasswordReg").style.border = "1px solid red";
+                                } else {
+                                    document.getElementById("txtPasswordReg").style.border = "1px solid #1aafa0";
+                                }
+                            }
+
+                            if (cantErrores > 0) {
+                                document.getElementById("txtMsgErrorNombres").style.display = "";
+                            } else {
+                                document.getElementById("txtMsgErrorNombres").style.display = "none";
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+            //document.getElementById("idMostrarNotif").value = "";
+            //document.getElementById("idMostrarNotif").innerHTML = "";
+            function fn_cargarNotif() {
+                var notif = document.getElementById("idMostrarNotif").value;
+                if (notif === "" || notif === null) {
+                    document.getElementById("hellobar-bar").style.display = "none";
+                    document.getElementById("idMostrarNotif").value = "";
+                    document.getElementById("idMostrarNotif").innerHTML = "";
+
+                } else {
+                    document.getElementById("hellobar-bar").style.display = "";
+                    document.getElementById("idMostrarNotif").value = "";
+                    document.getElementById("idMostrarNotif").innerHTML = "";
+
+                }
+                //alert(notif)
+            }
+
+
+
+            function fn_ocultarNotif() {
+
+                document.getElementById("idMostrarNotif").value = "qqqq";
+                document.getElementById("idMostrarNotif").innerHTML = "wwww";
+                document.getElementById("hellobar-bar").style.display = "none";
+            }
 
 
         </script>
 
+        <input value="${mostrarNotif}" id="idMostrarNotif" style="display: none "></input>
         <nav class="menu navbar navbar-default navbar-expand-lg navbar-light">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>  		
-                <!--
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                -->
+                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>  
             </div>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
@@ -566,14 +848,14 @@
 
                 <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="https://www.tutorialrepublic.com/examples/images/avatar/3.jpg" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
+                       <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
+                            <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-                            <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
                             <li class="divider"></li>
                             <form action="LogueoServlet" method="POST">
-                                 <input type="text" name="txtPaginaActual" value="Agronomos" style="display:none"></input>
+                                <input type="text" name="txtPaginaActual" value="Agronomos" style="display:none"></input>
                                 <input type="submit" class="btn btn-primary btn-block" name="accion" value="Cerrar Sesión">
                             </form>
                         </ul>
@@ -631,30 +913,32 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                     <li>
-                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Registrarse</a>
-                        <ul class="dropdown-menu">	
+                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
+                    <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
 
-                            <div class="signupFrm">
-                                <form class="form" action="LogueoServlet" method="POST">
-
+                            <div id="idRegistro" class="signupFrm">
+                                <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
                                     <div class="columna columna1">
+                                        <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+
                                         <div class="inputContainer">
-                                            <input type="text" class="input" name="txtNombres" placeholder="Juan">
+                                            <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan"  required="required">
                                             <label for="" class="label">Nombres</label>
+
                                         </div>
 
                                         <div class="inputContainer">
-                                            <input type="text" class="input" name="txtApellidos" placeholder="Huamán">
+                                            <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="Huamán"  required="required">
                                             <label for="" class="label">Apellidos</label>
                                         </div>
 
                                         <div class="inputContainer">
-                                            <input type="email" class="input"  name="txtCorreo" placeholder="juan@gmail.com">
+                                            <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
                                             <label for="" class="label">Correo</label>
                                         </div>
 
                                         <div class="inputContainer">
-                                            <input type="text" class="input"  name="txtCiudad" placeholder="Lima">
+                                            <input type="text" class="input" id="txtCiudad"  name="txtCiudad" placeholder="Lima"  required="required">
                                             <label for="" class="label">Ciudad</label>
                                         </div>
                                     </div>
@@ -663,29 +947,34 @@
                                     <div  class="columna columna2">
 
                                         <div class="inputContainer">
-                                            <select  class="input" name="txtTipo" id="tipo" placeholder="">
+                                            <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required="required">
                                                 <option hidden selected>Agricultor</option>
-                                                <option class="input" value="agricultor">Agricultor</option>
-                                                <option class="input" value="agronomo">Agrónomo</option>
+                                                <option class="input" value="Agricultor">Agricultor</option>
+                                                <option class="input" value="Agrónomo">Agrónomo</option>
                                             </select>
                                             <label class="label"for="">Tipo</label>
 
                                         </div>
-                                        <div class="inputContainer">
-                                            <input type="text" class="input"  name="txtColegiatura" placeholder=" ">
+                                        <div class="inputContainer" id="divColegiatura" name="divColegiatura" Style="display:none">
+                                            <input type="text" class="input" id="txtColegiatura"  name="txtColegiatura" placeholder=" "  >
                                             <label for="" class="label">Nro Colegiatura</label>
                                         </div>
                                         <div class="inputContainer">
-                                            <input type="text" class="input"  name="txtUsuario" placeholder=" ">
+                                            <input type="text" class="input" id="txtUsuario"   name="txtUsuario" placeholder=" "  required="required">
                                             <label for="" class="label">Nombre de Usuario</label>
                                         </div>
 
-                                        <div class="inputContainer">
-                                            <input type="password" id="password"  name="txtPassword" class="input" placeholder=" ">
+                                        <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
+                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
                                             <label for="" class="label">Contraseña</label>
                                         </div>
+                                        <div class="inputContainer">
+                                            <label id="txtMsgErrorNombres" style="display:none"> (*)Existen campos obligatorios.</label>
+                                        </div>
                                     </div>
-                                    <input type="submit" class="submitBtn" name="accion" value="Registrar">
+
+                                    <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+
                                     <%
                                         System.out.println("respuesta: " + request.getParameter("error"));
                                         String rspt = request.getParameter("error");
@@ -740,67 +1029,108 @@
 
 
 
-    <body>
-
-
-        <div class="container">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-8"><h2><b>Lista de Agrónomos</b></h2></div>
-                            <div class="col-sm-4">
-                                <form class="navbar-form form-inline">
-                                    <div class="input-group search-box">								
-                                        <input type="text" id="search" class="form-control" placeholder="Ingrese una palabra que desee buscar.">
-                                        <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <table class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>NOMBRES</th>
-                                <th>APELLIDOS</th>
-                                <th>CIUDAD</th>
-                                <th>CELULAR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="agronomo" items="${lista}">
-                                <tr>
-                                    <td>0</td>
-                                    <td><c:out value="${agronomo.nombres}"/></td>
-                                    <td><c:out value="${agronomo.apellidos}"/></td>
-                                    <td><c:out value="${agronomo.ciudad}"/></td>
-                                    <td><c:out value="${agronomo.celular}"/></td>
-                                    <td>
-                                        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="clearfix">
-                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-                        </ul>
+    <body onload="fn_cargarNotif()">
+        <div id="hellobar-bar" class="regular closable" style="display:none">
+            <div class="hb-content-wrapper">
+                <div class="hb-text-wrapper">
+                    <div class="hb-headline-text">
+                        <p><span>${mostrarNotif}</span></p>
                     </div>
                 </div>
-            </div>        
-        </div>     
+                <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
+                    <div class="hb-text-holder">
+                        <p>Regístrate</p>
+                    </div>
+                </a>
+            </div>
+            <div class="hb-close-wrapper">
+                <form action="LogueoServlet" method="POST">
+                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                    <input  class="idX" type="submit" name="accion" value="X"></input>
+                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
+                </form>
+
+            </div>
+        </div>
+
+
+        <main class="main">
+            <div class="columnaBlog columnaBlog1">
+                <h5>Entidades Gubernamentales</h5>
+                <p><a href="https://www.gob.pe/institucion/midagri/noticias">Noticias Ministerio de Agricultura</a></p>
+                <p><a href="https://es-la.facebook.com/minagriperu/">Ministerio de Agricultura Facebook</a></p>
+                <p><a href="https://www.gob.pe/institucion/midagri/noticias"><img src="imagenes/enlaceMidagri.png" alt="30" width="30"/></a></p>
+            </div>
+            <div class="columnaBlog columnaBlog2"> 
+                <p>
+
+                <div class="container">
+                    <div class="table-responsive">
+                        <div class="col-sm-12"><h2><b>Lista de Agrónomos</b></h2></div>
+                        <p>
+                        <hr>
+                        </p>
+                        <form class="publicarBlog">
+
+                            <input class="form-control searchBlog" type="search" placeholder="Ingrese una palabra que desee buscar." >
+                            <p>
+                            <div>
+                                <button class="searchBtnBlog" type="submit">Buscar</button>
+                            </div>
+
+                        </form>
+
+                        <br>
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>NOMBRES</th>
+                                    <th>APELLIDOS</th>
+                                    <th>CORREO</th>
+                                    <th>CIUDAD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="agronomo" items="${lista}">
+                                    <tr>
+                                        <td>0</td>
+                                        <td><c:out value="${agronomo.nombres}"/></td>
+                                        <td><c:out value="${agronomo.apellidos}"/></td>
+                                        <td><c:out value="${agronomo.correo}"/></td>
+                                        <td><c:out value="${agronomo.ciudad}"/></td>
+                                        <td>
+                                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                            <!--<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <div class="clearfix">
+                           <!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>-->
+                           <!-- <ul class="pagination">
+                                <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                           -->
+                        </div>
+                    </div>        
+                </div>    
+            </div>
+
+            <div class="columnaBlog columnaBlog3">
+                <h5>Organismos Locales</h5>
+                <p><a href="#">Organismos Locales</a></p>
+            </div>
+        </main>
+
+
     </body>
 </html>

@@ -99,18 +99,12 @@ public class LogueoServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
         String pagina = request.getParameter("txtPaginaActual");
-            System.out.println("LOG pagina: " + pagina);
-        System.out.println("LOG accion: " + accion);
         if (accion.equalsIgnoreCase("Iniciar Sesión")) {
-            String user = request.getParameter("txtUsuario");
+            String user = request.getParameter("txtUsuario").toUpperCase();
             String pass = request.getParameter("txtPassword");
-            System.out.println("LOG user: " + user);
-            System.out.println("LOG pass: " + pass);
             String validado = udao.validarUsuario(user, pass);
-            System.out.println("LOG validado: " + validado);
 
             if (validado.equals("")) {
-                System.out.println("LOG USUARIO NULO: " + user);
                 request.getSession().setAttribute("usuarioSesion", null);
                 if (validado.equals("Agricultor")) {
                     request.getSession().setAttribute("mostrarAgronomo", "");
@@ -122,7 +116,6 @@ public class LogueoServlet extends HttpServlet {
                 request.getRequestDispatcher(pagina + ".jsp?error=" + "Usuario o contraseña incorrectos.").forward(request, response);
 
             } else {
-                System.out.println("LOG USUARIO OK: " + user);
                 request.getSession().setAttribute("usuarioSesion", user);
                 if (validado.equals("Agricultor")) {
                     request.getSession().setAttribute("mostrarAgronomo", "block");
@@ -132,7 +125,19 @@ public class LogueoServlet extends HttpServlet {
                 }
                 request.getSession().setAttribute("displayNoneLogin", "none");
                 request.getSession().setAttribute("displayNoneUsuario", "block");
-                request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                //
+                if (pagina.equals("Principal")) {
+                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                } else if (pagina.equals("Blog")) {
+                    PublicacionesServlet as = new PublicacionesServlet();
+                    as.doPost(request, response);
+                } else if (pagina.equals("Agronomos")) {
+                    AgronomoServlet as = new AgronomoServlet();
+                    as.doPost(request, response);
+                }else {
+                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                }
+
             }
         } else if (accion.equalsIgnoreCase("Registrar")) {
             String nombres = request.getParameter("txtNombres");
@@ -143,10 +148,11 @@ public class LogueoServlet extends HttpServlet {
             String ciudad = request.getParameter("txtCiudad");
             String tipo = request.getParameter("txtTipo");
             String colegiatura = request.getParameter("txtColegiatura");
-            String usuario = request.getParameter("txtUsuario");
-            String password = request.getParameter("txtPassword");
+            String usuario = request.getParameter("txtUsuario").toUpperCase();
+            String password = request.getParameter("txtPasswordReg");
 
-            String validado = udao.validarExistenciaUsuario(usuario);
+            String validado = "";
+            validado = udao.validarExistenciaUsuario(usuario);
             if (validado.equals("")) {
                 validado = udao.registrarUsuario(usuario, password, tipo);
                 if (validado.equals("")) {
@@ -165,17 +171,34 @@ public class LogueoServlet extends HttpServlet {
                     validado = "Usuario Agrónomo registrado con éxito.";
                 }
                 System.out.println("rspta validado2: " + validado);
+                request.getSession().setAttribute("mostrarNotif", validado);
                 request.getRequestDispatcher(pagina + ".jsp?msgOK=" + validado).forward(request, response);
             } else {
+                request.getSession().setAttribute("mostrarNotif", validado);
                 request.getRequestDispatcher(pagina + ".jsp?error=" + validado).forward(request, response);
             }
+
         } else if (accion.equalsIgnoreCase("Cerrar Sesión")) {
             request.getSession().setAttribute("usuarioSesion", null);
             request.getSession().setAttribute("mostrarAgronomo", "none");
             request.getSession().setAttribute("displayNoneLogin", "");
             request.getSession().setAttribute("displayNoneUsuario", "none");
-            request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+            //request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+             if (pagina.equals("Principal")) {
+                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                } else if (pagina.equals("Blog")) {
+                    PublicacionesServlet as = new PublicacionesServlet();
+                    as.doPost(request, response);
+                } else if (pagina.equals("Agronomos")) {
+                    AgronomoServlet as = new AgronomoServlet();
+                    as.doPost(request, response);
+                }else {
+                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                }
 
+        } else if (accion.equalsIgnoreCase("X")) {
+            request.getSession().setAttribute("mostrarNotif", "");
+            request.getRequestDispatcher(pagina + ".jsp?").forward(request, response);
         } else {
             request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
         }

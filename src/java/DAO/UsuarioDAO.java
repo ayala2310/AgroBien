@@ -34,7 +34,7 @@ public class UsuarioDAO {
             validado = "ERROR EN LA CONEXIÓN CON LA BASE DE DATOS.";
         } else {
             try {
-                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE USUARIO = ?");
+                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ?");
                 ps.setString(1, usuario);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -87,7 +87,7 @@ public class UsuarioDAO {
             validado = "ERROR EN LA CONEXIÓN CON LA BASE DE DATOS.";
         } else {
             try {
-                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE USUARIO = ? AND PASSWORD = ?");
+                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ? AND PASSWORD = ?");
                 ps.setString(1, usuario);
                 ps.setString(2, password);
                 rs = ps.executeQuery();
@@ -135,7 +135,7 @@ public class UsuarioDAO {
             validado = "ERROR EN LA CONEXIÓN CON LA BASE DE DATOS.";
         } else {
             try {
-                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE USUARIO = ? AND PASSWORD = ?");
+                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ? AND PASSWORD = ?");
                 ps.setString(1, usuario);
                 ps.setString(2, password);
                 rs = ps.executeQuery();
@@ -182,7 +182,7 @@ public class UsuarioDAO {
             validado = "ERROR EN LA CONEXIÓN CON LA BASE DE DATOS.";
         } else {
             try {
-                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE USUARIO = ? AND PASSWORD = ?");
+                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ? AND PASSWORD = ?");
                 ps.setString(1, user);
                 ps.setString(2, pass);
                 rs = ps.executeQuery();
