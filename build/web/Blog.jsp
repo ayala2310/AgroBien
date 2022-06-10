@@ -1034,8 +1034,8 @@ request.setAttribute("displayNoneUsuario", "");
         <!-- COLUMNA CENTRAL -->
         <div class="columnaBlog columnaBlog2"> 
             <p>
-            <form class="publicarBlog">
-                <input class="form-control searchBlog" type="search" placeholder="Ingrese una palabra que desee buscar." >
+            <form class="publicarBlog" action="PublicacionesServlet?accion=buscar" method="POST">
+                <input name="txtBuscar" class="form-control searchBlog" type="search" placeholder="Ingrese una palabra que desee buscar." >
                 <p>
                 <div>
                     <button class="searchBtnBlog" type="submit">Buscar</button>
@@ -1089,9 +1089,9 @@ request.setAttribute("displayNoneUsuario", "");
                             <div id="panelComentario" class="form-group" style="display:none">
                                 <textarea class="form-control" rows="3" required></textarea>
                             </div>
-                            <button id="comentar" type="submit" class="btn btn-success" onclick="mostrar()">Comentar</button>
-                            <button id="guardar" type="submit" class="btn btn-success" onclick="mostrar()" style="display:none">Guardar</button>
-                            <button id="cancelar" type="submit" class="btn btn-success" onclick="ocultar()" style="display:none">Cancelar</button>
+                            <button id="comentar" type="submit" class="submitBtnBlog" onclick="mostrar()">Comentar</button>
+                            <button id="guardar" type="submit" class="submitBtnBlog" onclick="mostrar()" style="display:none">Guardar</button>
+                            <button id="cancelar" type="submit" class="submitBtnBlog" onclick="ocultar()" style="display:none">Cancelar</button>
                         </form>
                     </div>
                     <br>

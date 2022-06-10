@@ -103,7 +103,7 @@ public class LogueoServlet extends HttpServlet {
             String user = request.getParameter("txtUsuario").toUpperCase();
             String pass = request.getParameter("txtPassword");
             String validado = udao.validarUsuario(user, pass);
-
+            request.getSession().setAttribute("bloqueado", null);
             if (validado.equals("")) {
                 request.getSession().setAttribute("usuarioSesion", null);
                 if (validado.equals("Agricultor")) {
@@ -134,11 +134,12 @@ public class LogueoServlet extends HttpServlet {
                 } else if (pagina.equals("Agronomos")) {
                     AgronomoServlet as = new AgronomoServlet();
                     as.doPost(request, response);
-                }else {
+                } else {
                     request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
                 }
 
             }
+
         } else if (accion.equalsIgnoreCase("Registrar")) {
             String nombres = request.getParameter("txtNombres");
             String apellidos = request.getParameter("txtApellidos");
@@ -184,17 +185,17 @@ public class LogueoServlet extends HttpServlet {
             request.getSession().setAttribute("displayNoneLogin", "");
             request.getSession().setAttribute("displayNoneUsuario", "none");
             //request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-             if (pagina.equals("Principal")) {
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                } else if (pagina.equals("Blog")) {
-                    PublicacionesServlet as = new PublicacionesServlet();
-                    as.doPost(request, response);
-                } else if (pagina.equals("Agronomos")) {
-                    AgronomoServlet as = new AgronomoServlet();
-                    as.doPost(request, response);
-                }else {
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                }
+            if (pagina.equals("Principal")) {
+                request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+            } else if (pagina.equals("Blog")) {
+                PublicacionesServlet as = new PublicacionesServlet();
+                as.doPost(request, response);
+            } else if (pagina.equals("Agronomos")) {
+                AgronomoServlet as = new AgronomoServlet();
+                as.doPost(request, response);
+            } else {
+                request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+            }
 
         } else if (accion.equalsIgnoreCase("X")) {
             request.getSession().setAttribute("mostrarNotif", "");

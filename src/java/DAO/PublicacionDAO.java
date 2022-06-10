@@ -70,5 +70,33 @@ public class PublicacionDAO {
         }
         return lista;
     }
+    
+        public List<Publicacion> buscarPublicacion(String buscar) {
+        PreparedStatement ps;
+        ResultSet rs;
+
+        List<Publicacion> lista = new ArrayList<>();
+        try {
+            ps = cn.prepareStatement("SELECT * FROM PUBLICACIONES WHERE UPPER(ASUNTO) LIKE '?' OR UPPER(CUERPO) LIKE '?' ORDER BY 1 DESC");
+             ps.setString(1, buscar);
+             ps.setString(2, buscar);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String asunto = rs.getString("ASUNTO");
+                String cuerpo = rs.getString("CUERPO");
+                String fecha = rs.getString("FECHA");
+                String usuario = rs.getString("USUARIO");
+
+                Publicacion publicacion = new Publicacion(id, asunto, cuerpo, fecha, usuario);
+                lista.add(publicacion);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return null;
+        }
+        return lista;
+    }
 
 }

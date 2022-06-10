@@ -12,7 +12,7 @@ package Modelo;
 public class Agronomo {
 
     private Integer id;
-    private Integer id_usuario;
+    private Integer idUsuario;
     private String nombres;
     private String apellidos;
     private String nroDocumento;
@@ -21,9 +21,9 @@ public class Agronomo {
     private String correo;
     private String colegiatura;
 
-    public Agronomo(Integer id, Integer id_usuario, String nombres, String apellidos, String nroDocumento, String ciudad, String celular, String correo, String colegiatura) {
+    public Agronomo(Integer id, Integer idUsuario, String nombres, String apellidos, String nroDocumento, String ciudad, String celular, String correo, String colegiatura) {
         this.id = id;
-        this.id_usuario = id_usuario;
+        this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.nroDocumento = nroDocumento;
@@ -41,12 +41,12 @@ public class Agronomo {
         this.id = id;
     }
 
-    public Integer getId_usuario() {
-        return id_usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Integer id_usuario) {
+        this.idUsuario = id_usuario;
     }
 
     public String getNombres() {

@@ -38,7 +38,7 @@ public class AgronomoDAO {
 
             while (rs.next()) {
                 int id = rs.getInt("ID");
-                int id_usuario = rs.getInt("ID_USUARIO");
+                int idUsuario = rs.getInt("ID_USUARIO");
                 String nombres = rs.getString("NOMBRES");
                 String apellidos = rs.getString("APELLIDOS");
                 String nroDocumento = rs.getString("NRO_DOCUMENTO");
@@ -47,7 +47,7 @@ public class AgronomoDAO {
                 String correo = rs.getString("CORREO");
                 String colegiatura = rs.getString("COLEGIATURA");
 
-                Agronomo agronomo = new Agronomo(id, id_usuario, nombres, apellidos, nroDocumento, ciudad, celular, correo, colegiatura);
+                Agronomo agronomo = new Agronomo(id, idUsuario, nombres, apellidos, nroDocumento, ciudad, celular, correo, colegiatura);
                 lista.add(agronomo);
                 System.out.println("ok agronomos: " + agronomo);
             }

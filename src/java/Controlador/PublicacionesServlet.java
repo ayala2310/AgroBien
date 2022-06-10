@@ -98,9 +98,8 @@ public class PublicacionesServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
 
         accion = request.getParameter("accion");
-        System.out.println("ACCION: " + accion);
+
         if (accion.equals("inicio")) {
-            System.out.println("LOG USUARIO INICIO: ");
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
             request.setAttribute("lista", listaPublicaciones);
@@ -138,6 +137,11 @@ public class PublicacionesServlet extends HttpServlet {
                 request.setAttribute("lista", listaPublicaciones);
             }
 
+        } else if (accion.equals("buscar")) {
+            String buscar = request.getParameter("txtBuscar").toUpperCase();
+            dispatcher = request.getRequestDispatcher("Blog.jsp");
+            List<Publicacion> buscarPublicaciones = publicacionDao.buscarPublicacion(buscar);
+            request.setAttribute("lista", buscarPublicaciones);
         } else {
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
