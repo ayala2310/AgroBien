@@ -77,9 +77,9 @@ public class PublicacionDAO {
 
         List<Publicacion> lista = new ArrayList<>();
         try {
-            ps = cn.prepareStatement("SELECT * FROM PUBLICACIONES WHERE UPPER(ASUNTO) LIKE '?' OR UPPER(CUERPO) LIKE '?' ORDER BY 1 DESC");
-             ps.setString(1, buscar);
-             ps.setString(2, buscar);
+            ps = cn.prepareStatement("SELECT * FROM PUBLICACIONES WHERE UPPER(ASUNTO) LIKE ? OR UPPER(CUERPO) LIKE ? ORDER BY 1 DESC");
+             ps.setString(1, "%"+buscar+"%");
+             ps.setString(2, "%"+buscar+"%");
             rs = ps.executeQuery();
 
             while (rs.next()) {
