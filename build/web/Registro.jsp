@@ -13,8 +13,7 @@
             body {
                 box-sizing: border-box;
                 margin: 0;
-                padding: 0;
-                background-color: white;
+                background-color:#F7F2F1;
                 font-family: "lato", sans-serif;
             }
 
@@ -132,6 +131,18 @@
                 cursor: pointer;
             }
 
+            .alertError{
+                color: red;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .alertOK{
+                color: blue;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
         </style>
 
         <script>
@@ -152,7 +163,7 @@
     <body>
         <div class="signupFrm">
             <form class="form" action="LogueoServlet" method="POST">
-                <h1 class="title">    Registro de nuevo usuario</h1><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/>
+                <h1 class="title">    Registro de nuevo usuario</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/></a>
 
                 <div class="columna columna1">
                     <div class="inputContainer">
@@ -182,7 +193,7 @@
 
                 <div  class="columna columna2">
                     <div class="inputContainer">
-                        <input type="text" class="input"  name="txtCiudad" placeholder="Tocache - San Martín">
+                        <input type="text" class="input"  name="txtCiudad" placeholder="Lima">
                         <label for="" class="label">Ciudad</label>
                     </div>
                     <div class="inputContainer">
@@ -211,14 +222,42 @@
                 </div>
                 <input type="submit" class="submitBtn" name="accion" value="Registrar">
                 <%
-                    if (request.getParameter("error") == null) {
+                    System.out.println("respuesta: " + request.getParameter("error"));
+                    String rspt = request.getParameter("error");
+                    String msg = request.getParameter("msgOK");
+                    System.out.println("respuesta msg: " + msg);
+                    if (rspt == null) {
+                        System.out.println("respuesta msg 0: " + msg);
+                        if (msg != "" && msg != null) {
+                            System.out.println("respuesta msg 1: OK");
 
-                    } else if (request.getParameter("error") != "") {
                 %>
-                <div id="msjError" class="alert alert-danger" role="alert">
+                <div id="msjOK" class="alertOK" role="alert">
+                    <%=request.getParameter("msgOK")%>
+                </div>
+                <%
+                    }
+                } else if (rspt != "") {
+
+                    System.out.println("respuesta msg 2: " + msg);
+
+                    if (msg == "OK") {
+
+                        System.out.println("respuesta msg 2: " + msg);
+
+                %>
+                <div id="msjOK" class="alertOK" role="alert">
+                    <%=request.getParameter("msgOK")%>
+                </div>
+                <%
+                } else {
+
+                %>
+                <div id="msjError" class="alertError" role="alert">
                     <%=request.getParameter("error")%>
                 </div>
                 <%
+                        }
                     }
                 %>
             </form>

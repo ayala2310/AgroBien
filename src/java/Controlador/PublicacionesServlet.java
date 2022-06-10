@@ -67,12 +67,16 @@ public class PublicacionesServlet extends HttpServlet {
             throws ServletException, IOException {
         PublicacionDAO publicacionDao;
         publicacionDao = new PublicacionDAO();
-        
+        //String usuario = request.getSession().getAttribute("usuarioSesion").toString();
+        // request.getSession().setAttribute("usuarioSesion",usuario);
+        //System.out.println("INICIO BLOG: " + usuario);
         RequestDispatcher dispatcher = null;
+        request.getSession().setAttribute("bloqueado", null);
         dispatcher = request.getRequestDispatcher("Blog.jsp");
         List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
         request.setAttribute("lista", listaPublicaciones);
 
+        System.out.println("dispatcher: " + dispatcher);
         dispatcher.forward(request, response);
     }
 
@@ -96,23 +100,44 @@ public class PublicacionesServlet extends HttpServlet {
         accion = request.getParameter("accion");
         System.out.println("ACCION: " + accion);
         if (accion.equals("inicio")) {
+            System.out.println("LOG USUARIO INICIO: ");
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
             request.setAttribute("lista", listaPublicaciones);
         } else if (accion.equals("insert")) {
-            Date ahora = new Date();
-            SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-            System.out.println("formateador: " + formateador);
-            String asunto = request.getParameter("txtAsunto");
-            String cuerpo = request.getParameter("txtCuerpo");
-            String fecha = formateador.format(ahora);
-            String usuario = "anthony"; //request.getParameter("txtTipo");
-            System.out.println("cuerpo: " + cuerpo);
-            Publicacion publicacion = new Publicacion(null, asunto, cuerpo, fecha, usuario);
-            publicacionDao.publicarBlog(publicacion);
-            dispatcher = request.getRequestDispatcher("Blog.jsp");
-            List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
-            request.setAttribute("lista", listaPublicaciones);
+            //System.out.println("usuario: " + request.getAttribute("usuarioSesion").toString());
+            String varUsuario = "";
+            try {
+                varUsuario = request.getSession().getAttribute("usuarioSesion").toString();
+            } catch (Exception e) {
+                varUsuario = "";
+            }
+            if (varUsuario.equals("")) {
+
+                request.getSession().setAttribute("bloqueado", "Debe iniciar sesión para poder realizar publicaciones.");
+                List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
+                request.setAttribute("lista", listaPublicaciones);
+                dispatcher = request.getRequestDispatcher("Blog.jsp");
+            } else {
+                request.getSession().setAttribute("bloqueado", null);
+
+                Date ahora = new Date();
+                SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
+                String asunto = request.getParameter("txtAsunto");
+                String cuerpo = request.getParameter("txtCuerpo");
+                String fecha = formateador.format(ahora);
+
+                String usuario = request.getSession().getAttribute("usuarioSesion").toString();
+
+                Publicacion publicacion = new Publicacion(null, asunto, cuerpo, fecha, usuario);
+                publicacionDao.publicarBlog(publicacion);
+
+                dispatcher = request.getRequestDispatcher("Blog.jsp");
+                List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
+                request.setAttribute("lista", listaPublicaciones);
+            }
+
         } else {
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();

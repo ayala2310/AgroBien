@@ -56,8 +56,7 @@ public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            body {\n");
       out.write("                box-sizing: border-box;\n");
       out.write("                margin: 0;\n");
-      out.write("                padding: 0;\n");
-      out.write("                background-color: white;\n");
+      out.write("                background-color:#F7F2F1;\n");
       out.write("                font-family: \"lato\", sans-serif;\n");
       out.write("            }\n");
       out.write("\n");
@@ -175,6 +174,18 @@ public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                cursor: pointer;\n");
       out.write("            }\n");
       out.write("\n");
+      out.write("            .alertError{\n");
+      out.write("                color: red;\n");
+      out.write("                font-size: 20px;\n");
+      out.write("                font-weight: bold;\n");
+      out.write("            }\n");
+      out.write("\n");
+      out.write("            .alertOK{\n");
+      out.write("                color: blue;\n");
+      out.write("                font-size: 20px;\n");
+      out.write("                font-weight: bold;\n");
+      out.write("            }\n");
+      out.write("\n");
       out.write("        </style>\n");
       out.write("\n");
       out.write("        <script>\n");
@@ -195,7 +206,7 @@ public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        <div class=\"signupFrm\">\n");
       out.write("            <form class=\"form\" action=\"LogueoServlet\" method=\"POST\">\n");
-      out.write("                <h1 class=\"title\">    Registro de nuevo usuario</h1><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/>\n");
+      out.write("                <h1 class=\"title\">    Registro de nuevo usuario</h1><a href=\"Principal.jsp\"><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/></a>\n");
       out.write("\n");
       out.write("                <div class=\"columna columna1\">\n");
       out.write("                    <div class=\"inputContainer\">\n");
@@ -225,7 +236,7 @@ public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                <div  class=\"columna columna2\">\n");
       out.write("                    <div class=\"inputContainer\">\n");
-      out.write("                        <input type=\"text\" class=\"input\"  name=\"txtCiudad\" placeholder=\"Tocache - San Martín\">\n");
+      out.write("                        <input type=\"text\" class=\"input\"  name=\"txtCiudad\" placeholder=\"Lima\">\n");
       out.write("                        <label for=\"\" class=\"label\">Ciudad</label>\n");
       out.write("                    </div>\n");
       out.write("                    <div class=\"inputContainer\">\n");
@@ -255,18 +266,54 @@ public final class Registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Registrar\">\n");
       out.write("                ");
 
-                    if (request.getParameter("error") == null) {
+                    System.out.println("respuesta: " + request.getParameter("error"));
+                    String rspt = request.getParameter("error");
+                    String msg = request.getParameter("msgOK");
+                    System.out.println("respuesta msg: " + msg);
+                    if (rspt == null) {
+                        System.out.println("respuesta msg 0: " + msg);
+                        if (msg != "" && msg != null) {
+                            System.out.println("respuesta msg 1: OK");
 
-                    } else if (request.getParameter("error") != "") {
                 
       out.write("\n");
-      out.write("                <div id=\"msjError\" class=\"alert alert-danger\" role=\"alert\">\n");
+      out.write("                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                    ");
+      out.print(request.getParameter("msgOK"));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                    }
+                } else if (rspt != "") {
+
+                    System.out.println("respuesta msg 2: " + msg);
+
+                    if (msg == "OK") {
+
+                        System.out.println("respuesta msg 2: " + msg);
+
+                
+      out.write("\n");
+      out.write("                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                    ");
+      out.print(request.getParameter("msgOK"));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                } else {
+
+                
+      out.write("\n");
+      out.write("                <div id=\"msjError\" class=\"alertError\" role=\"alert\">\n");
       out.write("                    ");
       out.print(request.getParameter("error"));
       out.write("\n");
       out.write("                </div>\n");
       out.write("                ");
 
+                        }
                     }
                 
       out.write("\n");

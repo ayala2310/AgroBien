@@ -5,8 +5,12 @@
  */
 package Controlador;
 
+import DAO.AgronomoDAO;
+import Modelo.Agronomo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author amontanez
  */
-@WebServlet(name = "EspecialistasServlet", urlPatterns = {"/EspecialistasServlet"})
+@WebServlet(name = "AgronomoServlet", urlPatterns = {"/AgronomoServlet"})
 public class AgronomoServlet extends HttpServlet {
 
     /**
@@ -37,10 +41,10 @@ public class AgronomoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EspecialistasServlet</title>");            
+            out.println("<title>Servlet AgronomoServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EspecialistasServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AgronomoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +62,17 @@ public class AgronomoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        AgronomoDAO agronomoDao;
+        agronomoDao = new AgronomoDAO();
+        System.out.println("SERVLET AGRO1");
+        RequestDispatcher dispatcher = null;
+        dispatcher = request.getRequestDispatcher("Agronomos.jsp");
+        List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
+
+        System.out.println("SERVLET listaAgronomos: " + listaAgronomos);
+        request.setAttribute("lista", listaAgronomos);
+
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -72,7 +86,18 @@ public class AgronomoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
+        AgronomoDAO agronomoDao;
+        agronomoDao = new AgronomoDAO();
+        System.out.println("SERVLET AGRO");
+        RequestDispatcher dispatcher = null;
+        dispatcher = request.getRequestDispatcher("Agronomos.jsp");
+        List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
+
+        System.out.println("SERVLET listaAgronomos: " + listaAgronomos);
+        request.setAttribute("lista", listaAgronomos);
+
+        dispatcher.forward(request, response);
     }
 
     /**

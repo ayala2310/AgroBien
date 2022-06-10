@@ -62,7 +62,6 @@ public class LogueoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         /*String accion;
         RequestDispatcher dispatcher = null;
 
@@ -81,6 +80,7 @@ public class LogueoServlet extends HttpServlet {
             }
 
         }*/
+        System.out.println("DO GET TEST");
     }
 
     /**
@@ -98,6 +98,8 @@ public class LogueoServlet extends HttpServlet {
         UsuarioDAO udao = new UsuarioDAO();
 
         String accion = request.getParameter("accion");
+        String pagina = request.getParameter("txtPaginaActual");
+            System.out.println("LOG pagina: " + pagina);
         System.out.println("LOG accion: " + accion);
         if (accion.equalsIgnoreCase("Iniciar Sesión")) {
             String user = request.getParameter("txtUsuario");
@@ -106,11 +108,31 @@ public class LogueoServlet extends HttpServlet {
             System.out.println("LOG pass: " + pass);
             String validado = udao.validarUsuario(user, pass);
             System.out.println("LOG validado: " + validado);
+
             if (validado.equals("")) {
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                request.setAttribute("usuario", user);
+                System.out.println("LOG USUARIO NULO: " + user);
+                request.getSession().setAttribute("usuarioSesion", null);
+                if (validado.equals("Agricultor")) {
+                    request.getSession().setAttribute("mostrarAgronomo", "");
+                } else {
+                    request.getSession().setAttribute("mostrarAgronomo", "none");
+                }
+                request.getSession().setAttribute("displayNoneLogin", "");
+                request.getSession().setAttribute("displayNoneUsuario", "none");
+                request.getRequestDispatcher(pagina + ".jsp?error=" + "Usuario o contraseña incorrectos.").forward(request, response);
+
             } else {
-                request.getRequestDispatcher("Login.jsp?error=" + validado).forward(request, response);
+                System.out.println("LOG USUARIO OK: " + user);
+                request.getSession().setAttribute("usuarioSesion", user);
+                if (validado.equals("Agricultor")) {
+                    request.getSession().setAttribute("mostrarAgronomo", "block");
+                } else {
+                    request.getSession().setAttribute("mostrarAgronomo", "none");
+
+                }
+                request.getSession().setAttribute("displayNoneLogin", "none");
+                request.getSession().setAttribute("displayNoneUsuario", "block");
+                request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
             }
         } else if (accion.equalsIgnoreCase("Registrar")) {
             String nombres = request.getParameter("txtNombres");
@@ -124,15 +146,38 @@ public class LogueoServlet extends HttpServlet {
             String usuario = request.getParameter("txtUsuario");
             String password = request.getParameter("txtPassword");
 
-            String validado = udao.registrarUsuario(nombres, apellidos, dni, celular, correo, ciudad, tipo, colegiatura, usuario, password);
+            String validado = udao.validarExistenciaUsuario(usuario);
             if (validado.equals("")) {
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                request.setAttribute("usuario", "Usted se ha registrado con éxito.");
-            } else {
-                request.getRequestDispatcher("Registro.jsp?error=" + validado).forward(request, response);
+                validado = udao.registrarUsuario(usuario, password, tipo);
+                if (validado.equals("")) {
+                    if (tipo.equals("Agricultor")) {
+                        validado = udao.registrarAgricultor(nombres, apellidos, dni, celular, correo, ciudad, tipo, usuario, password);
+                    } else {
+                        validado = udao.registrarAgronomo(nombres, apellidos, dni, celular, correo, ciudad, tipo, colegiatura, usuario, password);
+                    }
+                }
             }
+            System.out.println("rspta validado: " + validado);
+            if (validado.equals("")) {
+                if (tipo.equals("Agricultor")) {
+                    validado = "Usuario Agricultor registrado con éxito.";
+                } else {
+                    validado = "Usuario Agrónomo registrado con éxito.";
+                }
+                System.out.println("rspta validado2: " + validado);
+                request.getRequestDispatcher(pagina + ".jsp?msgOK=" + validado).forward(request, response);
+            } else {
+                request.getRequestDispatcher(pagina + ".jsp?error=" + validado).forward(request, response);
+            }
+        } else if (accion.equalsIgnoreCase("Cerrar Sesión")) {
+            request.getSession().setAttribute("usuarioSesion", null);
+            request.getSession().setAttribute("mostrarAgronomo", "none");
+            request.getSession().setAttribute("displayNoneLogin", "");
+            request.getSession().setAttribute("displayNoneUsuario", "none");
+            request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+
         } else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
         }
     }
 

@@ -14,7 +14,7 @@
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
-                background-color: white;
+                background-color:#F7F2F1;
                 font-family: "lato", sans-serif;
             }
 
@@ -51,7 +51,7 @@
                 left: 0px;
                 height: 100%;
                 width: 100%;
-                border: 1px solid #DADCE0;
+                border: 1px solid #43A047;
                 border-radius: 7px;
                 font-size: 16px;
                 padding: 0 20px;
@@ -95,14 +95,14 @@
                 left: 20px;
                 font-size: 14px;
                 font-weight: 600;
-                color: purple;
+                color: #43A047;
             }
 
             .input:focus{
-                border: 2px solid purple;
+                border: 2px solid #43A047;
             }
-          
-         
+
+
             .icono{
                 position: relative;
                 top: -50px;
@@ -116,7 +116,6 @@
             }
 
             .logo{
-                background-color: red;
                 position: relative;
                 top: -160px;
                 left: 270px;
@@ -144,10 +143,10 @@
         <div class="signupFrm">
             <form class="form" action="LogueoServlet" method="POST">
                 <h3>Bienvenido a AgroBien</h3>
-                <h1 class="title">Inicie sesión con su cuenta de usuario</h1><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/>
+                <h1 class="title">Inicie sesión con su cuenta de usuario</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/></a>
 
                 <div  class="columna columna2">
-                    
+
                     <div class="inputContainer">
                         <input type="text" class="input"  name="txtUsuario" placeholder=" ">
                         <label for="" class="label">Nombre de Usuario</label>
