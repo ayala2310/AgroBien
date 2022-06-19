@@ -1,3 +1,4 @@
+<%@page import="DAO.UsuarioDAO"%>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -125,53 +126,88 @@
         </style>
 
         <script>
-            function mostrarContrasena() {
-                var tipo = document.getElementById("password");
-                if (tipo.type == "password") {
+            function mostrarContrasena(idLinea) {
+                var tipo;
+                if (idLinea === "icon1") {
+                    tipo = document.getElementById("password1");
+                } else if (idLinea === "icon2") {
+                    tipo = document.getElementById("password2");
+                }
+
+                if (tipo.type === "password") {
                     tipo.type = "text";
-                    document.getElementById("icon1").display = none;
-                    document.getElementById("icon2").display = none;
+                    document.getElementById(idLinea).display = "";
                 } else {
                     tipo.type = "password";
-                    document.getElementById("icon1").display = none;
-                    document.getElementById("icon2").display = none
+                    document.getElementById(idLinea).display = none;
                 }
+
             }
         </script>
     </head>
     <body>
         <div class="signupFrm">
-            <form class="form" action="LogueoServlet" method="POST">
+            <div class="form">
                 <h3>Bienvenido a AgroBien</h3>
-                <h1 class="title">Inicie sesión con su cuenta de usuario</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/></a>
+                <h1 class="title">Hola ${displayNoneUsuario}, estás a un paso de cambiar tu contraseña.</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/></a>
 
                 <div  class="columna columna2">
+                    <form >
+                        <div class="inputContainer">
+                            <input type="search" name="txtUsuario" class="input"  placeholder=" ">
+                            <label for="" class="label">Nombre de Usuario</label>
+                            <button  type="submit" style="display:none">Buscar</button>
+                        </div>
+                    </form>
+
+                    <%
+                        UsuarioDAO u = new UsuarioDAO();
+                        if (request.getParameter("txtUsuario") != null) {
+                            String valor = u.validarExistenciaUsuario(request.getParameter("txtUsuario").toString());
+                            if (valor == "") {
+                    %>
+
+                        <p id="msjError" class="alert alert-danger" role="alert">El usuario no existe</p>
+
+                    <%
+                            }
+                        }
+
+
+                    %>
 
                     <div class="inputContainer">
-                        <input type="text" class="input"  name="txtUsuario" placeholder=" ">
-                        <label for="" class="label">Nombre de Usuario</label>
+                        <input type="password" id="password1"  name="txtPassword" class="input" placeholder=" ">
+                        <label for="" class="label">Contraseña Anterior</label>
+                        <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon1')"/>
                     </div>
 
                     <div class="inputContainer">
-                        <input type="password" id="password"  name="txtPassword" class="input" placeholder=" ">
-                        <label for="" class="label">Contraseña</label>
-                        <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena()"/>
+                        <input type="password" id="password2"  name="txtPassword" class="input" placeholder=" ">
+                        <label for="" class="label">Nueva Contraseña</label>
+                        <img id="icon2" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon2')"/>
                     </div>
-                </div>
-                <input type="submit" class="submitBtn" name="accion" value="Iniciar Sesión">
-                <%
-                    if (request.getParameter("error") == null) {
+                    <!--
+                                        <div class="inputContainer">
+                                            <input type="password" id="password3"  name="txtPassword" class="input" placeholder=" ">
+                                            <label for="" class="label">Repetir Nueva Contraseña</label>
+                                            <img id="icon3" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon3')"/>
+                                        </div>
+                                    </div>
+                    -->
+                    <input type="submit" class="submitBtn" name="accion" value="Iniciar Sesión">
+                    <%                    if (request.getParameter("error") == null) {
 
-                    } else if (request.getParameter("error") != "") {
-                %>
-                <div id="msjError" class="alert alert-danger" role="alert">
-                    <%=request.getParameter("error")%>
+                        } else if (request.getParameter("error") != "") {
+                    %>
+                    <div id="msjError" class="alert alert-danger" role="alert">
+                        <%=request.getParameter("error")%>
+                    </div>
+                    <%
+                        }
+                    %>
                 </div>
-                <%
-                    }
-                %>
-            </form>
 
-        </div>
+            </div>
     </body>
 </html>

@@ -5,9 +5,14 @@
 --%>
 
 
+
+<%@page import="DAO.AgronomoDAO"%>
+<%@page import="java.sql.ResultSet"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+
+
     <header>
 
 
@@ -635,10 +640,104 @@
                 color: red;
                 background: white;
             }
+
+
+            .pagAgronomoAnt {
+                border: 1px solid gray;
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                padding: 4px 8px;
+                background-color:cadetblue;
+                color: white;
+            }
+            .pagAgronomo {
+                padding: 4px 8px;
+                margin-left: auto;
+                padding: 5px 10px;
+                border: none;
+                background-color:cadetblue;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+                margin: 2px;
+            }
+            .pagAgronomoDes {
+                border: 1px solid gray;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                padding: 4px 8px;
+                background-color:cadetblue;
+                color: white;
+            }
+
+            .searchBtnBlog {
+                margin-left: auto;
+                padding: 5px 8px;
+                top:5px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .searchBtnBlog:hover {
+                background-color: #1aafa0;
+            }
+
             .table-responsive{
                 max-width: 80%;
             }
 
+            /* table {
+                 border-collapse:initial;
+                 width: 100%;
+             }
+             th {
+                 background-color: #04AA6D;
+                 color: white;
+             }
+             th, td {
+                 padding: 8px;
+                 text-align: left;
+                 border-bottom: 1px solid #ddd;
+             }
+ 
+             tr:hover {background-color: coral;}*/
+
+            /*tr:nth-child(even) {background-color: #f2f2f2;}*/
+
+
+            .headerTable{
+                width:100%; 
+                border-collapse:collapse; 
+                background-color: cadetblue;
+                box-shadow: 0px 0px 10px;
+                padding: 1rem 2rem;
+            }
+            td{
+                padding: 1rem 2rem;
+            } th{
+                padding: 1rem 2rem;
+            }
+            .bodyTable{
+                width:100%; 
+                border-collapse: separate; 
+                background-color:#ebf1f4;
+                padding: 8px;
+            }
+            .bodyTable tr:hover {
+                background-color:#DADCE0;
+            }
+
+
+
+
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
 
         </style>
 
@@ -802,13 +901,6 @@
 
 
 
-            function fn_ocultarNotif() {
-
-                document.getElementById("idMostrarNotif").value = "qqqq";
-                document.getElementById("idMostrarNotif").innerHTML = "wwww";
-                document.getElementById("hellobar-bar").style.display = "none";
-            }
-
 
         </script>
 
@@ -848,7 +940,7 @@
 
                 <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
-                       <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
@@ -886,8 +978,7 @@
                                         <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                         <label for="" class="label2">Contraseña</label>
                                     </div>
-                                    <%
-                                        if (request.getParameter("error") == null) {
+                                    <%                                        if (request.getParameter("error") == null) {
 
                                         } else if (request.getParameter("error") != "") {
                                     %>
@@ -914,7 +1005,7 @@
                     <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                     <li>
                         <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
-                    <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
+                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
 
                             <div id="idRegistro" class="signupFrm">
                                 <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
@@ -1027,7 +1118,13 @@
 
     </header> 
 
-
+    <%
+        ResultSet rs;
+        AgronomoDAO a = new AgronomoDAO();
+        String valorBuscado = "";
+        int pag = 0;
+        int cantxPag = 5;
+    %>
 
     <body onload="fn_cargarNotif()">
         <div id="hellobar-bar" class="regular closable" style="display:none">
@@ -1071,8 +1168,7 @@
                         <hr>
                         </p>
                         <form class="publicarBlog">
-
-                            <input class="form-control searchBlog" type="search" placeholder="Ingrese una palabra que desee buscar." >
+                            <input name="Buscar" class="form-control searchBlog" type="search" placeholder="Ingrese una palabra que desee buscar." value="${valorBuscado}">
                             <p>
                             <div>
                                 <button class="searchBtnBlog" type="submit">Buscar</button>
@@ -1081,9 +1177,35 @@
                         </form>
 
                         <br>
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                                <tr>
+                        <%
+                            //AgronomoDAO a = new AgronomoDAO();
+                            //int pag = 0;
+                            //int cantxPag = 5;
+                            if (request.getParameter("pag") == null) {
+                                pag = 1;
+                            } else {
+                                pag = Integer.parseInt(request.getParameter("pag"));
+                            }
+
+                            if (request.getParameter("Buscar") == null) {
+                                valorBuscado = "";
+                            } else {
+                                valorBuscado = request.getParameter("Buscar");
+                            }
+
+                            int numreg = a.cantidadAgronomos(valorBuscado);
+                            int numpag = numreg / cantxPag;
+
+                            System.out.println("AYALA pag " + pag);
+                            System.out.println("AYALA numreg: " + numreg);
+                            System.out.println("AYALA cantxPag: " + cantxPag);
+                            System.out.println("AYALA numpag: " + numpag);
+                        %>
+
+                        <!class="table table-striped table-hover table-bordered"-->
+                        <table class="headerTable">
+                            <thead >
+                                <tr >
                                     <th>N°</th>
                                     <th>NOMBRES</th>
                                     <th>APELLIDOS</th>
@@ -1091,35 +1213,94 @@
                                     <th>CIUDAD</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <c:forEach var="agronomo" items="${lista}">
-                                    <tr>
-                                        <td>0</td>
-                                        <td><c:out value="${agronomo.nombres}"/></td>
-                                        <td><c:out value="${agronomo.apellidos}"/></td>
-                                        <td><c:out value="${agronomo.correo}"/></td>
-                                        <td><c:out value="${agronomo.ciudad}"/></td>
-                                        <td>
-                                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                            <!--<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+
+                            <tbody  class="bodyTable">
+                                <%
+                                    int x = (pag - 1) * cantxPag;
+                                    rs = a.buscarAgronomo(valorBuscado, pag, cantxPag);
+                                    if (numreg > 0) {
+                                        while (rs.next()) {
+                                            System.out.println("AYALA RS: " + rs.getString(3));
+                                %>
+
+                                <tr>
+                                    <td><%=x + 1%></td>
+                                    <td><%=rs.getString(3)%></td>
+                                    <td><%=rs.getString(4)%></td>
+                                    <td><%=rs.getString(5)%></td>
+                                    <td><%=rs.getString(6)%></td>
+                                    <!-- <td>
+                                         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                     </td>
+                                    -->
+
+                                </tr>
+                                <%
+                                        x++;
+                                    }
+                                } else {
+                                %>
+                                <tr>
+                                    <td>No se encontraron registros.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <%
+                                    }
+                                %>
                             </tbody>
                         </table>
+
+                        <div><br></div>
+
+
+                        <div style="text-align: center">
+                            <%if (pag > 1) {%>
+
+                            <a class="pagAgronomoAnt" href="?pag=<%=pag - 1%>&Buscar=<%=valorBuscado%>">Anterior </a>
+                            <%} else if (pag == 1) {%>
+                            <a class="pagAgronomoAnt" style="background-color:#959A92" disabled>Anterior </a>
+                            <%}
+                                for (int i = 0; i < numpag + 1; i++) {
+                                    if (pag == (i + 1)) {
+                            %>
+                            <a style="background-color:#31bfb1; color:black" class="pagAgronomo" href="?pag=<%=i + 1%>&Buscar=<%=valorBuscado%>" ><%=i + 1%> </a>
+                            <%
+                                }
+                                if (pag != (i + 1)) {
+                            %>
+                            <a class="pagAgronomo" href="?pag=<%=i + 1%>&Buscar=<%=valorBuscado%>" ><%=i + 1%> </a>
+                            <%
+
+                                    }
+                                }
+
+                                if (pag <= numpag) {
+                            %>
+                            <a class="pagAgronomoDes" href="?pag=<%=pag + 1%>&Buscar=<%=valorBuscado%>">Siguiente </a> 
+                            <% } else {%>
+                            <a class="pagAgronomoDes" style="background-color:#959A92" disabled>Anterior </a>
+                            <%}
+                            %>
+                        </div>
+
+                        <p>
                         <div class="clearfix">
-                           <!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>-->
-                           <!-- <ul class="pagination">
-                                <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
-                           -->
+                            <!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>-->
+                            <!-- <ul class="pagination">
+                                 <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                 <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                 <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                 <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                 <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                 <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                 <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                             </ul>
+                            -->
                         </div>
                     </div>        
                 </div>    

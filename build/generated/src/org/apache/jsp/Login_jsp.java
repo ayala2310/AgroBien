@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import DAO.UsuarioDAO;
 
 public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -41,6 +42,7 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
       out.write("<html lang=\"en\">\n");
       out.write("    <head>\n");
       out.write("        <meta charset=\"UTF-8\">\n");
@@ -57,7 +59,7 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                box-sizing: border-box;\n");
       out.write("                margin: 0;\n");
       out.write("                padding: 0;\n");
-      out.write("                background-color: white;\n");
+      out.write("                background-color:#F7F2F1;\n");
       out.write("                font-family: \"lato\", sans-serif;\n");
       out.write("            }\n");
       out.write("\n");
@@ -144,8 +146,8 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            .input:focus{\n");
       out.write("                border: 2px solid #43A047;\n");
       out.write("            }\n");
-      out.write("          \n");
-      out.write("         \n");
+      out.write("\n");
+      out.write("\n");
       out.write("            .icono{\n");
       out.write("                position: relative;\n");
       out.write("                top: -50px;\n");
@@ -168,60 +170,101 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </style>\n");
       out.write("\n");
       out.write("        <script>\n");
-      out.write("            function mostrarContrasena() {\n");
-      out.write("                var tipo = document.getElementById(\"password\");\n");
-      out.write("                if (tipo.type == \"password\") {\n");
+      out.write("            function mostrarContrasena(idLinea) {\n");
+      out.write("                var tipo;\n");
+      out.write("                if (idLinea === \"icon1\") {\n");
+      out.write("                    tipo = document.getElementById(\"password1\");\n");
+      out.write("                } else if (idLinea === \"icon2\") {\n");
+      out.write("                    tipo = document.getElementById(\"password2\");\n");
+      out.write("                }\n");
+      out.write("\n");
+      out.write("                if (tipo.type === \"password\") {\n");
       out.write("                    tipo.type = \"text\";\n");
-      out.write("                    document.getElementById(\"icon1\").display = none;\n");
-      out.write("                    document.getElementById(\"icon2\").display = none;\n");
+      out.write("                    document.getElementById(idLinea).display = \"\";\n");
       out.write("                } else {\n");
       out.write("                    tipo.type = \"password\";\n");
-      out.write("                    document.getElementById(\"icon1\").display = none;\n");
-      out.write("                    document.getElementById(\"icon2\").display = none\n");
+      out.write("                    document.getElementById(idLinea).display = none;\n");
       out.write("                }\n");
+      out.write("\n");
       out.write("            }\n");
       out.write("        </script>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        <div class=\"signupFrm\">\n");
-      out.write("            <form class=\"form\" action=\"LogueoServlet\" method=\"POST\">\n");
+      out.write("            <div class=\"form\">\n");
       out.write("                <h3>Bienvenido a AgroBien</h3>\n");
-      out.write("                <h1 class=\"title\">Inicie sesión con su cuenta de usuario</h1><a href=\"Principal.jsp\"><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/></a>\n");
+      out.write("                <h1 class=\"title\">Hola ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${displayNoneUsuario}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(", estás a un paso de cambiar tu contraseña.</h1><a href=\"Principal.jsp\"><img class=\"logo\" src=\"imagenes/logoPrincipal.png\" alt=\"40\" width=\"80\"/></a>\n");
       out.write("\n");
       out.write("                <div  class=\"columna columna2\">\n");
-      out.write("                    \n");
+      out.write("                    <form >\n");
+      out.write("                        <div class=\"inputContainer\">\n");
+      out.write("                            <input type=\"search\" name=\"txtUsuario\" class=\"input\"  placeholder=\" \">\n");
+      out.write("                            <label for=\"\" class=\"label\">Nombre de Usuario</label>\n");
+      out.write("                            <button  type=\"submit\" style=\"display:none\">Buscar</button>\n");
+      out.write("                        </div>\n");
+      out.write("                    </form>\n");
+      out.write("\n");
+      out.write("                    ");
+
+                        UsuarioDAO u = new UsuarioDAO();
+                        if (request.getParameter("txtUsuario") != null) {
+                            String valor = u.validarExistenciaUsuario(request.getParameter("txtUsuario").toString());
+                            if (valor == "") {
+                    
+      out.write("\n");
+      out.write("\n");
+      out.write("                        <p id=\"msjError\" class=\"alert alert-danger\" role=\"alert\">El usuario no existe</p>\n");
+      out.write("\n");
+      out.write("                    ");
+
+                            }
+                        }
+
+
+                    
+      out.write("\n");
+      out.write("\n");
       out.write("                    <div class=\"inputContainer\">\n");
-      out.write("                        <input type=\"text\" class=\"input\"  name=\"txtUsuario\" placeholder=\" \">\n");
-      out.write("                        <label for=\"\" class=\"label\">Nombre de Usuario</label>\n");
+      out.write("                        <input type=\"password\" id=\"password1\"  name=\"txtPassword\" class=\"input\" placeholder=\" \">\n");
+      out.write("                        <label for=\"\" class=\"label\">Contraseña Anterior</label>\n");
+      out.write("                        <img id=\"icon1\" class=\"icono\" src=\"imagenes/iconoMostrar.png\" alt=\"10\" width=\"20\" onclick=\"mostrarContrasena('icon1')\"/>\n");
       out.write("                    </div>\n");
       out.write("\n");
       out.write("                    <div class=\"inputContainer\">\n");
-      out.write("                        <input type=\"password\" id=\"password\"  name=\"txtPassword\" class=\"input\" placeholder=\" \">\n");
-      out.write("                        <label for=\"\" class=\"label\">Contraseña</label>\n");
-      out.write("                        <img id=\"icon1\" class=\"icono\" src=\"imagenes/iconoMostrar.png\" alt=\"10\" width=\"20\" onclick=\"mostrarContrasena()\"/>\n");
+      out.write("                        <input type=\"password\" id=\"password2\"  name=\"txtPassword\" class=\"input\" placeholder=\" \">\n");
+      out.write("                        <label for=\"\" class=\"label\">Nueva Contraseña</label>\n");
+      out.write("                        <img id=\"icon2\" class=\"icono\" src=\"imagenes/iconoMostrar.png\" alt=\"10\" width=\"20\" onclick=\"mostrarContrasena('icon2')\"/>\n");
       out.write("                    </div>\n");
-      out.write("                </div>\n");
-      out.write("                <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Iniciar Sesión\">\n");
-      out.write("                ");
-
+      out.write("                    <!--\n");
+      out.write("                                        <div class=\"inputContainer\">\n");
+      out.write("                                            <input type=\"password\" id=\"password3\"  name=\"txtPassword\" class=\"input\" placeholder=\" \">\n");
+      out.write("                                            <label for=\"\" class=\"label\">Repetir Nueva Contraseña</label>\n");
+      out.write("                                            <img id=\"icon3\" class=\"icono\" src=\"imagenes/iconoMostrar.png\" alt=\"10\" width=\"20\" onclick=\"mostrarContrasena('icon3')\"/>\n");
+      out.write("                                        </div>\n");
+      out.write("                                    </div>\n");
+      out.write("                    -->\n");
+      out.write("                    <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Iniciar Sesión\">\n");
+      out.write("                    ");
                     if (request.getParameter("error") == null) {
 
-                    } else if (request.getParameter("error") != "") {
-                
+                        } else if (request.getParameter("error") != "") {
+                    
       out.write("\n");
-      out.write("                <div id=\"msjError\" class=\"alert alert-danger\" role=\"alert\">\n");
-      out.write("                    ");
+      out.write("                    <div id=\"msjError\" class=\"alert alert-danger\" role=\"alert\">\n");
+      out.write("                        ");
       out.print(request.getParameter("error"));
       out.write("\n");
-      out.write("                </div>\n");
-      out.write("                ");
+      out.write("                    </div>\n");
+      out.write("                    ");
 
-                    }
-                
+                        }
+                    
       out.write("\n");
-      out.write("            </form>\n");
+      out.write("                </div>\n");
       out.write("\n");
-      out.write("        </div>\n");
+      out.write("            </div>\n");
       out.write("    </body>\n");
       out.write("</html>");
     } catch (Throwable t) {

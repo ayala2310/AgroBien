@@ -33,6 +33,8 @@ public class Agronomo {
         this.colegiatura = colegiatura;
     }
 
+    public Agronomo(){};
+
     public Integer getId() {
         return id;
     }
@@ -104,7 +106,5 @@ public class Agronomo {
     public void setColegiatura(String colegiatura) {
         this.colegiatura = colegiatura;
     }
-    
-    
 
 }

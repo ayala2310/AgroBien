@@ -9,6 +9,7 @@ import DAO.AgronomoDAO;
 import Modelo.Agronomo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -66,12 +67,10 @@ public class AgronomoServlet extends HttpServlet {
         agronomoDao = new AgronomoDAO();
         System.out.println("SERVLET AGRO1");
         RequestDispatcher dispatcher = null;
+        //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
+        //ResultSet rs = agronomoDao.buscarAgronomo("",1, 5);
+        //request.setAttribute("lista", listaAgronomos);
         dispatcher = request.getRequestDispatcher("Agronomos.jsp");
-        List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
-
-        System.out.println("SERVLET listaAgronomos: " + listaAgronomos);
-        request.setAttribute("lista", listaAgronomos);
-
         dispatcher.forward(request, response);
     }
 
@@ -86,18 +85,29 @@ public class AgronomoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+
         AgronomoDAO agronomoDao;
         agronomoDao = new AgronomoDAO();
-        System.out.println("SERVLET AGRO");
+        String accion;
         RequestDispatcher dispatcher = null;
-        dispatcher = request.getRequestDispatcher("Agronomos.jsp");
-        List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
 
-        System.out.println("SERVLET listaAgronomos: " + listaAgronomos);
-        request.setAttribute("lista", listaAgronomos);
+        accion = request.getParameter("accion");
 
-        dispatcher.forward(request, response);
+        if (accion.equals("buscar")) {
+            String buscar = request.getParameter("txtBuscar").toUpperCase();
+            String pag = request.getParameter("pag");
+            //String buscar = request.getParameter("txtBuscar").toUpperCase();
+            dispatcher = request.getRequestDispatcher("Agronomos.jsp");
+            ResultSet buscarAgronomos = agronomoDao.buscarAgronomo(buscar,1,5);
+            request.setAttribute("lista", buscarAgronomos);
+        } else {
+            //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
+            request.setAttribute("lista", "");
+        }
+
+        request.getRequestDispatcher("Agronomos.jsp").forward(request, response);
+
+        
     }
 
     /**

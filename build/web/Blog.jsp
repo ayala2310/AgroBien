@@ -642,6 +642,23 @@
             color: red;
         }
 
+        .panelBlog{
+            border: 1px solid #1aafa0;
+            border-radius: 4px;
+            padding:0.01em 16px;
+            background-color:#F7F2F1;
+            box-shadow: 0px 0px 10px;
+        }
+
+        .idAsunto{
+            border: 1px solid #1aafa0;
+            border-radius: 7px;
+            background-color:#22af73;
+            cursor:default;
+        }
+
+
+
     </style>
     <script>
 
@@ -690,7 +707,9 @@
             } else {
                 document.getElementById('idPanelRegistro').style.display = "";
             }
+
         }
+
 
 
         (function () {
@@ -780,36 +799,17 @@
                 document.getElementById("hellobar-bar").style.display = "none";
                 document.getElementById("idMostrarNotif").value = "";
                 document.getElementById("idMostrarNotif").innerHTML = "";
-
             } else {
                 document.getElementById("hellobar-bar").style.display = "";
                 document.getElementById("idMostrarNotif").value = "";
                 document.getElementById("idMostrarNotif").innerHTML = "";
-
             }
             //alert(notif)
         }
 
 
 
-        function fn_ocultarNotif() {
 
-            document.getElementById("idMostrarNotif").value = "qqqq";
-            document.getElementById("idMostrarNotif").innerHTML = "wwww";
-            document.getElementById("hellobar-bar").style.display = "none";
-        }
-
-
-        function myFunction() {
-            /*document.getElementById('idBtnPublicar').onclick = function () {
-             alert('Hey Alerta Wey!');  
-             }*/
-            var text = document.getElementById("usuarioAux").value;
-            //if (text === "") {
-            //alert('EL CAMPO ASUNTO ESTÁ VACÍO: ' + text);
-            //} 
-
-        }
 
 
 
@@ -845,10 +845,10 @@
             <ul id="idUsuario" class="nav navbar-nav navbar-right" style="display: ${displayNoneUsuario}">
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
-                         <ul class="dropdown-menu">
-                       <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-                            <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
+                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
+                             <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
                         <li class="divider"></li>
                         <form action="LogueoServlet" method="POST">
                             <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
@@ -890,7 +890,7 @@
                                 %>
                                 <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
                                 <div class="form-footer">
-                                    <a href="#">¿Olvidó su contraseña?</a>
+                                    <a href="Login.jsp">¿Olvidó su contraseña?</a>
                                 </div>
                             </form>
                         </li>
@@ -905,25 +905,33 @@
                         <div id="idRegistro" class="signupFrm">
                             <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
                                 <div class="columna columna1">
-                                    <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
+                                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+
                                     <div class="inputContainer">
                                         <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan"  required="required">
                                         <label for="" class="label">Nombres</label>
+
                                     </div>
+
                                     <div class="inputContainer">
                                         <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="Huamán"  required="required">
                                         <label for="" class="label">Apellidos</label>
                                     </div>
+
                                     <div class="inputContainer">
                                         <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
                                         <label for="" class="label">Correo</label>
                                     </div>
+
                                     <div class="inputContainer">
                                         <input type="text" class="input" id="txtCiudad"  name="txtCiudad" placeholder="Lima"  required="required">
                                         <label for="" class="label">Ciudad</label>
                                     </div>
                                 </div>
+
+
                                 <div  class="columna columna2">
+
                                     <div class="inputContainer">
                                         <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required="required">
                                             <option hidden selected>Agricultor</option>
@@ -931,6 +939,7 @@
                                             <option class="input" value="Agrónomo">Agrónomo</option>
                                         </select>
                                         <label class="label"for="">Tipo</label>
+
                                     </div>
                                     <div class="inputContainer" id="divColegiatura" name="divColegiatura" Style="display:none">
                                         <input type="text" class="input" id="txtColegiatura"  name="txtColegiatura" placeholder=" "  >
@@ -940,8 +949,8 @@
                                         <input type="text" class="input" id="txtUsuario"   name="txtUsuario" placeholder=" "  required="required">
                                         <label for="" class="label">Nombre de Usuario</label>
                                     </div>
-                                    <div class="inputContainer">
-                                        <!--onclick="javascript:IrAServletUsandoPost();" -->
+
+                                    <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
                                         <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
                                         <label for="" class="label">Contraseña</label>
                                     </div>
@@ -949,14 +958,10 @@
                                         <label id="txtMsgErrorNombres" style="display:none"> (*)Existen campos obligatorios.</label>
                                     </div>
                                 </div>
-                                <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()"><%
-                                    /*if (request.getAttribute("displayNoneUsuario").equals("")) {
-request.setAttribute("displayNoneLogin", "");
-request.setAttribute("displayNoneUsuario", "none");
-}else{
- request.setAttribute("displayNoneLogin", "none");
-request.setAttribute("displayNoneUsuario", "");
-}*/
+
+                                <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+
+                                <%
                                     System.out.println("respuesta: " + request.getParameter("error"));
                                     String rspt = request.getParameter("error");
                                     String msg = request.getParameter("msgOK");
@@ -966,8 +971,10 @@ request.setAttribute("displayNoneUsuario", "");
                                         if (msg != "" && msg != null) {
                                             System.out.println("respuesta msg 1: OK");
                                 %>
-                                <div id="msjOK" class="alertOK" role="alert"><%=request.getParameter("msgOK")%>
-                                </div><%
+                                <div id="msjOK" class="alertOK" role="alert">
+                                    <%=request.getParameter("msgOK")%>
+                                </div>
+                                <%
                                     }
                                 } else if (rspt != "") {
 
@@ -978,20 +985,28 @@ request.setAttribute("displayNoneUsuario", "");
                                         System.out.println("respuesta msg 2: " + msg);
 
                                 %>
-                                <div id="msjOK" class="alertOK" role="alert"><%=request.getParameter("msgOK")%>
-                                </div><%
+                                <div id="msjOK" class="alertOK" role="alert">
+                                    <%=request.getParameter("msgOK")%>
+                                </div>
+                                <%
                                 } else {
 
                                 %>
-                                <div id="msjError" class="alertError" role="alert"><%=request.getParameter("error")%>
-                                </div><%
+                                <div id="msjError" class="alertError" role="alert">
+                                    <%=request.getParameter("error")%>
+                                </div>
+                                <%
                                         }
                                     }
                                 %>
                             </form>
+
                         </div>
+
                     </ul>
                 </li>
+
+
             </ul>
         </div>
     </nav>
@@ -999,28 +1014,28 @@ request.setAttribute("displayNoneUsuario", "");
 </header> 
 
 <body onload="fn_cargarNotif()">
-     <div id="hellobar-bar" class="regular closable" style="display: none">
-            <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
-                    </div>
+    <div id="hellobar-bar" class="regular closable" style="display: none">
+        <div class="hb-content-wrapper">
+            <div class="hb-text-wrapper">
+                <div class="hb-headline-text">
+                    <p><span>${mostrarNotif}</span></p>
                 </div>
-                <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
-                    <div class="hb-text-holder">
-                        <p>Regístrate</p>
-                    </div>
-                </a>
             </div>
-            <div class="hb-close-wrapper">
-                <form action="LogueoServlet" method="POST">
-                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
-                    <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
-                </form>
-
-            </div>
+            <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
+                <div class="hb-text-holder">
+                    <p>Regístrate</p>
+                </div>
+            </a>
         </div>
+        <div class="hb-close-wrapper">
+            <form action="LogueoServlet" method="POST">
+                <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                <input  class="idX" type="submit" name="accion" value="X"></input>
+                <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
+            </form>
+
+        </div>
+    </div>
 
 
     <main class="main">
@@ -1067,7 +1082,7 @@ request.setAttribute("displayNoneUsuario", "");
 
                     <button type="submit" class="submitBtnBlog" > Publicar </button>
                     <p></p>
-                    <a class="botonBloqueado">${bloqueado}</a>
+                    <p class="botonBloqueado">${bloqueado}</p>
                 </div>
 
             </form>
@@ -1077,25 +1092,25 @@ request.setAttribute("displayNoneUsuario", "");
             <h4 class="publicarBlog"><small>Publicaciones recientes</small></h4>
 
 
-            <div class="publicarBlog">
+            <div id="idPublicaciones" class="publicarBlog">
                 <c:forEach var="publicacion" items="${lista}">
                     <div class="panelBlog">
-                        <h2><c:out value="${publicacion.asunto}"/></h2>
-                        <h5><span ></span>Publicado por <c:out value="${publicacion.usuario}"/>, <c:out value="${publicacion.fecha}"/></h5>
-                        <p><c:out value="${publicacion.cuerpo}"/></p>
-                        <span ><span >0</span> respuestas</span> 
-                        <!--document.getElementById("element").style.display = "none";-->
-                        <form  role="form">
-                            <div id="panelComentario" class="form-group" style="display:none">
-                                <textarea class="form-control" rows="3" required></textarea>
-                            </div>
-                            <button id="comentar" type="submit" class="submitBtnBlog" onclick="mostrar()">Comentar</button>
-                            <button id="guardar" type="submit" class="submitBtnBlog" onclick="mostrar()" style="display:none">Guardar</button>
-                            <button id="cancelar" type="submit" class="submitBtnBlog" onclick="ocultar()" style="display:none">Cancelar</button>
+                        <form action="PublicacionesServlet?accion=buscar" method="POST">
+                            <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
+                            <input type="text" name="idTxtAsuntoComentar" value="${publicacion.id}" style="display:none"></input>
+                            <h2 name="txtAsuntoComentar"><c:out value="${publicacion.asunto}"/></h2>
+                            <h5 name="txtUsuarioComentar">Publicado por <c:out value="${publicacion.usuario}"/>, <c:out value="${publicacion.fecha}"/></h5>
+                            <p><c:out value="${publicacion.cuerpo}"/></p>
+                            <input class="searchBtnBlog" type="submit" name="accion" value="Ver Detalle"></input>
                         </form>
+                        <span ><span >${publicacion.cantidadRespuestas}</span> respuestas</span> 
+                        <p>
                     </div>
                     <br>
                 </c:forEach>
+            </div>
+            <div id="idComentarios" class="publicarBlog">
+
             </div>
         </div>
 

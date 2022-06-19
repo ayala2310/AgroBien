@@ -694,6 +694,22 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            color: red;\n");
       out.write("        }\n");
       out.write("\n");
+      out.write("        .panelBlog{\n");
+      out.write("            border: 1px solid #1aafa0;\n");
+      out.write("            border-radius: 4px;\n");
+      out.write("            padding:0.01em 16px;\n");
+      out.write("            background-color:#F7F2F1;\n");
+      out.write("        }\n");
+      out.write("\n");
+      out.write("        .idAsunto{\n");
+      out.write("            border: 1px solid #1aafa0;\n");
+      out.write("            border-radius: 7px;\n");
+      out.write("            background-color:#22af73;\n");
+      out.write("            cursor:default;\n");
+      out.write("        }\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("    </style>\n");
       out.write("    <script>\n");
       out.write("\n");
@@ -742,7 +758,9 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            } else {\n");
       out.write("                document.getElementById('idPanelRegistro').style.display = \"\";\n");
       out.write("            }\n");
+      out.write("\n");
       out.write("        }\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("        (function () {\n");
@@ -832,36 +850,17 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                document.getElementById(\"hellobar-bar\").style.display = \"none\";\n");
       out.write("                document.getElementById(\"idMostrarNotif\").value = \"\";\n");
       out.write("                document.getElementById(\"idMostrarNotif\").innerHTML = \"\";\n");
-      out.write("\n");
       out.write("            } else {\n");
       out.write("                document.getElementById(\"hellobar-bar\").style.display = \"\";\n");
       out.write("                document.getElementById(\"idMostrarNotif\").value = \"\";\n");
       out.write("                document.getElementById(\"idMostrarNotif\").innerHTML = \"\";\n");
-      out.write("\n");
       out.write("            }\n");
       out.write("            //alert(notif)\n");
       out.write("        }\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("        function fn_ocultarNotif() {\n");
       out.write("\n");
-      out.write("            document.getElementById(\"idMostrarNotif\").value = \"qqqq\";\n");
-      out.write("            document.getElementById(\"idMostrarNotif\").innerHTML = \"wwww\";\n");
-      out.write("            document.getElementById(\"hellobar-bar\").style.display = \"none\";\n");
-      out.write("        }\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("        function myFunction() {\n");
-      out.write("            /*document.getElementById('idBtnPublicar').onclick = function () {\n");
-      out.write("             alert('Hey Alerta Wey!');  \n");
-      out.write("             }*/\n");
-      out.write("            var text = document.getElementById(\"usuarioAux\").value;\n");
-      out.write("            //if (text === \"\") {\n");
-      out.write("            //alert('EL CAMPO ASUNTO ESTÁ VACÍO: ' + text);\n");
-      out.write("            //} \n");
-      out.write("\n");
-      out.write("        }\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -905,10 +904,10 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle user-action\"><img src=\"imagenes/iconoLogin.png\" class=\"avatar\" alt=\"Avatar\"> ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${usuarioSesion}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(" <b class=\"caret\"></b></a>\n");
-      out.write("                         <ul class=\"dropdown-menu\">\n");
-      out.write("                       <!--<li><a href=\"#\"><i class=\"fa fa-user-o\"></i> Profile</a></li>\n");
-      out.write("                            <li><a href=\"#\"><i class=\"fa fa-calendar-o\"></i> Calendar</a></li>\n");
-      out.write("                            <li><a href=\"#\"><i class=\"fa fa-sliders\"></i> Settings</a></li>-->\n");
+      out.write("                    <ul class=\"dropdown-menu\">\n");
+      out.write("                        <!--<li><a href=\"#\"><i class=\"fa fa-user-o\"></i> Profile</a></li>\n");
+      out.write("                             <li><a href=\"#\"><i class=\"fa fa-calendar-o\"></i> Calendar</a></li>\n");
+      out.write("                             <li><a href=\"#\"><i class=\"fa fa-sliders\"></i> Settings</a></li>-->\n");
       out.write("                        <li class=\"divider\"></li>\n");
       out.write("                        <form action=\"LogueoServlet\" method=\"POST\">\n");
       out.write("                            <input type=\"text\" name=\"txtPaginaActual\" value=\"Blog\" style=\"display:none\"></input>\n");
@@ -973,25 +972,33 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <div id=\"idRegistro\" class=\"signupFrm\">\n");
       out.write("                            <form id=\"formRegistro\" name=\"formRegistro\" class=\"form\" action=\"LogueoServlet\" method=\"POST\" novalidate>\n");
       out.write("                                <div class=\"columna columna1\">\n");
-      out.write("                                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Blog\" style=\"display:none\"></input>\n");
+      out.write("                                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Principal\" style=\"display:none\"></input>\n");
+      out.write("\n");
       out.write("                                    <div class=\"inputContainer\">\n");
       out.write("                                        <input type=\"text\" class=\"input\" id=\"txtNombres\" name=\"txtNombres\" placeholder=\"Juan\"  required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Nombres</label>\n");
+      out.write("\n");
       out.write("                                    </div>\n");
+      out.write("\n");
       out.write("                                    <div class=\"inputContainer\">\n");
       out.write("                                        <input type=\"text\" class=\"input\" id=\"txtApellidos\" name=\"txtApellidos\" placeholder=\"Huamán\"  required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Apellidos</label>\n");
       out.write("                                    </div>\n");
+      out.write("\n");
       out.write("                                    <div class=\"inputContainer\">\n");
       out.write("                                        <input type=\"email\" class=\"input\" id=\"txtCorreo\"  name=\"txtCorreo\" placeholder=\"juan@gmail.com\"  required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Correo</label>\n");
       out.write("                                    </div>\n");
+      out.write("\n");
       out.write("                                    <div class=\"inputContainer\">\n");
       out.write("                                        <input type=\"text\" class=\"input\" id=\"txtCiudad\"  name=\"txtCiudad\" placeholder=\"Lima\"  required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Ciudad</label>\n");
       out.write("                                    </div>\n");
       out.write("                                </div>\n");
+      out.write("\n");
+      out.write("\n");
       out.write("                                <div  class=\"columna columna2\">\n");
+      out.write("\n");
       out.write("                                    <div class=\"inputContainer\">\n");
       out.write("                                        <select  class=\"input\" id=\"txtTipo\" name=\"txtTipo\"  placeholder=\"\" onchange=\"fn_mostrarColegiatura()\" required=\"required\">\n");
       out.write("                                            <option hidden selected>Agricultor</option>\n");
@@ -999,6 +1006,7 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                            <option class=\"input\" value=\"Agrónomo\">Agrónomo</option>\n");
       out.write("                                        </select>\n");
       out.write("                                        <label class=\"label\"for=\"\">Tipo</label>\n");
+      out.write("\n");
       out.write("                                    </div>\n");
       out.write("                                    <div class=\"inputContainer\" id=\"divColegiatura\" name=\"divColegiatura\" Style=\"display:none\">\n");
       out.write("                                        <input type=\"text\" class=\"input\" id=\"txtColegiatura\"  name=\"txtColegiatura\" placeholder=\" \"  >\n");
@@ -1008,8 +1016,8 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                        <input type=\"text\" class=\"input\" id=\"txtUsuario\"   name=\"txtUsuario\" placeholder=\" \"  required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Nombre de Usuario</label>\n");
       out.write("                                    </div>\n");
-      out.write("                                    <div class=\"inputContainer\">\n");
-      out.write("                                        <!--onclick=\"javascript:IrAServletUsandoPost();\" -->\n");
+      out.write("\n");
+      out.write("                                    <div class=\"inputContainer\"> <!--onclick=\"javascript:IrAServletUsandoPost();\" -->\n");
       out.write("                                        <input type=\"password\" id=\"txtPasswordReg\"  name=\"txtPasswordReg\" class=\"input\" placeholder=\" \" required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label\">Contraseña</label>\n");
       out.write("                                    </div>\n");
@@ -1017,15 +1025,11 @@ public final class Blog_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                        <label id=\"txtMsgErrorNombres\" style=\"display:none\"> (*)Existen campos obligatorios.</label>\n");
       out.write("                                    </div>\n");
       out.write("                                </div>\n");
-      out.write("                                <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Registrar\" onclick=\"mostrarRegistro()\">");
+      out.write("\n");
+      out.write("                                <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Registrar\" onclick=\"mostrarRegistro()\">\n");
+      out.write("\n");
+      out.write("                                ");
 
-                                    /*if (request.getAttribute("displayNoneUsuario").equals("")) {
-request.setAttribute("displayNoneLogin", "");
-request.setAttribute("displayNoneUsuario", "none");
-}else{
- request.setAttribute("displayNoneLogin", "none");
-request.setAttribute("displayNoneUsuario", "");
-}*/
                                     System.out.println("respuesta: " + request.getParameter("error"));
                                     String rspt = request.getParameter("error");
                                     String msg = request.getParameter("msgOK");
@@ -1036,10 +1040,12 @@ request.setAttribute("displayNoneUsuario", "");
                                             System.out.println("respuesta msg 1: OK");
                                 
       out.write("\n");
-      out.write("                                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">");
+      out.write("                                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                                    ");
       out.print(request.getParameter("msgOK"));
       out.write("\n");
-      out.write("                                </div>");
+      out.write("                                </div>\n");
+      out.write("                                ");
 
                                     }
                                 } else if (rspt != "") {
@@ -1052,28 +1058,36 @@ request.setAttribute("displayNoneUsuario", "");
 
                                 
       out.write("\n");
-      out.write("                                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">");
+      out.write("                                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                                    ");
       out.print(request.getParameter("msgOK"));
       out.write("\n");
-      out.write("                                </div>");
+      out.write("                                </div>\n");
+      out.write("                                ");
 
                                 } else {
 
                                 
       out.write("\n");
-      out.write("                                <div id=\"msjError\" class=\"alertError\" role=\"alert\">");
+      out.write("                                <div id=\"msjError\" class=\"alertError\" role=\"alert\">\n");
+      out.write("                                    ");
       out.print(request.getParameter("error"));
       out.write("\n");
-      out.write("                                </div>");
+      out.write("                                </div>\n");
+      out.write("                                ");
 
                                         }
                                     }
                                 
       out.write("\n");
       out.write("                            </form>\n");
+      out.write("\n");
       out.write("                        </div>\n");
+      out.write("\n");
       out.write("                    </ul>\n");
       out.write("                </li>\n");
+      out.write("\n");
+      out.write("\n");
       out.write("            </ul>\n");
       out.write("        </div>\n");
       out.write("    </nav>\n");
@@ -1081,30 +1095,30 @@ request.setAttribute("displayNoneUsuario", "");
       out.write("</header> \n");
       out.write("\n");
       out.write("<body onload=\"fn_cargarNotif()\">\n");
-      out.write("     <div id=\"hellobar-bar\" class=\"regular closable\" style=\"display: none\">\n");
-      out.write("            <div class=\"hb-content-wrapper\">\n");
-      out.write("                <div class=\"hb-text-wrapper\">\n");
-      out.write("                    <div class=\"hb-headline-text\">\n");
-      out.write("                        <p><span>");
+      out.write("    <div id=\"hellobar-bar\" class=\"regular closable\" style=\"display: none\">\n");
+      out.write("        <div class=\"hb-content-wrapper\">\n");
+      out.write("            <div class=\"hb-text-wrapper\">\n");
+      out.write("                <div class=\"hb-headline-text\">\n");
+      out.write("                    <p><span>");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mostrarNotif}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("</span></p>\n");
-      out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("                <a href=\"http://www.programacion.net\" target=\"_blank\" class=\"hb-cta hb-cta-button\" style=\"display:none\">\n");
-      out.write("                    <div class=\"hb-text-holder\">\n");
-      out.write("                        <p>Regístrate</p>\n");
-      out.write("                    </div>\n");
-      out.write("                </a>\n");
       out.write("            </div>\n");
-      out.write("            <div class=\"hb-close-wrapper\">\n");
-      out.write("                <form action=\"LogueoServlet\" method=\"POST\">\n");
-      out.write("                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Principal\" style=\"display:none\"></input>\n");
-      out.write("                    <input  class=\"idX\" type=\"submit\" name=\"accion\" value=\"X\"></input>\n");
-      out.write("                    <!--<a href=\"javascript:void(0);\" class=\"icon-close\" onclick=\"$('#hellobar-bar').fadeOut()\">X</a>-->\n");
-      out.write("                </form>\n");
-      out.write("\n");
-      out.write("            </div>\n");
+      out.write("            <a href=\"http://www.programacion.net\" target=\"_blank\" class=\"hb-cta hb-cta-button\" style=\"display:none\">\n");
+      out.write("                <div class=\"hb-text-holder\">\n");
+      out.write("                    <p>Regístrate</p>\n");
+      out.write("                </div>\n");
+      out.write("            </a>\n");
       out.write("        </div>\n");
+      out.write("        <div class=\"hb-close-wrapper\">\n");
+      out.write("            <form action=\"LogueoServlet\" method=\"POST\">\n");
+      out.write("                <input type=\"text\" name=\"txtPaginaActual\" value=\"Principal\" style=\"display:none\"></input>\n");
+      out.write("                <input  class=\"idX\" type=\"submit\" name=\"accion\" value=\"X\"></input>\n");
+      out.write("                <!--<a href=\"javascript:void(0);\" class=\"icon-close\" onclick=\"$('#hellobar-bar').fadeOut()\">X</a>-->\n");
+      out.write("            </form>\n");
+      out.write("\n");
+      out.write("        </div>\n");
+      out.write("    </div>\n");
       out.write("\n");
       out.write("\n");
       out.write("    <main class=\"main\">\n");
@@ -1163,10 +1177,13 @@ request.setAttribute("displayNoneUsuario", "");
       out.write("            <h4 class=\"publicarBlog\"><small>Publicaciones recientes</small></h4>\n");
       out.write("\n");
       out.write("\n");
-      out.write("            <div class=\"publicarBlog\">\n");
+      out.write("            <div id=\"idPublicaciones\" class=\"publicarBlog\">\n");
       out.write("                ");
       if (_jspx_meth_c_forEach_0(_jspx_page_context))
         return;
+      out.write("\n");
+      out.write("            </div>\n");
+      out.write("            <div id=\"idComentarios\" class=\"publicarBlog\">\n");
       out.write("\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
@@ -1228,11 +1245,16 @@ request.setAttribute("displayNoneUsuario", "");
         do {
           out.write("\n");
           out.write("                    <div class=\"panelBlog\">\n");
-          out.write("                        <h2>");
+          out.write("                        <form action=\"PublicacionesServlet?accion=buscar\" method=\"POST\">\n");
+          out.write("                            <input type=\"text\" name=\"txtPaginaActual\" value=\"Blog\" style=\"display:none\"></input>\n");
+          out.write("                            <input type=\"text\" name=\"idTxtAsuntoComentar\" value=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${publicacion.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" style=\"display:none\"></input>\n");
+          out.write("                            <h2 name=\"txtAsuntoComentar\">");
           if (_jspx_meth_c_out_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("</h2>\n");
-          out.write("                        <h5><span ></span>Publicado por ");
+          out.write("                            <h5 name=\"txtUsuarioComentar\">Publicado por ");
           if (_jspx_meth_c_out_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write(',');
@@ -1240,20 +1262,14 @@ request.setAttribute("displayNoneUsuario", "");
           if (_jspx_meth_c_out_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("</h5>\n");
-          out.write("                        <p>");
+          out.write("                            <p>");
           if (_jspx_meth_c_out_3((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("</p>\n");
-          out.write("                        <span ><span >0</span> respuestas</span> \n");
-          out.write("                        <!--document.getElementById(\"element\").style.display = \"none\";-->\n");
-          out.write("                        <form  role=\"form\">\n");
-          out.write("                            <div id=\"panelComentario\" class=\"form-group\" style=\"display:none\">\n");
-          out.write("                                <textarea class=\"form-control\" rows=\"3\" required></textarea>\n");
-          out.write("                            </div>\n");
-          out.write("                            <button id=\"comentar\" type=\"submit\" class=\"submitBtnBlog\" onclick=\"mostrar()\">Comentar</button>\n");
-          out.write("                            <button id=\"guardar\" type=\"submit\" class=\"submitBtnBlog\" onclick=\"mostrar()\" style=\"display:none\">Guardar</button>\n");
-          out.write("                            <button id=\"cancelar\" type=\"submit\" class=\"submitBtnBlog\" onclick=\"ocultar()\" style=\"display:none\">Cancelar</button>\n");
+          out.write("                            <input class=\"searchBtnBlog\" type=\"submit\" name=\"accion\" value=\"Comentar\"></input>\n");
           out.write("                        </form>\n");
+          out.write("                        <span ><span >0</span> respuestas</span> \n");
+          out.write("                        <p>\n");
           out.write("                    </div>\n");
           out.write("                    <br>\n");
           out.write("                ");

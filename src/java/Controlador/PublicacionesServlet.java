@@ -5,7 +5,9 @@
  */
 package Controlador;
 
+import DAO.ComentarioDAO;
 import DAO.PublicacionDAO;
+import Modelo.Comentario;
 import Modelo.Publicacion;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,6 +40,7 @@ public class PublicacionesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -65,18 +68,17 @@ public class PublicacionesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         PublicacionDAO publicacionDao;
         publicacionDao = new PublicacionDAO();
-        //String usuario = request.getSession().getAttribute("usuarioSesion").toString();
-        // request.getSession().setAttribute("usuarioSesion",usuario);
-        //System.out.println("INICIO BLOG: " + usuario);
         RequestDispatcher dispatcher = null;
+
         request.getSession().setAttribute("bloqueado", null);
-        dispatcher = request.getRequestDispatcher("Blog.jsp");
         List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
         request.setAttribute("lista", listaPublicaciones);
+        dispatcher = request.getRequestDispatcher("Blog.jsp");
 
-        System.out.println("dispatcher: " + dispatcher);
+        //dispatcher = request.getRequestDispatcher("Blog.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -94,34 +96,40 @@ public class PublicacionesServlet extends HttpServlet {
         //doGet(request, response);
         PublicacionDAO publicacionDao;
         publicacionDao = new PublicacionDAO();
+
+        ComentarioDAO comentarioDao;
+        comentarioDao = new ComentarioDAO();
+
         String accion;
         RequestDispatcher dispatcher = null;
 
-        accion = request.getParameter("accion");
+        Date ahora = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
+        String varUsuario = "";
+        try {
+            varUsuario = request.getSession().getAttribute("usuarioSesion").toString();
+        } catch (Exception e) {
+            varUsuario = "";
+        }
+
+        accion = request.getParameter("accion");
+        System.out.println("ACCION: " + accion);
         if (accion.equals("inicio")) {
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
             request.setAttribute("lista", listaPublicaciones);
         } else if (accion.equals("insert")) {
             //System.out.println("usuario: " + request.getAttribute("usuarioSesion").toString());
-            String varUsuario = "";
-            try {
-                varUsuario = request.getSession().getAttribute("usuarioSesion").toString();
-            } catch (Exception e) {
-                varUsuario = "";
-            }
+
             if (varUsuario.equals("")) {
 
-                request.getSession().setAttribute("bloqueado", "Debe iniciar sesión para poder realizar publicaciones.");
+                request.getSession().setAttribute("bloqueado", "* Debe iniciar sesión para poder realizar publicaciones.");
                 List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
                 request.setAttribute("lista", listaPublicaciones);
                 dispatcher = request.getRequestDispatcher("Blog.jsp");
             } else {
                 request.getSession().setAttribute("bloqueado", null);
-
-                Date ahora = new Date();
-                SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
                 String asunto = request.getParameter("txtAsunto");
                 String cuerpo = request.getParameter("txtCuerpo");
@@ -129,7 +137,7 @@ public class PublicacionesServlet extends HttpServlet {
 
                 String usuario = request.getSession().getAttribute("usuarioSesion").toString();
 
-                Publicacion publicacion = new Publicacion(null, asunto, cuerpo, fecha, usuario);
+                Publicacion publicacion = new Publicacion(null, asunto, cuerpo, fecha, usuario, null);
                 publicacionDao.publicarBlog(publicacion);
 
                 dispatcher = request.getRequestDispatcher("Blog.jsp");
@@ -137,11 +145,47 @@ public class PublicacionesServlet extends HttpServlet {
                 request.setAttribute("lista", listaPublicaciones);
             }
 
-        } else if (accion.equals("buscar")) {
-            String buscar = request.getParameter("txtBuscar").toUpperCase();
-            dispatcher = request.getRequestDispatcher("Blog.jsp");
-            List<Publicacion> buscarPublicaciones = publicacionDao.buscarPublicacion(buscar);
+        } else if (accion.equals("comentar")) {
+            Integer idAsunto = Integer.parseInt(request.getParameter("txtIdAsunto"));
+            String comentarios = request.getParameter("txtComentario");
+            //String usuario = request.getSession().getAttribute("usuarioSesion").toString();
+            String fecha = formateador.format(ahora);
+
+            Comentario comentario = new Comentario(null, idAsunto, comentarios, varUsuario, fecha);
+            comentarioDao.comentarPublicacion(comentario);
+
+            List<Comentario> listarComentarios = comentarioDao.listarComentarios(idAsunto);
+            request.setAttribute("comentariosBlog", listarComentarios);
+
+            List<Publicacion> buscarPublicaciones = publicacionDao.buscarPublicacion(null, idAsunto);
             request.setAttribute("lista", buscarPublicaciones);
+
+            dispatcher = request.getRequestDispatcher("Comentarios.jsp");
+        } else if (accion.equals("buscar")) {
+            String buscar;
+            Integer idPublicacion;
+            
+            try {
+                buscar = request.getParameter("txtBuscar").toUpperCase();
+                List<Publicacion> buscarPublicaciones = publicacionDao.buscarPublicacion(buscar, 0);
+                dispatcher = request.getRequestDispatcher("Blog.jsp");
+                request.setAttribute("lista", buscarPublicaciones);
+            } catch (Exception e) {
+                buscar = "";
+            }
+            
+            try {
+                idPublicacion = Integer.parseInt(request.getParameter("idTxtAsuntoComentar"));
+                List<Comentario> listarComentarios = comentarioDao.listarComentarios(idPublicacion);
+                request.setAttribute("comentariosBlog", listarComentarios);
+
+                List<Publicacion> buscarPublicaciones = publicacionDao.buscarPublicacion(null, idPublicacion);
+                dispatcher = request.getRequestDispatcher("Comentarios.jsp");
+                request.setAttribute("lista", buscarPublicaciones);
+            } catch (Exception e) {
+                idPublicacion = 0;
+            }
+
         } else {
             dispatcher = request.getRequestDispatcher("Blog.jsp");
             List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
