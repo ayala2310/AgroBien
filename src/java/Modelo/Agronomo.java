@@ -15,20 +15,16 @@ public class Agronomo {
     private Integer idUsuario;
     private String nombres;
     private String apellidos;
-    private String nroDocumento;
     private String ciudad;
-    private String celular;
     private String correo;
     private String colegiatura;
 
-    public Agronomo(Integer id, Integer idUsuario, String nombres, String apellidos, String nroDocumento, String ciudad, String celular, String correo, String colegiatura) {
+    public Agronomo(Integer id, Integer idUsuario, String nombres, String apellidos, String ciudad, String correo, String colegiatura) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.nroDocumento = nroDocumento;
         this.ciudad = ciudad;
-        this.celular = celular;
         this.correo = correo;
         this.colegiatura = colegiatura;
     }
@@ -67,28 +63,12 @@ public class Agronomo {
         this.apellidos = apellidos;
     }
 
-    public String getNroDocumento() {
-        return nroDocumento;
-    }
-
-    public void setNroDocumento(String nroDocumento) {
-        this.nroDocumento = nroDocumento;
-    }
-
     public String getCiudad() {
         return ciudad;
     }
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
     }
 
     public String getCorreo() {

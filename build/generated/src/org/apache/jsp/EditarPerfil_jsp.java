@@ -3,10 +3,8 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
-import DAO.AgronomoDAO;
-import java.sql.ResultSet;
 
-public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class EditarPerfil_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -43,17 +41,8 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("\n");
-      out.write("\n");
+      out.write("<html lang=\"en\">\n");
+      out.write("    \n");
       out.write("    <header>\n");
       out.write("\n");
       out.write("\n");
@@ -67,6 +56,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">  \n");
       out.write("        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n");
       out.write("        <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n");
+      out.write("\n");
       out.write("        <style>\n");
       out.write("            body {\n");
       out.write("                font-family: 'Varela Round', sans-serif;\n");
@@ -101,7 +91,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            }\n");
       out.write("            .navbar .navbar-brand b {\n");
       out.write("                font-weight: bold;\n");
-      out.write("                color: white;\t\n");
+      out.write("                color: white;\t\t\n");
       out.write("            }\n");
       out.write("            .navbar .form-inline {\n");
       out.write("                display: inline-block;\n");
@@ -306,7 +296,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                box-shadow: 2px 2px 10px 1px ;\n");
       out.write("            }\n");
       out.write("            .slide{\n");
-      out.write("                display:flex;\n");
+      out.write("                display: flex;\n");
       out.write("                transform: translate3d(0,0,0);\n");
       out.write("                transition: all 600ms;\n");
       out.write("                animation-name: autoplay;\n");
@@ -420,6 +410,14 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                width: 800px;\n");
       out.write("                height: 70%;\n");
       out.write("                border-radius: 8px;\n");
+      out.write("                padding: 3px 2px;\n");
+      out.write("            }\n");
+      out.write("            .perfil{\n");
+      out.write("                top: -10px;\n");
+      out.write("                background-color: white;\n");
+      out.write("                width: 800px;\n");
+      out.write("                height: 70%;\n");
+      out.write("                border-radius: 8px;\n");
       out.write("                padding: 3px 20px;\n");
       out.write("            }\n");
       out.write("            .columna{\n");
@@ -434,7 +432,6 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("            .columnaBlog{\n");
       out.write("                float:left;\n");
-      out.write("                height: 40%;\n");
       out.write("            }\n");
       out.write("            .columnaBlog1 {\n");
       out.write("                width:15%;\n");
@@ -471,7 +468,6 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            .input:focus{\n");
       out.write("                border: 1px solid #1aafa0;\n");
       out.write("            }\n");
-      out.write("\n");
       out.write("            .submitBtn {\n");
       out.write("                position: relative;\n");
       out.write("                top: 0px;\n");
@@ -557,6 +553,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                font-size: 16px;\n");
       out.write("                position:relative;\n");
       out.write("            }\n");
+      out.write("\n");
       out.write("            .submitBtnBlog:hover {\n");
       out.write("                background-color: #1aafa0;\n");
       out.write("            }\n");
@@ -575,6 +572,8 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            .searchBtnBlog:hover {\n");
       out.write("                background-color: #1aafa0;\n");
       out.write("            }\n");
+      out.write("\n");
+      out.write("\n");
       out.write("\n");
       out.write("            #hellobar-bar {\n");
       out.write("                position: fixed;\n");
@@ -683,105 +682,35 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            }\n");
       out.write("\n");
       out.write("\n");
-      out.write("            .pagAgronomoAnt {\n");
-      out.write("                border: 1px solid gray;\n");
-      out.write("                border-top-left-radius: 8px;\n");
-      out.write("                border-bottom-left-radius: 8px;\n");
-      out.write("                padding: 4px 8px;\n");
-      out.write("                background-color:cadetblue;\n");
-      out.write("                color: white;\n");
+      out.write("            .botonBloqueado{\n");
+      out.write("                color: red;\n");
       out.write("            }\n");
-      out.write("            .pagAgronomo {\n");
-      out.write("                padding: 4px 8px;\n");
-      out.write("                margin-left: auto;\n");
-      out.write("                padding: 5px 10px;\n");
-      out.write("                border: none;\n");
-      out.write("                background-color:cadetblue;\n");
-      out.write("                color: white;\n");
+      out.write("\n");
+      out.write("            .panelBlog{\n");
+      out.write("                border: 1px solid #1aafa0;\n");
       out.write("                border-radius: 4px;\n");
-      out.write("                cursor: pointer;\n");
-      out.write("                margin: 2px;\n");
-      out.write("            }\n");
-      out.write("            .pagAgronomoDes {\n");
-      out.write("                border: 1px solid gray;\n");
-      out.write("                border-top-right-radius: 8px;\n");
-      out.write("                border-bottom-right-radius: 8px;\n");
-      out.write("                padding: 4px 8px;\n");
-      out.write("                background-color:cadetblue;\n");
-      out.write("                color: white;\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("            .searchBtnBlog {\n");
-      out.write("                margin-left: auto;\n");
-      out.write("                padding: 5px 8px;\n");
-      out.write("                top:5px;\n");
-      out.write("                border: none;\n");
-      out.write("                background-color:#31bfb1;\n");
-      out.write("                color: white;\n");
-      out.write("                border-radius: 6px;\n");
-      out.write("                cursor: pointer;\n");
-      out.write("                font-size: 16px;\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("            .searchBtnBlog:hover {\n");
-      out.write("                background-color: #1aafa0;\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("            .table-responsive{\n");
-      out.write("                max-width: 80%;\n");
-      out.write("            }\n");
-      out.write("\n");
-      out.write("            /* table {\n");
-      out.write("                 border-collapse:initial;\n");
-      out.write("                 width: 100%;\n");
-      out.write("             }\n");
-      out.write("             th {\n");
-      out.write("                 background-color: #04AA6D;\n");
-      out.write("                 color: white;\n");
-      out.write("             }\n");
-      out.write("             th, td {\n");
-      out.write("                 padding: 8px;\n");
-      out.write("                 text-align: left;\n");
-      out.write("                 border-bottom: 1px solid #ddd;\n");
-      out.write("             }\n");
-      out.write(" \n");
-      out.write("             tr:hover {background-color: coral;}*/\n");
-      out.write("\n");
-      out.write("            /*tr:nth-child(even) {background-color: #f2f2f2;}*/\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("            .headerTable{\n");
-      out.write("                width:100%; \n");
-      out.write("                border-collapse:collapse; \n");
-      out.write("                background-color: cadetblue;\n");
+      out.write("                padding:0.01em 16px;\n");
+      out.write("                background-color:#F7F2F1;\n");
       out.write("                box-shadow: 0px 0px 10px;\n");
-      out.write("                padding: 1rem 2rem;\n");
       out.write("            }\n");
-      out.write("            td{\n");
-      out.write("                padding: 1rem 2rem;\n");
-      out.write("            } th{\n");
-      out.write("                padding: 1rem 2rem;\n");
+      out.write("\n");
+      out.write("            .idAsunto{\n");
+      out.write("                border: 1px solid #1aafa0;\n");
+      out.write("                border-radius: 7px;\n");
+      out.write("                background-color:#22af73;\n");
+      out.write("                cursor:default;\n");
       out.write("            }\n");
-      out.write("            .bodyTable{\n");
-      out.write("                width:100%; \n");
-      out.write("                border-collapse: separate; \n");
-      out.write("                background-color:#ebf1f4;\n");
-      out.write("                padding: 8px;\n");
-      out.write("            }\n");
-      out.write("            .bodyTable tr:hover {\n");
-      out.write("                background-color:#DADCE0;\n");
+      out.write("\n");
+      out.write("            .itemPerfil{\n");
+      out.write("                border: 1px solid #1aafa0;\n");
+      out.write("                background-color:#F7F2F1;\n");
+      out.write("                width: 100%;\n");
+      out.write("                height: 100%;\n");
       out.write("            }\n");
       out.write("\n");
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("            ::-webkit-scrollbar {\n");
-      out.write("                display: none;\n");
-      out.write("            }\n");
       out.write("\n");
       out.write("        </style>\n");
-      out.write("\n");
       out.write("        <script>\n");
       out.write("\n");
       out.write("\n");
@@ -808,28 +737,17 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                document.getElementById('cancelar').style.display = 'none';\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("            // Prevent dropdown menu from closing when click inside the form\n");
       out.write("            $(document).on(\"click\", \".navbar-right .dropdown-menu\", function (e) {\n");
       out.write("                e.stopPropagation();\n");
       out.write("            });\n");
-      out.write("            /*const tipo = document.querySelector(\"#txtTipo\");\n");
-      out.write("             const input = document.querySelector(\"[name=divColegiatura]\");\n");
-      out.write("             tipo.addEventListener(\"change\", () => {\n");
-      out.write("             if (tipo.value === \"agronomo\") {\n");
-      out.write("             input.style.display = 'initial';\n");
-      out.write("             } else {\n");
-      out.write("             input.style.display = 'none';\n");
-      out.write("             }\n");
-      out.write("             });*/\n");
       out.write("\n");
-      out.write("            function fn_mostrarColegiatura() {\n");
-      out.write("                tipo = document.getElementById(\"txtTipo\").value;\n");
+      out.write("            function fn_mostrarColegiatura(valor, divColeg) {\n");
+      out.write("                tipo = document.getElementById(valor).value;\n");
       out.write("                if (tipo === \"Agrónomo\") {\n");
-      out.write("                    document.getElementById(\"divColegiatura\").style.display = \"block\";\n");
+      out.write("                    document.getElementById(divColeg).style.display = \"block\";\n");
       out.write("                } else {\n");
-      out.write("                    document.getElementById(\"divColegiatura\").style.display = \"none\";\n");
+      out.write("                    document.getElementById(divColeg).style.display = \"none\";\n");
       out.write("                }\n");
       out.write("            }\n");
       out.write("\n");
@@ -840,7 +758,9 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                } else {\n");
       out.write("                    document.getElementById('idPanelRegistro').style.display = \"\";\n");
       out.write("                }\n");
+      out.write("\n");
       out.write("            }\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("            (function () {\n");
@@ -930,12 +850,10 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    document.getElementById(\"hellobar-bar\").style.display = \"none\";\n");
       out.write("                    document.getElementById(\"idMostrarNotif\").value = \"\";\n");
       out.write("                    document.getElementById(\"idMostrarNotif\").innerHTML = \"\";\n");
-      out.write("\n");
       out.write("                } else {\n");
       out.write("                    document.getElementById(\"hellobar-bar\").style.display = \"\";\n");
       out.write("                    document.getElementById(\"idMostrarNotif\").value = \"\";\n");
       out.write("                    document.getElementById(\"idMostrarNotif\").innerHTML = \"\";\n");
-      out.write("\n");
       out.write("                }\n");
       out.write("                //alert(notif)\n");
       out.write("            }\n");
@@ -943,47 +861,43 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("        </script>\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("        </script>\n");
       out.write("        <input value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mostrarNotif}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\" id=\"idMostrarNotif\" style=\"display: none \"></input>\n");
+      out.write("\n");
       out.write("        <nav class=\"menu navbar navbar-default navbar-expand-lg navbar-light\">\n");
       out.write("            <div class=\"navbar-header\">\n");
-      out.write("                <a class=\"navbar-brand\" href=\"#\">Agro<b>Bien</b></a>  \n");
+      out.write("                <a class=\"navbar-brand\" href=\"#\">Agro<b>Bien</b></a>\n");
+      out.write("                <!--\n");
+      out.write("                        <button type=\"button\" data-target=\"#navbarCollapse\" data-toggle=\"collapse\" class=\"navbar-toggle\"><span class=\"navbar-toggler-icon\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>\n");
+      out.write("                -->\n");
       out.write("            </div>\n");
       out.write("            <!-- Collection of nav links, forms, and other content for toggling -->\n");
       out.write("            <div id=\"navbarCollapse\" class=\"collapse navbar-collapse\">\n");
       out.write("                <ul class=\"nav navbar-nav\">\n");
-      out.write("                    <li><a href=\"Principal.jsp\">Inicio</a></li>\n");
-      out.write("                    <li><a href=\"PublicacionesServlet\">Blog</a></li>\t\n");
-      out.write("                    <!--\n");
-      out.write("                    <li class=\"dropdown\">\n");
-      out.write("                            <a data-toggle=\"dropdown\" class=\"dropdown-toggle\" href=\"#\">Services <b class=\"caret\"></b></a>\n");
-      out.write("                            <ul class=\"dropdown-menu\">\t\t\t\t\t\n");
-      out.write("                                    <li><a href=\"#\">Web Design</a></li>\n");
-      out.write("                                    <li><a href=\"#\">Web Development</a></li>\n");
-      out.write("                                    <li><a href=\"#\">Graphic Design</a></li>\n");
-      out.write("                                    <li><a href=\"#\">Digital Marketing</a></li>\n");
-      out.write("                            </ul>\n");
+      out.write("                    <li >\n");
+      out.write("                        <a href=\"Principal.jsp\">Inicio</a>\n");
       out.write("                    </li>\n");
+      out.write("                    <li class=\"active\">\n");
+      out.write("                        <a href=\"PublicacionesServlet\">Blog</a>\n");
+      out.write("                    </li>\n");
+      out.write("                    <!--\n");
+      out.write("                            <li class=\"dropdown\"><a data-toggle=\"dropdown\" class=\"dropdown-toggle\" href=\"#\">Services <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#\">Web Design</a></li><li><a href=\"#\">Web Development</a></li><li><a href=\"#\">Graphic Design</a></li><li><a href=\"#\">Digital Marketing</a></li></ul></li>\n");
       out.write("                    -->\n");
-      out.write("                    <li class=\"active\" style=\"display:");
+      out.write("                    <li id=\"idAgronomo\" style=\"display: ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mostrarAgronomo}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\"><a href=\"AgronomoServlet\">Agrónomos</a></li>\n");
       out.write("                    <li><a href=\"Noticias.jsp\">Noticias</a></li>\n");
-      out.write("\n");
       out.write("                </ul>\n");
       out.write("                <!--\n");
-      out.write("                    <form class=\"navbar-form form-inline\">\n");
-      out.write("                            <div class=\"input-group search-box\">\t\t\t\t\t\t\t\t\n");
-      out.write("                                    <input type=\"text\" id=\"search\" class=\"form-control\" placeholder=\"Search here...\">\n");
-      out.write("                                    <span class=\"input-group-addon\"><i class=\"material-icons\">&#xE8B6;</i></span>\n");
-      out.write("                            </div>\n");
-      out.write("                    </form>\n");
+      out.write("                            <form class=\"navbar-form form-inline\"><div class=\"input-group search-box\"><input type=\"text\" id=\"search\" class=\"form-control\" placeholder=\"Search here...\"><span class=\"input-group-addon\"><i class=\"material-icons\">&#xE8B6;</i></span></div></form>\n");
       out.write("                -->\n");
       out.write("\n");
-      out.write("                <ul class=\"nav navbar-nav navbar-right\" style=\"display:");
+      out.write("                <ul id=\"idUsuario\" class=\"nav navbar-nav navbar-right\" style=\"display: ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${displayNoneUsuario}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\">\n");
       out.write("                    <li class=\"dropdown\">\n");
@@ -991,45 +905,41 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${usuarioSesion}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(" <b class=\"caret\"></b></a>\n");
       out.write("                        <ul class=\"dropdown-menu\">\n");
-      out.write("                            <!--<li><a href=\"#\"><i class=\"fa fa-user-o\"></i> Profile</a></li>\n");
-      out.write("                            <li><a href=\"#\"><i class=\"fa fa-calendar-o\"></i> Calendar</a></li>\n");
-      out.write("                            <li><a href=\"#\"><i class=\"fa fa-sliders\"></i> Settings</a></li>-->\n");
+      out.write("                             <li><a href=\"LogueoServlet?accion=Mi Perfil\"><i class=\"fa fa-user-o\"></i> Mi Perfil</a></li>\n");
+      out.write("                            <!--  <li><a href=\"#\"><i class=\"fa fa-calendar-o\"></i> Calendar</a></li>\n");
+      out.write("                              <li><a href=\"#\"><i class=\"fa fa-sliders\"></i> Settings</a></li>-->\n");
       out.write("                            <li class=\"divider\"></li>\n");
       out.write("                            <form action=\"LogueoServlet\" method=\"POST\">\n");
-      out.write("                                <input type=\"text\" name=\"txtPaginaActual\" value=\"Agronomos\" style=\"display:none\"></input>\n");
+      out.write("                                <input type=\"text\" name=\"txtPaginaActual\" value=\"Blog\" style=\"display:none\"></input>\n");
       out.write("                                <input type=\"submit\" class=\"btn btn-primary btn-block\" name=\"accion\" value=\"Cerrar Sesión\">\n");
       out.write("                            </form>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                </ul>   \n");
-      out.write("\n");
-      out.write("                <ul class=\"nav navbar-nav navbar-right\" style=\"display:");
+      out.write("                <ul id=\"login\" class=\"nav navbar-nav navbar-right\" style=\"display: ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${displayNoneLogin}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\">\n");
       out.write("                    <li>\n");
       out.write("                        <a data-toggle=\"dropdown\" class=\"dropdown-toggle\" href=\"#\">Iniciar Sesión</a>\n");
-      out.write("                        <ul class=\"dropdown-menu form-wrapper\">\t\t\t\t\t\n");
+      out.write("                        <ul class=\"dropdown-menu form-wrapper\">\n");
       out.write("                            <li>\n");
       out.write("                                <form action=\"LogueoServlet\" method=\"POST\">\n");
       out.write("                                    <p class=\"hint-text\">Inicie sesión con su usuario y contraseña.</p>\n");
       out.write("                                    <!--\n");
-      out.write("                                    <div class=\"form-group social-btn clearfix\">\n");
-      out.write("                                        <a href=\"#\" class=\"btn btn-primary pull-left\"><i class=\"fa fa-facebook\"></i> Facebook</a>\n");
-      out.write("                                        <a href=\"#\" class=\"btn btn-info pull-right\"><i class=\"fa fa-twitter\"></i> Twitter</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                    <div class=\"or-seperator\"><b>or</b></div>\n");
+      out.write("                                    <div class=\"form-group social-btn clearfix\"><a href=\"#\" class=\"btn btn-primary pull-left\"><i class=\"fa fa-facebook\"></i> Facebook</a><a href=\"#\" class=\"btn btn-info pull-right\"><i class=\"fa fa-twitter\"></i> Twitter</a></div><div class=\"or-seperator\"><b>or</b></div>\n");
       out.write("                                    -->\n");
-      out.write("                                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Agronomos\" style=\"display:none\"></input>\n");
+      out.write("                                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Blog\" style=\"display:none\"></input>\n");
       out.write("                                    <div class=\"form-group\">\n");
       out.write("                                        <input type=\"text\" class=\"form-control\" name=\"txtUsuario\" placeholder=\"Username\" required=\"required\">\n");
       out.write("                                        <label for=\"\" class=\"label1\">Usuario</label>\n");
       out.write("                                    </div>\n");
       out.write("                                    <div class=\"form-group\">\n");
-      out.write("                                        <input type=\"password\" id=\"password\" class=\"form-control\" name=\"txtPassword\" placeholder=\"Password\" required=\"required\">\n");
+      out.write("                                        <input type=\"password\" id=\"txtPassword\" class=\"form-control\" name=\"txtPassword\" placeholder=\"Password\" required=\"required\" >\n");
       out.write("                                        <!--  <img id=\"icon1\" class=\"icono\" src=\"imagenes/iconoMostrar.png\" onclick=\"mostrarContrasena()\"/>-->\n");
       out.write("                                        <label for=\"\" class=\"label2\">Contraseña</label>\n");
       out.write("                                    </div>\n");
       out.write("                                    ");
+
                                         if (request.getParameter("error") == null) {
 
                                         } else if (request.getParameter("error") != "") {
@@ -1046,24 +956,19 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
                                     
       out.write("\n");
       out.write("                                    <input type=\"submit\" class=\"btn btn-primary btn-block\" name=\"accion\" value=\"Iniciar Sesión\">\n");
-      out.write("\n");
       out.write("                                    <div class=\"form-footer\">\n");
-      out.write("                                        <a href=\"#\">¿Olvidó su contraseña?</a>\n");
+      out.write("                                        <a href=\"RecuperarPassword.jsp\">¿Olvidó su contraseña?</a>\n");
       out.write("                                    </div>\n");
       out.write("                                </form>\n");
       out.write("                            </li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                </ul>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("                <ul class=\"nav navbar-nav navbar-right\">\n");
       out.write("                    <li><a href=\"#\" class=\"notifications\"><i class=\"fa fa-bell-o\"></i><span class=\"badge\">1</span></a></li>\n");
       out.write("                    <li>\n");
       out.write("                        <a href=\"#\" data-toggle=\"dropdown\" class=\"btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1\" onclick=\"mostrarRegistro()\">Registrarse</a>\n");
-      out.write("                        <ul id=\"idPanelRegistro\" class=\"dropdown-menu\" style=\"display:none\">\t\t\n");
-      out.write("\n");
+      out.write("                        <ul id=\"idPanelRegistro\" class=\"dropdown-menu\" style=\"display:none\">\n");
       out.write("                            <div id=\"idRegistro\" class=\"signupFrm\">\n");
       out.write("                                <form id=\"formRegistro\" name=\"formRegistro\" class=\"form\" action=\"LogueoServlet\" method=\"POST\" novalidate>\n");
       out.write("                                    <div class=\"columna columna1\">\n");
@@ -1095,7 +1000,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div  class=\"columna columna2\">\n");
       out.write("\n");
       out.write("                                        <div class=\"inputContainer\">\n");
-      out.write("                                            <select  class=\"input\" id=\"txtTipo\" name=\"txtTipo\"  placeholder=\"\" onchange=\"fn_mostrarColegiatura()\" required=\"required\">\n");
+      out.write("                                            <select  class=\"input\" id=\"txtTipo\" name=\"txtTipo\"  placeholder=\"\" onchange=\"fn_mostrarColegiatura('txtTipo', 'divColegiatura')\" required=\"required\">\n");
       out.write("                                                <option hidden selected>Agricultor</option>\n");
       out.write("                                                <option class=\"input\" value=\"Agricultor\">Agricultor</option>\n");
       out.write("                                                <option class=\"input\" value=\"Agrónomo\">Agrónomo</option>\n");
@@ -1113,7 +1018,7 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                        </div>\n");
       out.write("\n");
       out.write("                                        <div class=\"inputContainer\"> <!--onclick=\"javascript:IrAServletUsandoPost();\" -->\n");
-      out.write("                                            <input type=\"password\" id=\"txtPasswordReg\"  name=\"txtPasswordReg\" class=\"input\" placeholder=\" \" required=\"required\">\n");
+      out.write("                                            <input type=\"password\" id=\"txtPasswordReg\"  name=\"txtPasswordReg\" class=\"input\" placeholder=\" \" required=\"required\" minlength=\"8\">\n");
       out.write("                                            <label for=\"\" class=\"label\">Contraseña</label>\n");
       out.write("                                        </div>\n");
       out.write("                                        <div class=\"inputContainer\">\n");
@@ -1189,261 +1094,150 @@ public final class Agronomos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("    </header> \n");
       out.write("\n");
-      out.write("    ");
-
-        ResultSet rs;
-        AgronomoDAO a = new AgronomoDAO();
-        String valorBuscado = "";
-        int pag = 0;
-        int cantxPag = 5;
-    
+      out.write("    <body>\n");
       out.write("\n");
+      out.write("        <div class=\"signupFrm\">\n");
       out.write("\n");
-      out.write("    <body onload=\"fn_cargarNotif()\">\n");
-      out.write("        <div id=\"hellobar-bar\" class=\"regular closable\" style=\"display:none\">\n");
-      out.write("            <div class=\"hb-content-wrapper\">\n");
-      out.write("                <div class=\"hb-text-wrapper\">\n");
-      out.write("                    <div class=\"hb-headline-text\">\n");
-      out.write("                        <p><span>");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mostrarNotif}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</span></p>\n");
+      out.write("            <form name=\"editarPerfil\" class=\"perfil\" action=\"LogueoServlet\" method=\"POST\" >\n");
+      out.write("                <h2 align-text=\"center\">Mi Perfil</h2>\n");
+      out.write("                <br>\n");
+      out.write("                <div class=\"columna columna1\">\n");
+      out.write("                    <input name=\"txtPerfilIdUsuario\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilIdUsuario}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" style=\"display:none\">\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("\n");
+      out.write("                        <input name=\"txtPerfilNombres\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilNombres}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"text\" class=\"input\" placeholder=\"Juan\"  required>\n");
+      out.write("                        <label for=\"\" class=\"label\">Nombres</label>\n");
+      out.write("\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input  name=\"txtPerfilApellidos\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilApellidos}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"text\" class=\"input\"  placeholder=\"Huamán\"  required>\n");
+      out.write("                        <label for=\"\" class=\"label\">Apellidos</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input  name=\"txtPerfilCorreo\"  value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilCorreo}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"email\" class=\"input\" placeholder=\"juan@gmail.com\"  required>\n");
+      out.write("                        <label for=\"\" class=\"label\">Correo</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input  name=\"txtPerfilCiudad\"  value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilCiudad}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"text\" class=\"input\" placeholder=\"Lima\"  required>\n");
+      out.write("                        <label for=\"\" class=\"label\">Ciudad</label>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div style=\"color:blue\">\n");
+      out.write("                        ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${confirmacion}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(" \n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("                <a href=\"http://www.programacion.net\" target=\"_blank\" class=\"hb-cta hb-cta-button\" style=\"display:none\">\n");
-      out.write("                    <div class=\"hb-text-holder\">\n");
-      out.write("                        <p>Regístrate</p>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("                <div  class=\"columna columna2\">\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <select  name=\"txtPerfilTipo\" id=\"txtPerfilTipo\" class=\"input\"  placeholder=\"\" onchange=\"fn_mostrarColegiatura('txtPerfilTipo', 'divPerfilColegiatura')\" required>\n");
+      out.write("                            <option hidden selected> ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilTipoUsuario}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(" </option>\n");
+      out.write("                            <option class=\"input\" value=\"Agricultor\">Agricultor</option>\n");
+      out.write("                            <option class=\"input\" value=\"Agrónomo\">Agrónomo</option>\n");
+      out.write("                        </select>\n");
+      out.write("                        <label class=\"label\"for=\"\">Tipo</label>\n");
+      out.write("\n");
       out.write("                    </div>\n");
-      out.write("                </a>\n");
-      out.write("            </div>\n");
-      out.write("            <div class=\"hb-close-wrapper\">\n");
-      out.write("                <form action=\"LogueoServlet\" method=\"POST\">\n");
-      out.write("                    <input type=\"text\" name=\"txtPaginaActual\" value=\"Principal\" style=\"display:none\"></input>\n");
-      out.write("                    <input  class=\"idX\" type=\"submit\" name=\"accion\" value=\"X\"></input>\n");
-      out.write("                    <!--<a href=\"javascript:void(0);\" class=\"icon-close\" onclick=\"$('#hellobar-bar').fadeOut()\">X</a>-->\n");
-      out.write("                </form>\n");
       out.write("\n");
-      out.write("            </div>\n");
+      out.write("                    <div id=\"divPerfilColegiatura\" class=\"inputContainer\" Style=\"display:none\">\n");
+      out.write("                        <input  name=\"txtPerfilColegiatura\"  value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilColegiatura}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"text\" class=\"input\" id=\"txtColegiatura\"  name=\"txtColegiatura\" placeholder=\" \"  >\n");
+      out.write("                        <label for=\"\" class=\"label\">Nro Colegiatura</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\">\n");
+      out.write("                        <input  name=\"txtPerfilUsuario\"  value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilUsuario}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"text\" class=\"input\" placeholder=\" \"  style=\"background-color:gainsboro\" readonly>\n");
+      out.write("                        <label for=\"\" class=\"label\">Nombre de Usuario</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"inputContainer\"> <!--onclick=\"javascript:IrAServletUsandoPost();\" -->\n");
+      out.write("                        <input  name=\"txtPerfilPassword\"  value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${perfilPassword}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" type=\"password\" class=\"input\" placeholder=\" \" required minlength=\"8\">\n");
+      out.write("                        <label for=\"\" class=\"label\">Contraseña</label>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                <input type=\"submit\" class=\"submitBtn\" name=\"accion\" value=\"Guardar Cambios\">\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("                ");
+
+                    System.out.println("respuesta: " + request.getParameter("error"));
+                    String rspt2 = request.getParameter("error");
+                    String msg2 = request.getParameter("msgOK");
+                    System.out.println("respuesta msg: " + msg2);
+                    if (rspt2 == null) {
+                        System.out.println("respuesta msg 0: " + msg);
+                        if (msg != "" && msg != null) {
+                            System.out.println("respuesta msg 1: OK");
+                
+      out.write("\n");
+      out.write("                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                    ");
+      out.print(request.getParameter("msgOK"));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                    }
+                } else if (rspt != "") {
+
+                    System.out.println("respuesta msg 2: " + msg);
+
+                    if (msg == "OK") {
+
+                        System.out.println("respuesta msg 2: " + msg);
+
+                
+      out.write("\n");
+      out.write("                <div id=\"msjOK\" class=\"alertOK\" role=\"alert\">\n");
+      out.write("                    ");
+      out.print(request.getParameter("msgOK"));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                } else {
+
+                
+      out.write("\n");
+      out.write("                <div id=\"msjError\" class=\"alertError\" role=\"alert\">\n");
+      out.write("                    ");
+      out.print(request.getParameter("error"));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                        }
+                    }
+                
+      out.write("\n");
+      out.write("            </form>\n");
+      out.write("\n");
       out.write("        </div>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("        <main class=\"main\">\n");
-      out.write("            <div class=\"columnaBlog columnaBlog1\">\n");
-      out.write("                <h5>Entidades Gubernamentales</h5>\n");
-      out.write("                <p><a href=\"https://www.gob.pe/institucion/midagri/noticias\">Noticias Ministerio de Agricultura</a></p>\n");
-      out.write("                <p><a href=\"https://es-la.facebook.com/minagriperu/\">Ministerio de Agricultura Facebook</a></p>\n");
-      out.write("                <p><a href=\"https://www.gob.pe/institucion/midagri/noticias\"><img src=\"imagenes/enlaceMidagri.png\" alt=\"30\" width=\"30\"/></a></p>\n");
-      out.write("            </div>\n");
-      out.write("            <div class=\"columnaBlog columnaBlog2\"> \n");
-      out.write("                <p>\n");
-      out.write("\n");
-      out.write("                <div class=\"container\">\n");
-      out.write("                    <div class=\"table-responsive\">\n");
-      out.write("                        <div class=\"col-sm-12\"><h2><b>Lista de Agrónomos</b></h2></div>\n");
-      out.write("                        <p>\n");
-      out.write("                        <hr>\n");
-      out.write("                        </p>\n");
-      out.write("                        <form class=\"publicarBlog\">\n");
-      out.write("                            <input name=\"Buscar\" class=\"form-control searchBlog\" type=\"search\" placeholder=\"Ingrese una palabra que desee buscar.\" value=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${valorBuscado}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\">\n");
-      out.write("                            <p>\n");
-      out.write("                            <div>\n");
-      out.write("                                <button class=\"searchBtnBlog\" type=\"submit\">Buscar</button>\n");
-      out.write("                            </div>\n");
-      out.write("\n");
-      out.write("                        </form>\n");
-      out.write("\n");
-      out.write("                        <br>\n");
-      out.write("                        ");
-
-                            //AgronomoDAO a = new AgronomoDAO();
-                            //int pag = 0;
-                            //int cantxPag = 5;
-                            if (request.getParameter("pag") == null) {
-                                pag = 1;
-                            } else {
-                                pag = Integer.parseInt(request.getParameter("pag"));
-                            }
-
-                            if (request.getParameter("Buscar") == null) {
-                                valorBuscado = "";
-                            } else {
-                                valorBuscado = request.getParameter("Buscar");
-                            }
-
-                            int numreg = a.cantidadAgronomos(valorBuscado);
-                            int numpag = numreg / cantxPag;
-
-                            System.out.println("AYALA pag " + pag);
-                            System.out.println("AYALA numreg: " + numreg);
-                            System.out.println("AYALA cantxPag: " + cantxPag);
-                            System.out.println("AYALA numpag: " + numpag);
-                        
-      out.write("\n");
-      out.write("\n");
-      out.write("                        <!class=\"table table-striped table-hover table-bordered\"-->\n");
-      out.write("                        <table class=\"headerTable\">\n");
-      out.write("                            <thead >\n");
-      out.write("                                <tr >\n");
-      out.write("                                    <th>N°</th>\n");
-      out.write("                                    <th>NOMBRES</th>\n");
-      out.write("                                    <th>APELLIDOS</th>\n");
-      out.write("                                    <th>CORREO</th>\n");
-      out.write("                                    <th>CIUDAD</th>\n");
-      out.write("                                </tr>\n");
-      out.write("                            </thead>\n");
-      out.write("\n");
-      out.write("                            <tbody  class=\"bodyTable\">\n");
-      out.write("                                ");
-
-                                    int x = (pag - 1) * cantxPag;
-                                    rs = a.buscarAgronomo(valorBuscado, pag, cantxPag);
-                                    if (numreg > 0) {
-                                        while (rs.next()) {
-                                            System.out.println("AYALA RS: " + rs.getString(3));
-                                
-      out.write("\n");
-      out.write("\n");
-      out.write("                                <tr>\n");
-      out.write("                                    <td>");
-      out.print(x + 1);
-      out.write("</td>\n");
-      out.write("                                    <td>");
-      out.print(rs.getString(3));
-      out.write("</td>\n");
-      out.write("                                    <td>");
-      out.print(rs.getString(4));
-      out.write("</td>\n");
-      out.write("                                    <td>");
-      out.print(rs.getString(5));
-      out.write("</td>\n");
-      out.write("                                    <td>");
-      out.print(rs.getString(6));
-      out.write("</td>\n");
-      out.write("                                    <!-- <td>\n");
-      out.write("                                         <a href=\"#\" class=\"view\" title=\"View\" data-toggle=\"tooltip\"><i class=\"material-icons\">&#xE417;</i></a>\n");
-      out.write("                                         <a href=\"#\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"material-icons\">&#xE254;</i></a>\n");
-      out.write("                                         <a href=\"#\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"material-icons\">&#xE872;</i></a>\n");
-      out.write("                                     </td>\n");
-      out.write("                                    -->\n");
-      out.write("\n");
-      out.write("                                </tr>\n");
-      out.write("                                ");
-
-                                        x++;
-                                    }
-                                } else {
-                                
-      out.write("\n");
-      out.write("                                <tr>\n");
-      out.write("                                    <td>No se encontraron registros.</td>\n");
-      out.write("                                    <td></td>\n");
-      out.write("                                    <td></td>\n");
-      out.write("                                    <td></td>\n");
-      out.write("                                    <td></td>\n");
-      out.write("                                </tr>\n");
-      out.write("                                ");
-
-                                    }
-                                
-      out.write("\n");
-      out.write("                            </tbody>\n");
-      out.write("                        </table>\n");
-      out.write("\n");
-      out.write("                        <div><br></div>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("                        <div style=\"text-align: center\">\n");
-      out.write("                            ");
-if (pag > 1) {
-      out.write("\n");
-      out.write("\n");
-      out.write("                            <a class=\"pagAgronomoAnt\" href=\"?pag=");
-      out.print(pag - 1);
-      out.write("&Buscar=");
-      out.print(valorBuscado);
-      out.write("\">Anterior </a>\n");
-      out.write("                            ");
-} else if (pag == 1) {
-      out.write("\n");
-      out.write("                            <a class=\"pagAgronomoAnt\" style=\"background-color:#959A92\" disabled>Anterior </a>\n");
-      out.write("                            ");
-}
-                                for (int i = 0; i < numpag + 1; i++) {
-                                    if (pag == (i + 1)) {
-                            
-      out.write("\n");
-      out.write("                            <a style=\"background-color:#31bfb1; color:black\" class=\"pagAgronomo\" href=\"?pag=");
-      out.print(i + 1);
-      out.write("&Buscar=");
-      out.print(valorBuscado);
-      out.write("\" >");
-      out.print(i + 1);
-      out.write(" </a>\n");
-      out.write("                            ");
-
-                                }
-                                if (pag != (i + 1)) {
-                            
-      out.write("\n");
-      out.write("                            <a class=\"pagAgronomo\" href=\"?pag=");
-      out.print(i + 1);
-      out.write("&Buscar=");
-      out.print(valorBuscado);
-      out.write("\" >");
-      out.print(i + 1);
-      out.write(" </a>\n");
-      out.write("                            ");
-
-
-                                    }
-                                }
-
-                                if (pag <= numpag) {
-                            
-      out.write("\n");
-      out.write("                            <a class=\"pagAgronomoDes\" href=\"?pag=");
-      out.print(pag + 1);
-      out.write("&Buscar=");
-      out.print(valorBuscado);
-      out.write("\">Siguiente </a> \n");
-      out.write("                            ");
- } else {
-      out.write("\n");
-      out.write("                            <a class=\"pagAgronomoDes\" style=\"background-color:#959A92\" disabled>Anterior </a>\n");
-      out.write("                            ");
-}
-                            
-      out.write("\n");
-      out.write("                        </div>\n");
-      out.write("\n");
-      out.write("                        <p>\n");
-      out.write("                        <div class=\"clearfix\">\n");
-      out.write("                            <!-- <div class=\"hint-text\">Showing <b>5</b> out of <b>25</b> entries</div>-->\n");
-      out.write("                            <!-- <ul class=\"pagination\">\n");
-      out.write("                                 <li class=\"page-item disabled\"><a href=\"#\"><i class=\"fa fa-angle-double-left\"></i></a></li>\n");
-      out.write("                                 <li class=\"page-item\"><a href=\"#\" class=\"page-link\">1</a></li>\n");
-      out.write("                                 <li class=\"page-item\"><a href=\"#\" class=\"page-link\">2</a></li>\n");
-      out.write("                                 <li class=\"page-item active\"><a href=\"#\" class=\"page-link\">3</a></li>\n");
-      out.write("                                 <li class=\"page-item\"><a href=\"#\" class=\"page-link\">4</a></li>\n");
-      out.write("                                 <li class=\"page-item\"><a href=\"#\" class=\"page-link\">5</a></li>\n");
-      out.write("                                 <li class=\"page-item\"><a href=\"#\" class=\"page-link\"><i class=\"fa fa-angle-double-right\"></i></a></li>\n");
-      out.write("                             </ul>\n");
-      out.write("                            -->\n");
-      out.write("                        </div>\n");
-      out.write("                    </div>        \n");
-      out.write("                </div>    \n");
-      out.write("            </div>\n");
-      out.write("\n");
-      out.write("            <div class=\"columnaBlog columnaBlog3\">\n");
-      out.write("                <h5>Organismos Locales</h5>\n");
-      out.write("                <p><a href=\"#\">Organismos Locales</a></p>\n");
-      out.write("            </div>\n");
-      out.write("        </main>\n");
-      out.write("\n");
-      out.write("\n");
       out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

@@ -98,7 +98,7 @@ public class AgronomoServlet extends HttpServlet {
             String pag = request.getParameter("pag");
             //String buscar = request.getParameter("txtBuscar").toUpperCase();
             dispatcher = request.getRequestDispatcher("Agronomos.jsp");
-            ResultSet buscarAgronomos = agronomoDao.buscarAgronomo(buscar,1,5);
+            ResultSet buscarAgronomos = agronomoDao.buscarAgronomo(buscar, 1, 5);
             request.setAttribute("lista", buscarAgronomos);
         } else {
             //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
@@ -107,7 +107,6 @@ public class AgronomoServlet extends HttpServlet {
 
         request.getRequestDispatcher("Agronomos.jsp").forward(request, response);
 
-        
     }
 
     /**

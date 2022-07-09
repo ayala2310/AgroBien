@@ -43,13 +43,11 @@ public class AgronomoDAO {
                 int idUsuario = rs.getInt("ID_USUARIO");
                 String nombres = rs.getString("NOMBRES");
                 String apellidos = rs.getString("APELLIDOS");
-                String nroDocumento = rs.getString("NRO_DOCUMENTO");
                 String ciudad = rs.getString("CIUDAD");
-                String celular = rs.getString("CELULAR");
                 String correo = rs.getString("CORREO");
                 String colegiatura = rs.getString("COLEGIATURA");
 
-                Agronomo agronomo = new Agronomo(id, idUsuario, nombres, apellidos, nroDocumento, ciudad, celular, correo, colegiatura);
+                Agronomo agronomo = new Agronomo(id, idUsuario, nombres, apellidos, ciudad, correo, colegiatura);
                 lista.add(agronomo);
                 System.out.println("ok agronomos: " + agronomo);
             }
@@ -60,38 +58,6 @@ public class AgronomoDAO {
         return lista;
     }
 
-    /*public List<Agronomo> buscarAgronomo(String buscar) {
-        PreparedStatement ps;
-        ResultSet rs;
-
-        List<Agronomo> lista = new ArrayList<>();
-        try {
-            ps = cn.prepareStatement("SELECT * FROM AGRONOMO WHERE UPPER(NOMBRES) LIKE ? OR UPPER(APELLIDOS) LIKE ? ORDER BY 1 ASC");
-            ps.setString(1, "%" + buscar + "%");
-            ps.setString(2, "%" + buscar + "%");
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("ID");
-                int idUsuario = rs.getInt("ID_USUARIO");
-                String nombres = rs.getString("NOMBRES");
-                String apellidos = rs.getString("APELLIDOS");
-                String nroDocumento = rs.getString("NRO_DOCUMENTO");
-                String ciudad = rs.getString("CIUDAD");
-                String celular = rs.getString("CELULAR");
-                String correo = rs.getString("CORREO");
-                String colegiatura = rs.getString("COLEGIATURA");
-
-                Agronomo agronomo = new Agronomo(id, idUsuario, nombres, apellidos, nroDocumento, ciudad, celular, correo, colegiatura);
-                lista.add(agronomo);
-                System.out.println("ok agronomos: " + agronomo);
-            }
-        } catch (SQLException e) {
-            System.out.println("error agronomos: " + e.toString());
-            return null;
-        }
-        return lista;
-    }*/
     public ResultSet buscarAgronomo(String buscar, int pag, int numPag) {
         PreparedStatement ps;
         ResultSet rs;

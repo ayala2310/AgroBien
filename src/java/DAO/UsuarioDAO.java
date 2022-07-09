@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +25,29 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         Conexion con = new Conexion();
         cn = con.getConexion();
+    }
+
+    public boolean cambiarPassword(String usuario, String newPassword) {
+        PreparedStatement ps;
+        ResultSet rs;
+
+        try {
+            // registrar
+            ps = cn.prepareStatement("UPDATE USUARIO U \n"
+                    + "   SET U.PASSWORD = ? \n"
+                    + " WHERE U.ID = (SELECT X.ID \n"
+                    + "                 FROM USUARIO X \n"
+                    + "                WHERE X.USUARIO = ? \n"
+                    + "                  AND X.ESTADO = 'ACTIVO')");
+            ps.setString(1, newPassword);
+            ps.setString(2, usuario);
+            ps.execute();
+
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            return false;
+        }
+        return true;
     }
 
     public String validarExistenciaUsuario(String usuario) {
@@ -76,7 +101,7 @@ public class UsuarioDAO {
         return validado;
     }
 
-    public String registrarAgricultor(String nombres, String apellidos, String dni, String celular, String correo, String ciudad, String tipo, String usuario, String password) {
+    public String registrarAgricultor(String nombres, String apellidos, String correo, String ciudad, String tipo, String usuario, String password) {
         PreparedStatement ps;
         ResultSet rs;
 
@@ -98,14 +123,12 @@ public class UsuarioDAO {
                 if (id > 0) {
                     try {
                         // registrar agricultor
-                        ps = cn.prepareStatement("INSERT INTO AGRICULTOR VALUES(NULL, ?,?,?,?,?,?,?)");
+                        ps = cn.prepareStatement("INSERT INTO AGRICULTOR VALUES(NULL, ?,?,?,?,?)");
                         ps.setInt(1, id);
                         ps.setString(2, nombres);
                         ps.setString(3, apellidos);
-                        ps.setString(4, dni);
-                        ps.setString(5, ciudad);
-                        ps.setString(6, celular);
-                        ps.setString(7, correo);
+                        ps.setString(4, ciudad);
+                        ps.setString(5, correo);
                         ps.execute();
 
                     } catch (SQLException e) {
@@ -124,7 +147,7 @@ public class UsuarioDAO {
         return validado;
     }
 
-    public String registrarAgronomo(String nombres, String apellidos, String dni, String celular, String correo, String ciudad, String tipo, String colegiatura, String usuario, String password) {
+    public String registrarAgronomo(String nombres, String apellidos, String correo, String ciudad, String tipo, String colegiatura, String usuario, String password) {
         PreparedStatement ps;
         ResultSet rs;
 
@@ -146,15 +169,13 @@ public class UsuarioDAO {
                 if (id > 0) {
                     try {
                         // registrar agricultor
-                        ps = cn.prepareStatement("INSERT INTO AGRONOMO VALUES(NULL, ?,?,?,?,?,?,?,?)");
+                        ps = cn.prepareStatement("INSERT INTO AGRONOMO VALUES(NULL, ?,?,?,?,?,?)");
                         ps.setInt(1, id);
                         ps.setString(2, nombres);
                         ps.setString(3, apellidos);
-                        ps.setString(4, dni);
-                        ps.setString(5, ciudad);
-                        ps.setString(6, celular);
-                        ps.setString(7, correo);
-                        ps.setString(8, colegiatura);
+                        ps.setString(4, ciudad);
+                        ps.setString(5, correo);
+                        ps.setString(6, colegiatura);
                         ps.execute();
 
                     } catch (SQLException e) {
@@ -199,11 +220,154 @@ public class UsuarioDAO {
                 }
             } catch (SQLException e) {
                 System.out.println("LOG ERROR: " + e.toString());
-                validado = "ERROR";
+                validado = "";
             }
         }
         return validado;
     }
 
+    public ResultSet recuperarContraseña(String usuarioCorreo) {
+        PreparedStatement ps;
+        ResultSet rs;
 
+        try {
+            ps = cn.prepareStatement("SELECT U.USUARIO, A1.CORREO\n"
+                    + "  FROM USUARIO U, AGRICULTOR A1 \n"
+                    + " WHERE U.ID = A1.ID_USUARIO \n"
+                    + "   AND (UPPER(USUARIO) = ? OR UPPER(A1.CORREO) = ?) \n"
+                    + "UNION ALL \n"
+                    + "SELECT U.USUARIO, A2.CORREO \n"
+                    + "  FROM USUARIO U, AGRONOMO A2 \n"
+                    + " WHERE U.ID = A2.ID_USUARIO \n"
+                    + "   AND (UPPER(U.USUARIO) = ? OR UPPER(A2.CORREO) = ?)");
+            ps.setString(1, usuarioCorreo);
+            ps.setString(2, usuarioCorreo);
+            ps.setString(3, usuarioCorreo);
+            ps.setString(4, usuarioCorreo);
+            rs = ps.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            return null;
+        }
+
+        return rs;
+    }
+
+    public List<String> obtenerPerfil(String usuarioSesion) {
+        PreparedStatement ps;
+        ResultSet rs;
+        List<String> lista = new ArrayList<>();
+        Integer id;
+        String usuario;
+        String password;
+        String tipoUsuario;
+        String nombres;
+        String apellidos;
+        String ciudad;
+        String correo;
+        String colegiatura;
+
+        try {
+            ps = cn.prepareStatement("SELECT U.ID, U.USUARIO, U.PASSWORD, U.TIPO_USUARIO, A1.NOMBRES, A1.APELLIDOS, A1.CIUDAD, A1.CORREO, '' AS COLEGIATURA\n"
+                    + "  FROM USUARIO U, AGRICULTOR A1\n"
+                    + " WHERE U.ID = A1.ID_USUARIO\n"
+                    + "   AND UPPER(USUARIO) = ? \n"
+                    + "UNION ALL\n"
+                    + "SELECT U.ID, U.USUARIO, U.PASSWORD, U.TIPO_USUARIO, A2.NOMBRES, A2.APELLIDOS, A2.CIUDAD, A2.CORREO, A2.COLEGIATURA\n"
+                    + "  FROM USUARIO U, AGRONOMO A2\n"
+                    + " WHERE U.ID = A2.ID_USUARIO\n"
+                    + "   AND UPPER(U.USUARIO) = ? ");
+            ps.setString(1, usuarioSesion);
+            ps.setString(2, usuarioSesion);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("ID");
+                lista.add(id.toString());
+                usuario = rs.getString("USUARIO");
+                lista.add(usuario);
+                password = rs.getString("PASSWORD");
+                lista.add(password);
+                tipoUsuario = rs.getString("TIPO_USUARIO");
+                lista.add(tipoUsuario);
+                nombres = rs.getString("NOMBRES");
+                lista.add(nombres);
+                apellidos = rs.getString("APELLIDOS");
+                lista.add(apellidos);
+                ciudad = rs.getString("CIUDAD");
+                lista.add(ciudad);
+                correo = rs.getString("CORREO");
+                lista.add(correo);
+                colegiatura = rs.getString("COLEGIATURA");
+                lista.add(colegiatura);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            return null;
+        }
+
+        return lista;
+    }
+
+    public boolean actualizarPerfil(int idUsuario, String nombres, String apellidos, String correo, String ciudad, String tipo, String colegiatura, String usuario, String password) {
+        PreparedStatement ps;
+        ResultSet rs;
+        String validado = "";
+        
+        try {
+            // registrar agricultor
+            ps = cn.prepareStatement("UPDATE USUARIO SET USUARIO = ?, PASSWORD = ?, TIPO_USUARIO = ? WHERE ID = ?");
+            ps.setString(1, usuario);
+            ps.setString(2, password);
+            ps.setString(3, tipo);
+            ps.setInt(4, idUsuario);
+            ps.execute();
+
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            validado = "ERROR";
+             return false;
+        }
+
+        if (validado.equals("")) {
+            if (tipo.equals("Agricultor")) {
+                try {
+                    // registrar agricultor
+                    ps = cn.prepareStatement("UPDATE AGRICULTOR SET NOMBRES = ?, APELLIDOS = ?, CORREO = ?, CIUDAD = ? WHERE ID_USUARIO = ?");
+                    ps.setString(1, nombres);
+                    ps.setString(2, apellidos);
+                    ps.setString(3, correo);
+                    ps.setString(4, ciudad);
+                    ps.setInt(5, idUsuario);
+                    ps.execute();
+
+                } catch (SQLException e) {
+                    System.out.println("LOG ERROR: " + e.toString());
+                    validado = "ERROR";
+                     return false;
+                }
+            } else {
+                try {
+                    // registrar agricultor
+                    ps = cn.prepareStatement("UPDATE AGRONOMO SET NOMBRES = ?, APELLIDOS = ?, CORREO = ?, CIUDAD = ?, COLEGIATURA = ? WHERE ID_USUARIO = ?");
+                    ps.setString(1, nombres);
+                    ps.setString(2, apellidos);
+                    ps.setString(3, correo);
+                    ps.setString(4, ciudad);
+                    ps.setString(5, colegiatura);
+                    ps.setInt(6, idUsuario);
+                    ps.execute();
+
+                } catch (SQLException e) {
+                    System.out.println("LOG ERROR: " + e.toString());
+                    validado = "ERROR";
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
 }

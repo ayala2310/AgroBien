@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html lang="en">
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <header>
 
 
@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <style>
             body {
                 font-family: 'Varela Round', sans-serif;
@@ -47,7 +48,7 @@
             }
             .navbar .navbar-brand b {
                 font-weight: bold;
-                color: white;	
+                color: white;		
             }
             .navbar .form-inline {
                 display: inline-block;
@@ -252,7 +253,7 @@
                 box-shadow: 2px 2px 10px 1px ;
             }
             .slide{
-                display:flex;
+                display: flex;
                 transform: translate3d(0,0,0);
                 transition: all 600ms;
                 animation-name: autoplay;
@@ -366,6 +367,14 @@
                 width: 800px;
                 height: 70%;
                 border-radius: 8px;
+                padding: 3px 2px;
+            }
+            .perfil{
+                top: -10px;
+                background-color: white;
+                width: 800px;
+                height: 70%;
+                border-radius: 8px;
                 padding: 3px 20px;
             }
             .columna{
@@ -380,7 +389,6 @@
 
             .columnaBlog{
                 float:left;
-                height: 40%;
             }
             .columnaBlog1 {
                 width:15%;
@@ -417,7 +425,6 @@
             .input:focus{
                 border: 1px solid #1aafa0;
             }
-
             .submitBtn {
                 position: relative;
                 top: 0px;
@@ -503,6 +510,7 @@
                 font-size: 16px;
                 position:relative;
             }
+
             .submitBtnBlog:hover {
                 background-color: #1aafa0;
             }
@@ -522,7 +530,9 @@
                 background-color: #1aafa0;
             }
 
-            #notif-bar {
+
+
+            #hellobar-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
@@ -539,7 +549,7 @@
                 background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
             }
-            #notif-bar.regular {
+            #hellobar-bar.regular {
                 height: 30px;
                 font-size: 14px;
                 padding: .2em .5em;
@@ -563,7 +573,7 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-            #notif-bar .hb-cta {
+            #hellobar-bar .hb-cta {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 5px 0;
@@ -628,10 +638,34 @@
                 background: white;
             }
 
-            .alert{
-               position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem;
-                color:#721c24;background-color:#f8d7da;border-color:#f5c6cb
+
+            .botonBloqueado{
+                color: red;
             }
+
+            .panelBlog{
+                border: 1px solid #1aafa0;
+                border-radius: 4px;
+                padding:0.01em 16px;
+                background-color:#F7F2F1;
+                box-shadow: 0px 0px 10px;
+            }
+
+            .idAsunto{
+                border: 1px solid #1aafa0;
+                border-radius: 7px;
+                background-color:#22af73;
+                cursor:default;
+            }
+
+            .itemPerfil{
+                border: 1px solid #1aafa0;
+                background-color:#F7F2F1;
+                width: 100%;
+                height: 100%;
+            }
+
+
 
         </style>
         <script>
@@ -660,28 +694,17 @@
                 document.getElementById('cancelar').style.display = 'none';
             }
 
-
-
             // Prevent dropdown menu from closing when click inside the form
             $(document).on("click", ".navbar-right .dropdown-menu", function (e) {
                 e.stopPropagation();
             });
-            /*const tipo = document.querySelector("#txtTipo");
-             const input = document.querySelector("[name=divColegiatura]");
-             tipo.addEventListener("change", () => {
-             if (tipo.value === "agronomo") {
-             input.style.display = 'initial';
-             } else {
-             input.style.display = 'none';
-             }
-             });*/
 
-            function fn_mostrarColegiatura() {
-                tipo = document.getElementById("txtTipo").value;
+            function fn_mostrarColegiatura(valor, divColeg) {
+                tipo = document.getElementById(valor).value;
                 if (tipo === "Agrónomo") {
-                    document.getElementById("divColegiatura").style.display = "block";
+                    document.getElementById(divColeg).style.display = "block";
                 } else {
-                    document.getElementById("divColegiatura").style.display = "none";
+                    document.getElementById(divColeg).style.display = "none";
                 }
             }
 
@@ -692,7 +715,9 @@
                 } else {
                     document.getElementById('idPanelRegistro').style.display = "";
                 }
+
             }
+
 
 
             (function () {
@@ -779,111 +804,84 @@
             function fn_cargarNotif() {
                 var notif = document.getElementById("idMostrarNotif").value;
                 if (notif === "" || notif === null) {
-                    document.getElementById("notif-bar").style.display = "none";
+                    document.getElementById("hellobar-bar").style.display = "none";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
-
                 } else {
-                    document.getElementById("notif-bar").style.display = "";
+                    document.getElementById("hellobar-bar").style.display = "";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
-
                 }
                 //alert(notif)
             }
 
 
 
-            function fn_ocultarNotif() {
 
-                document.getElementById("idMostrarNotif").value = "qqqq";
-                document.getElementById("idMostrarNotif").innerHTML = "wwww";
-                document.getElementById("notif-bar").style.display = "none";
-            }
+
 
 
         </script>
         <input value="${mostrarNotif}" id="idMostrarNotif" style="display: none "></input>
-        <nav class="menu navbar navbar-default navbar-expand-lg navbar-light">
 
+        <nav class="menu navbar navbar-default navbar-expand-lg navbar-light">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>  		
+                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>
                 <!--
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle"><span class="navbar-toggler-icon"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 -->
             </div>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="Principal.jsp">Inicio</a></li>
-                    <li><a href="PublicacionesServlet">Blog</a></li>	
-                    <!--
-                    <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
-                            <ul class="dropdown-menu">					
-                                    <li><a href="#">Web Design</a></li>
-                                    <li><a href="#">Web Development</a></li>
-                                    <li><a href="#">Graphic Design</a></li>
-                                    <li><a href="#">Digital Marketing</a></li>
-                            </ul>
+                    <li >
+                        <a href="Principal.jsp">Inicio</a>
                     </li>
+                    <li class="active">
+                        <a href="PublicacionesServlet">Blog</a>
+                    </li>
+                    <!--
+                            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="#">Web Design</a></li><li><a href="#">Web Development</a></li><li><a href="#">Graphic Design</a></li><li><a href="#">Digital Marketing</a></li></ul></li>
                     -->
                     <li id="idAgronomo" style="display: ${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
                     <li><a href="Noticias.jsp">Noticias</a></li>
-
                 </ul>
                 <!--
-                    <form class="navbar-form form-inline">
-                            <div class="input-group search-box">								
-                                    <input type="text" id="search" class="form-control" placeholder="Search here...">
-                                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-                            </div>
-                    </form>
+                            <form class="navbar-form form-inline"><div class="input-group search-box"><input type="text" id="search" class="form-control" placeholder="Search here..."><span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span></div></form>
                 -->
 
                 <ul id="idUsuario" class="nav navbar-nav navbar-right" style="display: ${displayNoneUsuario}">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
-                            <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-                            <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
+                             <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
+                            <!--  <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
+                              <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
                             <li class="divider"></li>
                             <form action="LogueoServlet" method="POST">
-                                <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
                                 <input type="submit" class="btn btn-primary btn-block" name="accion" value="Cerrar Sesión">
                             </form>
                         </ul>
                     </li>
                 </ul>   
-
                 <ul id="login" class="nav navbar-nav navbar-right" style="display: ${displayNoneLogin}">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Iniciar Sesión</a>
-                        <ul class="dropdown-menu form-wrapper">					
+                        <ul class="dropdown-menu form-wrapper">
                             <li>
                                 <form action="LogueoServlet" method="POST">
                                     <p class="hint-text">Inicie sesión con su usuario y contraseña.</p>
                                     <!--
-                                    <div class="form-group social-btn clearfix">
-                                        <a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
-                                        <a href="#" class="btn btn-info pull-right"><i class="fa fa-twitter"></i> Twitter</a>
-                                    </div>
-                                    <div class="or-seperator"><b>or</b></div>
+                                    <div class="form-group social-btn clearfix"><a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a><a href="#" class="btn btn-info pull-right"><i class="fa fa-twitter"></i> Twitter</a></div><div class="or-seperator"><b>or</b></div>
                                     -->
-                                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                    <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="txtUsuario" placeholder="Username" required="required">
                                         <label for="" class="label1">Usuario</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                        <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required" >
                                         <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                         <label for="" class="label2">Contraseña</label>
                                     </div>
@@ -899,7 +897,6 @@
                                         }
                                     %>
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
-
                                     <div class="form-footer">
                                         <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
@@ -908,18 +905,13 @@
                         </ul>
                     </li>
                 </ul>
-
-
-
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                     <li>
                         <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
-                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">	
-
+                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">
                             <div id="idRegistro" class="signupFrm">
                                 <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
-
                                     <div class="columna columna1">
                                         <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
 
@@ -949,7 +941,7 @@
                                     <div  class="columna columna2">
 
                                         <div class="inputContainer">
-                                            <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required="required">
+                                            <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura('txtTipo', 'divColegiatura')" required="required">
                                                 <option hidden selected>Agricultor</option>
                                                 <option class="input" value="Agricultor">Agricultor</option>
                                                 <option class="input" value="Agrónomo">Agrónomo</option>
@@ -976,14 +968,8 @@
                                     </div>
 
                                     <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+
                                     <%
-                                        /*if (request.getAttribute("displayNoneUsuario").equals("")) {
-                                            request.setAttribute("displayNoneLogin", "");
-                                            request.setAttribute("displayNoneUsuario", "none");
-                                        }else{
-                                             request.setAttribute("displayNoneLogin", "none");
-                                            request.setAttribute("displayNoneUsuario", "");
-                                        }*/
                                         System.out.println("respuesta: " + request.getParameter("error"));
                                         String rspt = request.getParameter("error");
                                         String msg = request.getParameter("msgOK");
@@ -1033,77 +1019,115 @@
             </div>
         </nav>
 
-
-
     </header> 
 
-    <body onload="fn_cargarNotif()">
-        <div class="alert" style="display: ">
-        <!--<div id="notif-bar" role="alert" style="display: none">-->
-            <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
+    <body>
+
+        <div class="signupFrm">
+
+            <form name="editarPerfil" class="perfil" action="LogueoServlet" method="POST" >
+                <h2 align-text="center">Mi Perfil</h2>
+                <br>
+                <div class="columna columna1">
+                    <input name="txtPerfilIdUsuario" value="${perfilIdUsuario}" style="display:none">
+                    <div class="inputContainer">
+
+                        <input name="txtPerfilNombres" value="${perfilNombres}" type="text" class="input" placeholder="Juan"  required>
+                        <label for="" class="label">Nombres</label>
+
+                    </div>
+
+                    <div class="inputContainer">
+                        <input  name="txtPerfilApellidos" value="${perfilApellidos}" type="text" class="input"  placeholder="Huamán"  required>
+                        <label for="" class="label">Apellidos</label>
+                    </div>
+
+                    <div class="inputContainer">
+                        <input  name="txtPerfilCorreo"  value="${perfilCorreo}" type="email" class="input" placeholder="juan@gmail.com"  required>
+                        <label for="" class="label">Correo</label>
+                    </div>
+
+                    <div class="inputContainer">
+                        <input  name="txtPerfilCiudad"  value="${perfilCiudad}" type="text" class="input" placeholder="Lima"  required>
+                        <label for="" class="label">Ciudad</label>
+                    </div>
+                    <div style="color:blue">
+                        ${confirmacion} 
                     </div>
                 </div>
-            </div>
-            <div class="hb-close-wrapper">
-                <form action="LogueoServlet" method="POST">
-                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
-                    <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
-                </form>
 
-            </div>
+
+                <div  class="columna columna2">
+
+                    <div class="inputContainer">
+                        <select  name="txtPerfilTipo" id="txtPerfilTipo" class="input"  placeholder="" onchange="fn_mostrarColegiatura('txtPerfilTipo', 'divPerfilColegiatura')" required>
+                            <option hidden selected> ${perfilTipoUsuario} </option>
+                            <option class="input" value="Agricultor">Agricultor</option>
+                            <option class="input" value="Agrónomo">Agrónomo</option>
+                        </select>
+                        <label class="label"for="">Tipo</label>
+
+                    </div>
+
+                    <div id="divPerfilColegiatura" class="inputContainer" Style="display:none">
+                        <input  name="txtPerfilColegiatura"  value="${perfilColegiatura}" type="text" class="input" id="txtColegiatura"  name="txtColegiatura" placeholder=" "  >
+                        <label for="" class="label">Nro Colegiatura</label>
+                    </div>
+
+                    <div class="inputContainer">
+                        <input  name="txtPerfilUsuario"  value="${perfilUsuario}" type="text" class="input" placeholder=" "  style="background-color:gainsboro" readonly>
+                        <label for="" class="label">Nombre de Usuario</label>
+                    </div>
+
+                    <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
+                        <input  name="txtPerfilPassword"  value="${perfilPassword}" type="password" class="input" placeholder=" " required minlength="8">
+                        <label for="" class="label">Contraseña</label>
+                    </div>
+
+                </div>
+                <input type="submit" class="submitBtn" name="accion" value="Guardar Cambios">
+
+
+                <%
+                    System.out.println("respuesta: " + request.getParameter("error"));
+                    String rspt2 = request.getParameter("error");
+                    String msg2 = request.getParameter("msgOK");
+                    System.out.println("respuesta msg: " + msg2);
+                    if (rspt2 == null) {
+                        System.out.println("respuesta msg 0: " + msg);
+                        if (msg != "" && msg != null) {
+                            System.out.println("respuesta msg 1: OK");
+                %>
+                <div id="msjOK" class="alertOK" role="alert">
+                    <%=request.getParameter("msgOK")%>
+                </div>
+                <%
+                    }
+                } else if (rspt != "") {
+
+                    System.out.println("respuesta msg 2: " + msg);
+
+                    if (msg == "OK") {
+
+                        System.out.println("respuesta msg 2: " + msg);
+
+                %>
+                <div id="msjOK" class="alertOK" role="alert">
+                    <%=request.getParameter("msgOK")%>
+                </div>
+                <%
+                } else {
+
+                %>
+                <div id="msjError" class="alertError" role="alert">
+                    <%=request.getParameter("error")%>
+                </div>
+                <%
+                        }
+                    }
+                %>
+            </form>
+
         </div>
-        <main class="main">
-            <div class="columnaBlog columnaBlog1">
-                <h5>Entidades Gubernamentales</h5>
-                <p><a href="https://www.gob.pe/institucion/midagri/noticias">Noticias Ministerio de Agricultura</a></p>
-                <p><a href="https://es-la.facebook.com/minagriperu/">Ministerio de Agricultura Facebook</a></p>
-                <p><a href="https://www.gob.pe/institucion/midagri/noticias"><img src="imagenes/enlaceMidagri.png" alt="30" width="30"/></a></p>
-            </div>
-
-            <div class="columnaBlog columnaBlog2"> 
-                <p>
-                <div class="container-all">
-                    <input type="radio" id="1" name="image-slide" hidden/>
-                    <input type="radio" id="2" name="image-slide" hidden/>
-                    <input type="radio" id="3" name="image-slide" hidden/>
-
-                    <div class="slide">
-                        <div class="item-slide">
-                            <img src="imagenes/slide1.jpg" width="930px" height="500px">
-                        </div>
-                        <div class="item-slide">
-                            <img src="imagenes/slide2.jpg" width="930px" height="500px">
-                        </div>
-                        <div class="item-slide">
-                            <img src="imagenes/slide3.jpg" width="930px" height="500px">
-                        </div>
-                    </div>
-
-                    <div class="paginaSlider">
-                        <label class="paginaSlider-item" for="1">
-                            <img src="imagenes/slide1.jpg"> 
-                        </label>
-                        <label class="paginaSlider-item" for="2">
-                            <img src="imagenes/slide2.jpg"> 
-                        </label>
-                        <label class="paginaSlider-item" for="3">
-                            <img src="imagenes/slide3.jpg"> 
-                        </label>
-                    </div>
-
-                    </p>
-
-                </div>
-            </div>
-
-            <div class="columnaBlog columnaBlog3">
-                <h5>Organismos Locales</h5>
-                <p><a href="#">Organismos Locales</a></p>
-            </div>
-        </main>
     </body>
-</html>                                                        
+</html>

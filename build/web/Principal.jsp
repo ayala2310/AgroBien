@@ -417,7 +417,7 @@
             .input:focus{
                 border: 1px solid #1aafa0;
             }
-       
+
             .submitBtn {
                 position: relative;
                 top: 0px;
@@ -480,49 +480,49 @@
             .menu{
                 background-color:#33cabb;
             }
-.publicarBlog{
-            padding:20px;
-        }
-        .inputBlog{		
-            max-width: 70%;
-        }
-        .searchBlog{		
-            max-width: 40%;
-        }
-        .submitBtnBlog {
-            top: 5px;
-            left: -91%;
-            display: block;
-            margin-left: auto;
-            padding: 5px 8px;
-            border: none;
-            background-color:#31bfb1;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            position:relative;
-        }
-         .submitBtnBlog:hover {
-            background-color: #1aafa0;
-        }
-        .searchBtnBlog {
-            margin-left: auto;
-            padding: 5px 8px;
-            top:5px;
-            border: none;
-            background-color:#31bfb1;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+            .publicarBlog{
+                padding:20px;
+            }
+            .inputBlog{		
+                max-width: 70%;
+            }
+            .searchBlog{		
+                max-width: 40%;
+            }
+            .submitBtnBlog {
+                top: 5px;
+                left: -91%;
+                display: block;
+                margin-left: auto;
+                padding: 5px 8px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+                position:relative;
+            }
+            .submitBtnBlog:hover {
+                background-color: #1aafa0;
+            }
+            .searchBtnBlog {
+                margin-left: auto;
+                padding: 5px 8px;
+                top:5px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+            }
 
-        .searchBtnBlog:hover {
-            background-color: #1aafa0;
-        }
+            .searchBtnBlog:hover {
+                background-color: #1aafa0;
+            }
 
-            #hellobar-bar {
+            #notif-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
@@ -539,7 +539,7 @@
                 background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
             }
-            #hellobar-bar.regular {
+            #notif-bar.regular {
                 height: 30px;
                 font-size: 14px;
                 padding: .2em .5em;
@@ -563,7 +563,7 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-            #hellobar-bar .hb-cta {
+            #notif-bar .hb-cta {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 5px 0;
@@ -628,7 +628,10 @@
                 background: white;
             }
 
-
+            .alert{
+               position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem;
+                color:#721c24;background-color:#f8d7da;border-color:#f5c6cb
+            }
 
         </style>
         <script>
@@ -776,12 +779,12 @@
             function fn_cargarNotif() {
                 var notif = document.getElementById("idMostrarNotif").value;
                 if (notif === "" || notif === null) {
-                    document.getElementById("hellobar-bar").style.display = "none";
+                    document.getElementById("notif-bar").style.display = "none";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
 
                 } else {
-                    document.getElementById("hellobar-bar").style.display = "";
+                    document.getElementById("notif-bar").style.display = "";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
 
@@ -795,7 +798,7 @@
 
                 document.getElementById("idMostrarNotif").value = "qqqq";
                 document.getElementById("idMostrarNotif").innerHTML = "wwww";
-                document.getElementById("hellobar-bar").style.display = "none";
+                document.getElementById("notif-bar").style.display = "none";
             }
 
 
@@ -847,6 +850,7 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                             <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                             <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
@@ -897,7 +901,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
 
                                     <div class="form-footer">
-                                        <a href="#">¿Olvidó su contraseña?</a>
+                                        <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
                                 </form>
                             </li>
@@ -963,7 +967,7 @@
                                         </div>
 
                                         <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
                                             <label for="" class="label">Contraseña</label>
                                         </div>
                                         <div class="inputContainer">
@@ -1034,24 +1038,20 @@
     </header> 
 
     <body onload="fn_cargarNotif()">
-        <div id="hellobar-bar" class="regular closable" style="display: none">
+        <div class="alert" style="display: ">
+        <!--<div id="notif-bar" role="alert" style="display: none">-->
             <div class="hb-content-wrapper">
                 <div class="hb-text-wrapper">
                     <div class="hb-headline-text">
                         <p><span>${mostrarNotif}</span></p>
                     </div>
                 </div>
-                <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
-                    <div class="hb-text-holder">
-                        <p>Regístrate</p>
-                    </div>
-                </a>
             </div>
             <div class="hb-close-wrapper">
                 <form action="LogueoServlet" method="POST">
                     <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
                     <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
+                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
                 </form>
 
             </div>

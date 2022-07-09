@@ -850,6 +850,7 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                         <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                              <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                              <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
@@ -877,7 +878,7 @@
                                     <label for="" class="label1">Usuario</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                    <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required" >
                                     <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                     <label for="" class="label2">Contraseña</label>
                                 </div>
@@ -894,7 +895,7 @@
                                 %>
                                 <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
                                 <div class="form-footer">
-                                    <a href="#">¿Olvidó su contraseña?</a>
+                                    <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                 </div>
                             </form>
                         </li>
@@ -946,7 +947,7 @@
                                     </div>
                                     <div class="inputContainer">
                                         <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                        <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                        <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
                                         <label for="" class="label">Contraseña</label>
                                     </div>
                                     <div class="inputContainer">

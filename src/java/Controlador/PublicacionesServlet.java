@@ -77,7 +77,7 @@ public class PublicacionesServlet extends HttpServlet {
         List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();
         request.setAttribute("lista", listaPublicaciones);
         dispatcher = request.getRequestDispatcher("Blog.jsp");
-
+        System.out.println("xxxxxxxxxxxx");
         //dispatcher = request.getRequestDispatcher("Blog.jsp");
         dispatcher.forward(request, response);
     }

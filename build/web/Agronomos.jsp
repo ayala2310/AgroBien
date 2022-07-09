@@ -991,7 +991,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
 
                                     <div class="form-footer">
-                                        <a href="#">¿Olvidó su contraseña?</a>
+                                    <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
                                 </form>
                             </li>
@@ -1056,7 +1056,7 @@
                                         </div>
 
                                         <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
                                             <label for="" class="label">Contraseña</label>
                                         </div>
                                         <div class="inputContainer">
@@ -1209,8 +1209,8 @@
                                     <th>N°</th>
                                     <th>NOMBRES</th>
                                     <th>APELLIDOS</th>
-                                    <th>CORREO</th>
                                     <th>CIUDAD</th>
+                                    <th>CORREO</th>
                                 </tr>
                             </thead>
 

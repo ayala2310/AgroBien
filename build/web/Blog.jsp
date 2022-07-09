@@ -717,6 +717,7 @@
             window.addEventListener('load', function () {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('form');
+
                 // Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
@@ -736,12 +737,16 @@
                             } else {
                                 document.getElementById("txtApellidos").style.border = "1px solid #1aafa0";
                             }
+
                             if (document.getElementById("txtCorreo").value === "") {
                                 cantErrores = cantErrores + 1;
                                 document.getElementById("txtCorreo").style.border = "1px solid red";
                             } else {
                                 document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
                             }
+
+
+
                             if (document.getElementById("txtCiudad").value === "") {
                                 cantErrores = cantErrores + 1;
                                 document.getElementById("txtCiudad").style.border = "1px solid red";
@@ -794,6 +799,7 @@
         //document.getElementById("idMostrarNotif").value = "";
         //document.getElementById("idMostrarNotif").innerHTML = "";
         function fn_cargarNotif() {
+
             var notif = document.getElementById("idMostrarNotif").value;
             if (notif === "" || notif === null) {
                 document.getElementById("hellobar-bar").style.display = "none";
@@ -806,11 +812,6 @@
             }
             //alert(notif)
         }
-
-
-
-
-
 
 
     </script>
@@ -846,6 +847,8 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+
+                        <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                         <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                              <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                              <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
@@ -873,7 +876,7 @@
                                     <label for="" class="label1">Usuario</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                    <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required" >
                                     <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                     <label for="" class="label2">Contraseña</label>
                                 </div>
@@ -890,7 +893,7 @@
                                 %>
                                 <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
                                 <div class="form-footer">
-                                    <a href="Login.jsp">¿Olvidó su contraseña?</a>
+                                    <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                 </div>
                             </form>
                         </li>
@@ -901,30 +904,31 @@
                 <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                 <li>
                     <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
-                    <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">
+                    <ul id="idPanelRegistro" class="dropdown-menu" style="display: none">
                         <div id="idRegistro" class="signupFrm">
                             <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
                                 <div class="columna columna1">
-                                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                    <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
 
                                     <div class="inputContainer">
-                                        <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan"  required="required">
+                                        <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan" required>
                                         <label for="" class="label">Nombres</label>
 
                                     </div>
 
                                     <div class="inputContainer">
-                                        <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="Huamán"  required="required">
+                                        <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="Huamán"  required>
                                         <label for="" class="label">Apellidos</label>
                                     </div>
 
                                     <div class="inputContainer">
-                                        <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
+                                        <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required>
                                         <label for="" class="label">Correo</label>
+                                        <span id="emailOK"></span>
                                     </div>
 
                                     <div class="inputContainer">
-                                        <input type="text" class="input" id="txtCiudad"  name="txtCiudad" placeholder="Lima"  required="required">
+                                        <input type="text" class="input" id="txtCiudad"  name="txtCiudad" placeholder="Lima"  required>
                                         <label for="" class="label">Ciudad</label>
                                     </div>
                                 </div>
@@ -933,7 +937,7 @@
                                 <div  class="columna columna2">
 
                                     <div class="inputContainer">
-                                        <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required="required">
+                                        <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required>
                                             <option hidden selected>Agricultor</option>
                                             <option class="input" value="Agricultor">Agricultor</option>
                                             <option class="input" value="Agrónomo">Agrónomo</option>
@@ -941,17 +945,17 @@
                                         <label class="label"for="">Tipo</label>
 
                                     </div>
-                                    <div class="inputContainer" id="divColegiatura" name="divColegiatura" Style="display:none">
+                                    <div class="inputContainer" id="divColegiatura" name="divColegiatura" style="display:none">
                                         <input type="text" class="input" id="txtColegiatura"  name="txtColegiatura" placeholder=" "  >
                                         <label for="" class="label">Nro Colegiatura</label>
                                     </div>
                                     <div class="inputContainer">
-                                        <input type="text" class="input" id="txtUsuario"   name="txtUsuario" placeholder=" "  required="required">
+                                        <input type="text" class="input" id="txtUsuario"   name="txtUsuario" placeholder=" "  required>
                                         <label for="" class="label">Nombre de Usuario</label>
                                     </div>
 
                                     <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                        <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                        <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" "  minlength="8" required>
                                         <label for="" class="label">Contraseña</label>
                                     </div>
                                     <div class="inputContainer">
@@ -959,7 +963,7 @@
                                     </div>
                                 </div>
 
-                                <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+                                <input id="idBtnRegistrar" type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
 
                                 <%
                                     System.out.println("respuesta: " + request.getParameter("error"));
@@ -1013,7 +1017,7 @@
 
 </header> 
 
-<body onload="fn_cargarNotif()">
+<body>
     <div id="hellobar-bar" class="regular closable" style="display: none">
         <div class="hb-content-wrapper">
             <div class="hb-text-wrapper">
@@ -1021,15 +1025,10 @@
                     <p><span>${mostrarNotif}</span></p>
                 </div>
             </div>
-            <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
-                <div class="hb-text-holder">
-                    <p>Regístrate</p>
-                </div>
-            </a>
         </div>
         <div class="hb-close-wrapper">
             <form action="LogueoServlet" method="POST">
-                <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                <input type="text" name="txtPaginaActual" value="Blog" style="display:none"></input>
                 <input  class="idX" type="submit" name="accion" value="X"></input>
                 <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
             </form>
@@ -1124,8 +1123,38 @@
     </main>
 
 
-
 </body>
+
+
+<script>
+     /*.submitBtn {
+            background-color:#31bfb1;
+            color: white;
+            cursor: pointer;
+        }
+
+        .submitBtn:hover {
+            background-color: #1aafa0;
+        }*/
+    document.getElementById('txtCorreo').addEventListener('input', function () {
+        campo = event.target;
+        valido = document.getElementById('emailOK');
+
+        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+        if (emailRegex.test(campo.value)) { 
+            document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+            document.getElementById("idBtnRegistrar").disabled = false;
+            document.getElementById("idBtnRegistrar").style = "background-color: #31bfb1";
+            document.getElementById("idBtnRegistrar").style.cursor = "";
+        } else {
+            valido.innerText = "incorrecto";
+            document.getElementById("txtCorreo").style.border = "1px solid red";
+            document.getElementById("idBtnRegistrar").disabled = true;
+            document.getElementById("idBtnRegistrar").style = "background-color: grey";
+        }
+    });
+</script>
 
 <footer class="footer">
 

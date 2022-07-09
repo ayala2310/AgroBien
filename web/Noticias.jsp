@@ -848,8 +848,9 @@
 
                 <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
-                       <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                             <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                             <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
@@ -900,7 +901,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
 
                                     <div class="form-footer">
-                                        <a href="#">¿Olvidó su contraseña?</a>
+                                        <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
                                 </form>
                             </li>
@@ -914,12 +915,12 @@
                     <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                     <li>
                         <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
-                    <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
+                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
 
                             <div id="idRegistro" class="signupFrm">
                                 <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
                                     <div class="columna columna1">
-                                        <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                        <input type="text" name="txtPaginaActual" value="Noticias" style="display:none"></input>
 
                                         <div class="inputContainer">
                                             <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan"  required="required">
@@ -965,7 +966,7 @@
                                         </div>
 
                                         <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
                                             <label for="" class="label">Contraseña</label>
                                         </div>
                                         <div class="inputContainer">
@@ -1065,7 +1066,7 @@
                 <p>
 
                 <div class="container">
-                Página en construcción...     
+                    Página en construcción...     
                 </div>    
             </div>
 

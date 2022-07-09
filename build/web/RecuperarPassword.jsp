@@ -1,18 +1,25 @@
+<%-- 
+    Document   : Notificacion
+    Created on : 18/06/2022, 08:15:11 PM
+    Author     : amontanez
+--%>
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Utilitario.Notificacion"%>
+<%@page import="DAO.UsuarioDAO"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <header>
-
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AGRO BIEN INTEGRADOR II</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <style>
             body {
                 font-family: 'Varela Round', sans-serif;
@@ -522,7 +529,7 @@
                 background-color: #1aafa0;
             }
 
-            #notif-bar {
+            #hellobar-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
@@ -539,7 +546,7 @@
                 background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
             }
-            #notif-bar.regular {
+            #hellobar-bar.regular {
                 height: 30px;
                 font-size: 14px;
                 padding: .2em .5em;
@@ -563,7 +570,7 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-            #notif-bar .hb-cta {
+            #hellobar-bar .hb-cta {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 5px 0;
@@ -628,12 +635,106 @@
                 background: white;
             }
 
-            .alert{
-               position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem;
-                color:#721c24;background-color:#f8d7da;border-color:#f5c6cb
+
+            .pagAgronomoAnt {
+                border: 1px solid gray;
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                padding: 4px 8px;
+                background-color:cadetblue;
+                color: white;
+            }
+            .pagAgronomo {
+                padding: 4px 8px;
+                margin-left: auto;
+                padding: 5px 10px;
+                border: none;
+                background-color:cadetblue;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+                margin: 2px;
+            }
+            .pagAgronomoDes {
+                border: 1px solid gray;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                padding: 4px 8px;
+                background-color:cadetblue;
+                color: white;
+            }
+
+            .searchBtnBlog {
+                margin-left: auto;
+                padding: 5px 8px;
+                top:5px;
+                border: none;
+                background-color:#31bfb1;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .searchBtnBlog:hover {
+                background-color: #1aafa0;
+            }
+
+            .table-responsive{
+                max-width: 80%;
+            }
+
+            /* table {
+                 border-collapse:initial;
+                 width: 100%;
+             }
+             th {
+                 background-color: #04AA6D;
+                 color: white;
+             }
+             th, td {
+                 padding: 8px;
+                 text-align: left;
+                 border-bottom: 1px solid #ddd;
+             }
+ 
+             tr:hover {background-color: coral;}*/
+
+            /*tr:nth-child(even) {background-color: #f2f2f2;}*/
+
+
+            .headerTable{
+                width:100%; 
+                border-collapse:collapse; 
+                background-color: cadetblue;
+                box-shadow: 0px 0px 10px;
+                padding: 1rem 2rem;
+            }
+            td{
+                padding: 1rem 2rem;
+            } th{
+                padding: 1rem 2rem;
+            }
+            .bodyTable{
+                width:100%; 
+                border-collapse: separate; 
+                background-color:#ebf1f4;
+                padding: 8px;
+            }
+            .bodyTable tr:hover {
+                background-color:#DADCE0;
+            }
+
+
+
+
+
+            ::-webkit-scrollbar {
+                display: none;
             }
 
         </style>
+
         <script>
 
 
@@ -678,7 +779,7 @@
 
             function fn_mostrarColegiatura() {
                 tipo = document.getElementById("txtTipo").value;
-                if (tipo === "Agrónomo") {
+                if (tipo === "AgrÃ³nomo") {
                     document.getElementById("divColegiatura").style.display = "block";
                 } else {
                     document.getElementById("divColegiatura").style.display = "none";
@@ -737,7 +838,7 @@
                                     document.getElementById("txtTipo").style.border = "1px solid red";
                                 } else {
                                     document.getElementById("txtTipo").style.border = "1px solid #1aafa0";
-                                    if (document.getElementById("txtTipo").value === "Agrónomo") {
+                                    if (document.getElementById("txtTipo").value === "AgrÃ³nomo") {
                                         document.getElementById("txtColegiatura").required = true;
                                         if (document.getElementById("txtColegiatura").value === "") {
                                             cantErrores = cantErrores + 1;
@@ -779,12 +880,12 @@
             function fn_cargarNotif() {
                 var notif = document.getElementById("idMostrarNotif").value;
                 if (notif === "" || notif === null) {
-                    document.getElementById("notif-bar").style.display = "none";
+                    document.getElementById("hellobar-bar").style.display = "none";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
 
                 } else {
-                    document.getElementById("notif-bar").style.display = "";
+                    document.getElementById("hellobar-bar").style.display = "";
                     document.getElementById("idMostrarNotif").value = "";
                     document.getElementById("idMostrarNotif").innerHTML = "";
 
@@ -794,33 +895,18 @@
 
 
 
-            function fn_ocultarNotif() {
-
-                document.getElementById("idMostrarNotif").value = "qqqq";
-                document.getElementById("idMostrarNotif").innerHTML = "wwww";
-                document.getElementById("notif-bar").style.display = "none";
-            }
-
 
         </script>
+
         <input value="${mostrarNotif}" id="idMostrarNotif" style="display: none "></input>
         <nav class="menu navbar navbar-default navbar-expand-lg navbar-light">
-
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>  		
-                <!--
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                -->
+                <a class="navbar-brand" href="#">Agro<b>Bien</b></a>  
             </div>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="Principal.jsp">Inicio</a></li>
+                    <li><a href="Principal.jsp">Inicio</a></li>
                     <li><a href="PublicacionesServlet">Blog</a></li>	
                     <!--
                     <li class="dropdown">
@@ -833,7 +919,7 @@
                             </ul>
                     </li>
                     -->
-                    <li id="idAgronomo" style="display: ${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
+                    <li class="active" style="display:${mostrarAgronomo}"><a href="AgronomoServlet">AgrÃ³nomos</a></li>
                     <li><a href="Noticias.jsp">Noticias</a></li>
 
                 </ul>
@@ -846,30 +932,30 @@
                     </form>
                 -->
 
-                <ul id="idUsuario" class="nav navbar-nav navbar-right" style="display: ${displayNoneUsuario}">
+                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
+                             <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                             <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                             <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
                             <li class="divider"></li>
                             <form action="LogueoServlet" method="POST">
-                                <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
-                                <input type="submit" class="btn btn-primary btn-block" name="accion" value="Cerrar Sesión">
+                                <input type="text" name="txtPaginaActual" value="Agronomos" style="display:none"></input>
+                                <input type="submit" class="btn btn-primary btn-block" name="accion" value="Cerrar SesiÃ³n">
                             </form>
                         </ul>
                     </li>
                 </ul>   
 
-                <ul id="login" class="nav navbar-nav navbar-right" style="display: ${displayNoneLogin}">
+                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneLogin}">
                     <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Iniciar Sesión</a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Iniciar SesiÃ³n</a>
                         <ul class="dropdown-menu form-wrapper">					
                             <li>
                                 <form action="LogueoServlet" method="POST">
-                                    <p class="hint-text">Inicie sesión con su usuario y contraseña.</p>
+                                    <p class="hint-text">Inicie sesiÃ³n con su usuario y contraseÃ±a.</p>
                                     <!--
                                     <div class="form-group social-btn clearfix">
                                         <a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
@@ -877,18 +963,17 @@
                                     </div>
                                     <div class="or-seperator"><b>or</b></div>
                                     -->
-                                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                    <input type="text" name="txtPaginaActual" value="Agronomos" style="display:none"></input>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="txtUsuario" placeholder="Username" required="required">
                                         <label for="" class="label1">Usuario</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                        <input type="password" id="password" class="form-control" name="txtPassword" placeholder="Password" required="required">
                                         <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
-                                        <label for="" class="label2">Contraseña</label>
+                                        <label for="" class="label2">ContraseÃ±a</label>
                                     </div>
-                                    <%
-                                        if (request.getParameter("error") == null) {
+                                    <%                                        if (request.getParameter("error") == null) {
 
                                         } else if (request.getParameter("error") != "") {
                                     %>
@@ -898,10 +983,10 @@
                                     <%
                                         }
                                     %>
-                                    <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
+                                    <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar SesiÃ³n">
 
                                     <div class="form-footer">
-                                        <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
+                                        <a href="RecuperarPassword.jsp">Â¿OlvidÃ³ su contraseÃ±a?</a>
                                     </div>
                                 </form>
                             </li>
@@ -915,11 +1000,10 @@
                     <li><a href="#" class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
                     <li>
                         <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" onclick="mostrarRegistro()">Registrarse</a>
-                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">	
+                        <ul id="idPanelRegistro" class="dropdown-menu" style="display:none">		
 
                             <div id="idRegistro" class="signupFrm">
                                 <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
-
                                     <div class="columna columna1">
                                         <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
 
@@ -930,7 +1014,7 @@
                                         </div>
 
                                         <div class="inputContainer">
-                                            <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="Huamán"  required="required">
+                                            <input type="text" class="input" id="txtApellidos" name="txtApellidos" placeholder="HuamÃ¡n"  required="required">
                                             <label for="" class="label">Apellidos</label>
                                         </div>
 
@@ -952,7 +1036,7 @@
                                             <select  class="input" id="txtTipo" name="txtTipo"  placeholder="" onchange="fn_mostrarColegiatura()" required="required">
                                                 <option hidden selected>Agricultor</option>
                                                 <option class="input" value="Agricultor">Agricultor</option>
-                                                <option class="input" value="Agrónomo">Agrónomo</option>
+                                                <option class="input" value="AgrÃ³nomo">AgrÃ³nomo</option>
                                             </select>
                                             <label class="label"for="">Tipo</label>
 
@@ -968,7 +1052,7 @@
 
                                         <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
                                             <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
-                                            <label for="" class="label">Contraseña</label>
+                                            <label for="" class="label">ContraseÃ±a</label>
                                         </div>
                                         <div class="inputContainer">
                                             <label id="txtMsgErrorNombres" style="display:none"> (*)Existen campos obligatorios.</label>
@@ -976,14 +1060,8 @@
                                     </div>
 
                                     <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+
                                     <%
-                                        /*if (request.getAttribute("displayNoneUsuario").equals("")) {
-                                            request.setAttribute("displayNoneLogin", "");
-                                            request.setAttribute("displayNoneUsuario", "none");
-                                        }else{
-                                             request.setAttribute("displayNoneLogin", "none");
-                                            request.setAttribute("displayNoneUsuario", "");
-                                        }*/
                                         System.out.println("respuesta: " + request.getParameter("error"));
                                         String rspt = request.getParameter("error");
                                         String msg = request.getParameter("msgOK");
@@ -1033,77 +1111,72 @@
             </div>
         </nav>
 
+    </header>
+    <body>
 
+        <%
+            Notificacion notif = new Notificacion();
+            UsuarioDAO usu = new UsuarioDAO();
+            String respuesta = "";
+        %>
+        <div class="signupFrm">
+            <div class="form">
+                <h1 class="title"></h1>
+                <main class="main">
+                    <div  class="columna columna2" >
+                        <h2>Â¿Olvidaste tu contraseÃ±a?</h2>
+                        <h5>No te preocupes, ingresa tu <b>nombre de usuario</b> o <b>correo</b> y te enviaremos un enlace a tu correo registrado para que restaures tu contraseÃ±a.</h5>
+                        <br>
+                        <form >
+                            <div class="inputContainer">
+                                <input type="search" name="UsuarioCorreo" class="input"  placeholder=" ">
+                                <label for="" class="label">Usuario o Correo</label>
+                            </div>
+                            <%
+                                String usuarioCorreo = request.getParameter("UsuarioCorreo");
+                                String usuario = "";
+                                String correo = "";
+                                if (usuarioCorreo != null) {
+                                    ResultSet rs = usu.recuperarContraseÃ±a(usuarioCorreo);
+                                    String res = "";
+                                    while (rs.next()) {
+                                        usuario = rs.getString(1);
+                                        correo = rs.getString(2);
+                                    }
 
-    </header> 
+                                    if (correo.equals("")) {
+                                        System.out.println("no validos");
+                            %>
+                            <div>
+                                <p style="color:red"> Usuario o correo no vÃ¡lido.</p>
+                            </div>
+                            <%
+                            } else {
+                                String resp = notif.enviarCorreo(usuario, correo, "RecuperaciÃ³n de contraseÃ±a");
+                                if (!resp.equals("")) {
+                            %>
+                            <div>
+                                <p style="color:red"> No se pudo enviar el correo para reestablecer la contraseÃ±a.</p>
+                            </div>
+                            <%
+                            } else {
+                            %>
+                            <div>
+                                <p style="color:blue"> Se enviÃ³ un enlace a su correo </p>
+                            </div>
+                            <%
+                                        }
+                                    }
+                                }
+                            %>
 
-    <body onload="fn_cargarNotif()">
-        <div class="alert" style="display: ">
-        <!--<div id="notif-bar" role="alert" style="display: none">-->
-            <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
+                            <button class="submitBtn" type="submit" >Enviar</button>
+                        </form>
+
                     </div>
-                </div>
-            </div>
-            <div class="hb-close-wrapper">
-                <form action="LogueoServlet" method="POST">
-                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
-                    <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
-                </form>
+                    <div><img class="logo" src="imagenes/seguridad.png" alt="100" width="300"/></div>
+                </main>
 
             </div>
-        </div>
-        <main class="main">
-            <div class="columnaBlog columnaBlog1">
-                <h5>Entidades Gubernamentales</h5>
-                <p><a href="https://www.gob.pe/institucion/midagri/noticias">Noticias Ministerio de Agricultura</a></p>
-                <p><a href="https://es-la.facebook.com/minagriperu/">Ministerio de Agricultura Facebook</a></p>
-                <p><a href="https://www.gob.pe/institucion/midagri/noticias"><img src="imagenes/enlaceMidagri.png" alt="30" width="30"/></a></p>
-            </div>
-
-            <div class="columnaBlog columnaBlog2"> 
-                <p>
-                <div class="container-all">
-                    <input type="radio" id="1" name="image-slide" hidden/>
-                    <input type="radio" id="2" name="image-slide" hidden/>
-                    <input type="radio" id="3" name="image-slide" hidden/>
-
-                    <div class="slide">
-                        <div class="item-slide">
-                            <img src="imagenes/slide1.jpg" width="930px" height="500px">
-                        </div>
-                        <div class="item-slide">
-                            <img src="imagenes/slide2.jpg" width="930px" height="500px">
-                        </div>
-                        <div class="item-slide">
-                            <img src="imagenes/slide3.jpg" width="930px" height="500px">
-                        </div>
-                    </div>
-
-                    <div class="paginaSlider">
-                        <label class="paginaSlider-item" for="1">
-                            <img src="imagenes/slide1.jpg"> 
-                        </label>
-                        <label class="paginaSlider-item" for="2">
-                            <img src="imagenes/slide2.jpg"> 
-                        </label>
-                        <label class="paginaSlider-item" for="3">
-                            <img src="imagenes/slide3.jpg"> 
-                        </label>
-                    </div>
-
-                    </p>
-
-                </div>
-            </div>
-
-            <div class="columnaBlog columnaBlog3">
-                <h5>Organismos Locales</h5>
-                <p><a href="#">Organismos Locales</a></p>
-            </div>
-        </main>
     </body>
-</html>                                                        
+</html>

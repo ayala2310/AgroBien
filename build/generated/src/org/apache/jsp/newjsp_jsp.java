@@ -30,7 +30,7 @@ public final class newjsp_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext _jspx_page_context = null;
 
     try {
-      response.setContentType("text/html");
+      response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
       _jspx_page_context = pageContext;
@@ -41,29 +41,38 @@ public final class newjsp_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
-      out.write("        <meta charset=\"UTF-8\">\n");
-      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
-      out.write("   \n");
-      out.write("    </head>\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("        <title>JSP Page</title>\n");
       out.write("\n");
+      out.write("    </head>\n");
+      out.write("    <script>\n");
+      out.write("        document.getElementById('email').addEventListener('input', function() {\n");
+      out.write("    campo = event.target;\n");
+      out.write("    valido = document.getElementById('emailOK');\n");
+      out.write("        \n");
+      out.write("    emailRegex = /^[-\\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\\.){1,125}[A-Z]{2,63}$/i;\n");
+      out.write("    //Se muestra un texto a modo de ejemplo, luego va a ser un icono\n");
+      out.write("    if (emailRegex.test(campo.value)) {\n");
+      out.write("      valido.innerText = \"válido\";\n");
+      out.write("    } else {\n");
+      out.write("      valido.innerText = \"incorrecto\";\n");
+      out.write("    }\n");
+      out.write("});\n");
+      out.write("    </script>\n");
       out.write("    <body>\n");
-      out.write("   <div class=\"btn-group\">\n");
-      out.write("  <button type=\"button\" class=\"btn btn-danger\">Action</button>\n");
-      out.write("  <button type=\"button\" class=\"btn btn-danger dropdown-toggle dropdown-toggle-split\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n");
-      out.write("    <span class=\"sr-only\">Toggle Dropdown</span>\n");
-      out.write("  </button>\n");
-      out.write("  <div class=\"dropdown-menu\">\n");
-      out.write("    <a class=\"dropdown-item\" href=\"#\">Action</a>\n");
-      out.write("    <a class=\"dropdown-item\" href=\"#\">Another action</a>\n");
-      out.write("    <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n");
-      out.write("    <div class=\"dropdown-divider\"></div>\n");
-      out.write("    <a class=\"dropdown-item\" href=\"#\">Separated link</a>\n");
-      out.write("  </div>\n");
-      out.write("</div> </body>\n");
-      out.write("</html> \n");
+      out.write("        <p>\n");
+      out.write("            Email:\n");
+      out.write("            <input id=\"email\">\n");
+      out.write("            <span id=\"emailOK\"></span>\n");
+      out.write("        </p>\n");
+      out.write("    </body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

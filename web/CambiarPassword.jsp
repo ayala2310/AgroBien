@@ -1,6 +1,6 @@
 <%@page import="DAO.UsuarioDAO"%>
 <html lang="en">
-    <head>
+    <header>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -41,7 +41,7 @@
 
             .inputContainer {
                 position: relative;
-                height: 45px;
+                height: 55px;
                 width: 100%;
                 margin-bottom: 15px;
             }
@@ -50,14 +50,12 @@
                 position: absolute;
                 top: -50px;
                 left: 0px;
-                height: 100%;
+                height: 80%;
                 width: 100%;
                 border: 1px solid #43A047;
                 border-radius: 7px;
                 font-size: 16px;
-                padding: 0 20px;
                 outline: none;
-                background: none;
             }
 
 
@@ -68,12 +66,12 @@
 
 
             .submitBtn {
-                position: relative;
-                top: -45px;
-                left: -20px;
+                position: absolute;
+                top: 480px;
+                left: 800px;
                 display: block;
                 margin-left: auto;
-                padding: 15px 30px;
+                padding: 10px 10px;
                 border: none;
                 background-color:forestgreen;
                 color: white;
@@ -143,50 +141,49 @@
                 }
 
             }
+
+            function fn_coincidirPassword() {
+                alert()
+            }
         </script>
-    </head>
+    </header>
     <body>
         <div class="signupFrm">
             <div class="form">
                 <h3>Bienvenido a AgroBien</h3>
-                <h1 class="title">Hola ${displayNoneUsuario}, estás a un paso de cambiar tu contraseña.</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80"/></a>
+                <h1 class="title">Hola, estás a un paso de cambiar tu contraseña.</h1><a href="Principal.jsp"><img class="logo" src="imagenes/logoPrincipal.png" alt="40" width="80" title="Portal web AgroBien"/></a>
 
                 <div  class="columna columna2">
-                    <form >
+                    <form action="LogueoServlet" method="POST">
                         <div class="inputContainer">
-                            <input type="search" name="txtUsuario" class="input"  placeholder=" ">
+                            <input type="search" name="txtUsuario" class="input"  placeholder=" " >
                             <label for="" class="label">Nombre de Usuario</label>
-                            <button  type="submit" style="display:none">Buscar</button>
                         </div>
+
+                        <div class="inputContainer">
+                            <input type="password" id="password1"  name="txtPassword" class="input" placeholder=" " minlength="8">
+                            <label for="" class="label">Nueva Contraseña</label>
+                            <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon1')"/>
+                        </div>
+
+                        <div class="inputContainer">
+                            <input type="password" id="password2"  name="txtPassword2" class="input" placeholder=" " minlength="8">
+                            <label for="" class="label">Repetir Contraseña</label>
+                            <img id="icon2" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon2')"/>
+                        </div>
+                         <div>
+                        <input type="submit" class="submitBtn" name="accion" value="Guardar">
+                        </div>
+                      
+                        <div id="msjError" style="color:red" role="alert">
+                            ${ErrorPassword}
+                        </div>
+                         <div id="msjOK" style="color:blue"role="alert">
+                            ${OKPassword}
+                        </div>
+                       
                     </form>
 
-                    <%
-                        UsuarioDAO u = new UsuarioDAO();
-                        if (request.getParameter("txtUsuario") != null) {
-                            String valor = u.validarExistenciaUsuario(request.getParameter("txtUsuario").toString());
-                            if (valor == "") {
-                    %>
-
-                        <p id="msjError" class="alert alert-danger" role="alert">El usuario no existe</p>
-
-                    <%
-                            }
-                        }
-
-
-                    %>
-
-                    <div class="inputContainer">
-                        <input type="password" id="password1"  name="txtPassword" class="input" placeholder=" ">
-                        <label for="" class="label">Contraseña Anterior</label>
-                        <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon1')"/>
-                    </div>
-
-                    <div class="inputContainer">
-                        <input type="password" id="password2"  name="txtPassword" class="input" placeholder=" ">
-                        <label for="" class="label">Nueva Contraseña</label>
-                        <img id="icon2" class="icono" src="imagenes/iconoMostrar.png" alt="10" width="20" onclick="mostrarContrasena('icon2')"/>
-                    </div>
                     <!--
                                         <div class="inputContainer">
                                             <input type="password" id="password3"  name="txtPassword" class="input" placeholder=" ">
@@ -195,17 +192,7 @@
                                         </div>
                                     </div>
                     -->
-                    <input type="submit" class="submitBtn" name="accion" value="Iniciar Sesión">
-                    <%                    if (request.getParameter("error") == null) {
 
-                        } else if (request.getParameter("error") != "") {
-                    %>
-                    <div id="msjError" class="alert alert-danger" role="alert">
-                        <%=request.getParameter("error")%>
-                    </div>
-                    <%
-                        }
-                    %>
                 </div>
 
             </div>
