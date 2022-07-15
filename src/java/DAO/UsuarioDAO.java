@@ -50,6 +50,27 @@ public class UsuarioDAO {
         return true;
     }
 
+    public boolean actualizarIntentosPermitidos(String usuario, int cantidadIntentos, String estado) {
+        PreparedStatement ps;
+        ResultSet rs;
+
+        try {
+            // registrar
+            ps = cn.prepareStatement("UPDATE USUARIO\n"
+                    + "   SET INTENTOS_PERMITIDOS = ?, FECHA_ACTUALIZACION = NULL, ESTADO = ?\n"
+                    + " WHERE ID = (SELECT X.ID FROM USUARIO X WHERE X.USUARIO = ?)");
+            ps.setInt(1, cantidadIntentos);
+            ps.setString(2, usuario);
+            ps.setString(3, estado);
+            ps.execute();
+
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR u: " + e.toString());
+            return false;
+        }
+        return true;
+    }
+
     public String validarExistenciaUsuario(String usuario) {
         PreparedStatement ps;
         ResultSet rs;
@@ -194,36 +215,39 @@ public class UsuarioDAO {
         return validado;
     }
 
-    public String validarUsuario(String user, String pass) {
+    public ResultSet validarAcceso(String user2, String pass2) {
+        PreparedStatement ps2;
+        ResultSet rs2;
+
+        try {
+            ps2 = cn.prepareStatement("SELECT U.* FROM USUARIO U WHERE UPPER(U.USUARIO) = ? AND U.PASSWORD = ? ");
+            ps2.setString(1, user2);
+            ps2.setString(2, pass2);
+            rs2 = ps2.executeQuery();
+            //ps2.close();
+
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            return null;
+        }
+        return rs2;
+    }
+
+    public ResultSet validarUsuario(String user) {
         PreparedStatement ps;
         ResultSet rs;
 
-        String validado = "";
-        if (cn == null) {
-            validado = "ERROR EN LA CONEXIÓN CON LA BASE DE DATOS.";
-        } else {
-            try {
-                ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ? AND PASSWORD = ?");
-                ps.setString(1, user);
-                ps.setString(2, pass);
-                rs = ps.executeQuery();
-                int id = 0;
-                String tipoUsu = "";
-                while (rs.next()) {
-                    id = rs.getInt("ID");
-                    tipoUsu = rs.getString("TIPO_USUARIO");
-                }
-                if (id > 0) {
-                    validado = tipoUsu;
-                } else {
-                    validado = "";
-                }
-            } catch (SQLException e) {
-                System.out.println("LOG ERROR: " + e.toString());
-                validado = "";
-            }
+        try {
+            ps = cn.prepareStatement("SELECT * FROM USUARIO WHERE UPPER(USUARIO) = ? ");
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+            //ps.close();
+        } catch (SQLException e) {
+            System.out.println("LOG ERROR: " + e.toString());
+            return null;
         }
-        return validado;
+
+        return rs;
     }
 
     public ResultSet recuperarContraseña(String usuarioCorreo) {
@@ -314,7 +338,7 @@ public class UsuarioDAO {
         PreparedStatement ps;
         ResultSet rs;
         String validado = "";
-        
+
         try {
             // registrar agricultor
             ps = cn.prepareStatement("UPDATE USUARIO SET USUARIO = ?, PASSWORD = ?, TIPO_USUARIO = ? WHERE ID = ?");
@@ -327,7 +351,7 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             System.out.println("LOG ERROR: " + e.toString());
             validado = "ERROR";
-             return false;
+            return false;
         }
 
         if (validado.equals("")) {
@@ -345,7 +369,7 @@ public class UsuarioDAO {
                 } catch (SQLException e) {
                     System.out.println("LOG ERROR: " + e.toString());
                     validado = "ERROR";
-                     return false;
+                    return false;
                 }
             } else {
                 try {

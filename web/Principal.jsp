@@ -521,26 +521,26 @@
             .searchBtnBlog:hover {
                 background-color: #1aafa0;
             }
-
-            #notif-bar {
+          
+            #hellobar-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
-                width: 40%;
-                left:30%;
                 margin: -15px;
-                height: 30px;
-                color: white;
+                width: 100%;
+                left:1%;
+                height: 50px;
                 border-radius: 6px;
                 font-size: 20px;
                 font-weight: 400;
                 padding: .33em .5em;
                 -webkit-font-smoothing: antialiased;
-                background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
+                color:#721c24;
+                background-color:#f8d7da;
+                border-color:#f8d7da;
             }
-            #notif-bar.regular {
-                height: 30px;
+            #hellobar-bar {
                 font-size: 14px;
                 padding: .2em .5em;
             }
@@ -624,14 +624,11 @@
                 border-radius: 7px;
                 font-size: 16px;
                 outline: none;
-                color: red;
-                background: white;
+                color:black;
+                background: #f8d7da;
+                border-color:#f8d7da;
             }
 
-            .alert{
-               position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem;
-                color:#721c24;background-color:#f8d7da;border-color:#f5c6cb
-            }
 
         </style>
         <script>
@@ -778,17 +775,15 @@
             //document.getElementById("idMostrarNotif").innerHTML = "";
             function fn_cargarNotif() {
                 var notif = document.getElementById("idMostrarNotif").value;
-                if (notif === "" || notif === null) {
-                    document.getElementById("notif-bar").style.display = "none";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
-
-                } else {
-                    document.getElementById("notif-bar").style.display = "";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
-
-                }
+            if (notif === "" || notif === null) {
+                document.getElementById("hellobar-bar").style.display = "none";
+               //document.getElementById("idMostrarNotif").value = "";
+                //document.getElementById("idMostrarNotif").innerHTML = "";
+            } else {
+                document.getElementById("hellobar-bar").style.display = "";
+                //document.getElementById("idMostrarNotif").value = "";
+                //document.getElementById("idMostrarNotif").innerHTML = "";
+            }
                 //alert(notif)
             }
 
@@ -1038,8 +1033,9 @@
     </header> 
 
     <body onload="fn_cargarNotif()">
-        <div class="alert" style="display: ">
-        <!--<div id="notif-bar" role="alert" style="display: none">-->
+        <div id="hellobar-bar" class="regular closable" style="display: none">
+            <!--<div id="notif-bar" role="alert" style="display: none">-->
+            <div>
             <div class="hb-content-wrapper">
                 <div class="hb-text-wrapper">
                     <div class="hb-headline-text">
@@ -1051,10 +1047,13 @@
                 <form action="LogueoServlet" method="POST">
                     <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
                     <input  class="idX" type="submit" name="accion" value="X"></input>
+                    
                     <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
                 </form>
-
             </div>
+            </div>
+                    <div><a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a></div>
+ 
         </div>
         <main class="main">
             <div class="columnaBlog columnaBlog1">

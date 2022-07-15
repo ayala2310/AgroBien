@@ -42,6 +42,7 @@ public class PublicacionesServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+             request.getSession().setAttribute("mostrarNotif","");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -72,6 +73,7 @@ public class PublicacionesServlet extends HttpServlet {
         PublicacionDAO publicacionDao;
         publicacionDao = new PublicacionDAO();
         RequestDispatcher dispatcher = null;
+             request.getSession().setAttribute("mostrarNotif","");
 
         request.getSession().setAttribute("bloqueado", null);
         List<Publicacion> listaPublicaciones = publicacionDao.listarPublicaciones();

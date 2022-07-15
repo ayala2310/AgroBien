@@ -8,7 +8,11 @@ package Controlador;
 import DAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LogueoServlet", urlPatterns = {"/LogueoServlet"})
 public class LogueoServlet extends HttpServlet {
 
-    public int cantidadIntentos = 0;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,6 +39,7 @@ public class LogueoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.getSession().setAttribute("mostrarNotif", "");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -63,6 +66,8 @@ public class LogueoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession().setAttribute("displayNoneLogin", "");
+        request.getSession().setAttribute("mostrarNotif", "");
         String accion;
         RequestDispatcher dispatcher = null;
 
@@ -123,65 +128,107 @@ public class LogueoServlet extends HttpServlet {
         String pagina = request.getParameter("txtPaginaActual");
         System.out.println("pagina: " + pagina);
         if (accion.equalsIgnoreCase("Iniciar Sesión")) {
+            int idExiste = 0;
+            int cantidadIntentosRestantes = 0;
+            String tipoUsuario = "";
+            String estado = "";
             String user = request.getParameter("txtUsuario").toUpperCase();
             String pass = request.getParameter("txtPassword");
-            String validado = udao.validarUsuario(user, pass);
-            request.getSession().setAttribute("bloqueado", null);
-            if (validado.equals("")) {
-                cantidadIntentos = cantidadIntentos + 1;
-                System.out.println("cantidad intentos: " + cantidadIntentos);
-                if (cantidadIntentos == 3) {
-                    request.getSession().setAttribute("usuarioSesion", null);
-                    request.getSession().setAttribute("displayNoneLogin", "");
-                    //request.getSession().setAttribute("displayNoneUsuario", "none");
-                request.getSession().setAttribute("mostrarNotif", "Su cuenta ha sido bloqueada.");
-                    //request.getRequestDispatcher(pagina + ".jsp?error=" + "Su cuenta ha sido bloqueada.").forward(request, response);
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                } else if (cantidadIntentos == 2) {
-                    request.getSession().setAttribute("usuarioSesion", null);
-                    request.getSession().setAttribute("displayNoneLogin", "");
-                    request.getSession().setAttribute("displayNoneUsuario", "none");
-                request.getSession().setAttribute("mostrarNotif", "Le queda un intento.");
-                   // request.getRequestDispatcher(pagina + ".jsp?error=" + "Le queda un intento.").forward(request, response);
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                } else {
-                    request.getSession().setAttribute("usuarioSesion", null);
-                    if (validado.equals("Agricultor")) {
-                        request.getSession().setAttribute("mostrarAgronomo", "");
-                    } else {
-                        request.getSession().setAttribute("mostrarAgronomo", "none");
+            //String validado = udao.validarUsuario(user, pass);
+            ResultSet validado = udao.validarUsuario(user);
+
+            try {
+                while (validado.next()) {
+                    idExiste = validado.getInt(1);
+                    cantidadIntentosRestantes = validado.getInt(6);
+                    estado = validado.getString(5);
+                }
+            } catch (SQLException ex) {
+                idExiste = 0;
+            }
+       
+            if (idExiste > 0) {
+                
+                ResultSet validado2 = udao.validarAcceso(user, pass);
+                int idExiste2 = 0;
+
+                try {
+                    while (validado2.next()) {
+                        idExiste2 = validado2.getInt(1);
+                        tipoUsuario = validado2.getString(4);
+                        estado = validado2.getString(5);
                     }
+                } catch (SQLException ex) {
+                    idExiste2 = 0;
+                }
+               
+                System.out.println("ACCESOS idExiste2: " + idExiste2);
+                if (idExiste2 > 0) {
+                    if (estado.equals("ACTIVO")) {
+                        request.getSession().setAttribute("usuarioSesion", user);
+                        if (tipoUsuario.equals("Agricultor")) {
+                            request.getSession().setAttribute("mostrarAgronomo", "block");
+                        } else {
+                            request.getSession().setAttribute("mostrarAgronomo", "none");
+
+                        }
+                        request.getSession().setAttribute("displayNoneLogin", "none");
+                        request.getSession().setAttribute("displayNoneUsuario", "block");
+                        request.getSession().setAttribute("mostrarNotif", "");
+                        if (pagina.equals("Principal")) {
+                            request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                        } else if (pagina.equals("Blog")) {
+                            PublicacionesServlet as = new PublicacionesServlet();
+                            as.doPost(request, response);
+                        } else if (pagina.equals("Agronomos")) {
+                            AgronomoServlet as = new AgronomoServlet();
+                            as.doPost(request, response);
+                        } else {
+                            request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                        }
+                    } else {
+                        request.getSession().setAttribute("displayNoneLogin", "");
+                        request.getSession().setAttribute("displayNoneUsuario", "none");
+                        request.getSession().setAttribute("mostrarNotif", "Su cuenta ha sido bloqueada.");
+                        request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
+                    }
+                } else {
+                    String mensajeError = "";
+                    String estadoUsuario = "";
+                    request.getSession().setAttribute("usuarioSesion", "");
+                    //request.getSession().setAttribute("usuarioSesion", null);
                     request.getSession().setAttribute("displayNoneLogin", "");
                     request.getSession().setAttribute("displayNoneUsuario", "none");
-                    request.getSession().setAttribute("mostrarNotif", "Usuario o contraseña incorrectos.");
+
+                    if (cantidadIntentosRestantes == 3) {
+                        cantidadIntentosRestantes = cantidadIntentosRestantes - 1;
+                        mensajeError = "Contraseña incorrecta.";
+                        estadoUsuario = "ACTIVO";
+                    } else if (cantidadIntentosRestantes == 2) {
+                        cantidadIntentosRestantes = cantidadIntentosRestantes - 1;
+                        mensajeError = "Contraseña incorrecta. Lequeda un intento.";
+                        estadoUsuario = "ACTIVO";
+                    } else {
+                        cantidadIntentosRestantes = 0;
+                        request.getSession().setAttribute("bloqueado", null);
+                        mensajeError = "Contraseña incorrecta. Su cuenta ha sido bloqueada.";
+                        estadoUsuario = "BLOQUEADO";
+                    }
+                    
+
+                    udao.actualizarIntentosPermitidos(user, cantidadIntentosRestantes,"");
+
+                    request.getSession().setAttribute("mostrarNotif", mensajeError);
+                    // request.getRequestDispatcher(pagina + ".jsp?error=" + "Le queda un intento.").forward(request, response);
                     request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                   // request.getRequestDispatcher(pagina + ".jsp?error=" + "Usuario o contraseña incorrectos.").forward(request, response);
-               
                 }
+
             } else {
-                cantidadIntentos = 0;
-                request.getSession().setAttribute("usuarioSesion", user);
-                if (validado.equals("Agricultor")) {
-                    request.getSession().setAttribute("mostrarAgronomo", "block");
-                } else {
-                    request.getSession().setAttribute("mostrarAgronomo", "none");
-
-                }
-                request.getSession().setAttribute("displayNoneLogin", "none");
-                request.getSession().setAttribute("displayNoneUsuario", "block");
-                 request.getSession().setAttribute("mostrarNotif", "");
-                if (pagina.equals("Principal")) {
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                } else if (pagina.equals("Blog")) {
-                    PublicacionesServlet as = new PublicacionesServlet();
-                    as.doPost(request, response);
-                } else if (pagina.equals("Agronomos")) {
-                    AgronomoServlet as = new AgronomoServlet();
-                    as.doPost(request, response);
-                } else {
-                    request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
-                }
-
+                request.getSession().setAttribute("usuarioSesion", "");
+                request.getSession().setAttribute("displayNoneLogin", "");
+                request.getSession().setAttribute("displayNoneUsuario", "none");
+                request.getSession().setAttribute("mostrarNotif", "Usuario no existe.");
+                request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
             }
 
         } else if (accion.equalsIgnoreCase("Registrar")) {
@@ -221,17 +268,17 @@ public class LogueoServlet extends HttpServlet {
                 request.getSession().setAttribute("mostrarNotif", validado);
                 //request.getRequestDispatcher(pagina + ".jsp?error=" + validado).forward(request, response);
                 if (pagina.equals("Blog")) {
-                    request.getRequestDispatcher("PublicacionesServlet" ).forward(request, response);
+                    request.getRequestDispatcher("PublicacionesServlet").forward(request, response);
                 } else if (pagina.equals("Agronomos")) {
-                    request.getRequestDispatcher("AgronomoServlet" ).forward(request, response);
-                }else{
-                   request.getRequestDispatcher(pagina + ".jsp?error=" + validado).forward(request, response); 
+                    request.getRequestDispatcher("AgronomoServlet").forward(request, response);
+                } else {
+                    request.getRequestDispatcher(pagina + ".jsp?error=" + validado).forward(request, response);
                 }
-                
+
             }
 
         } else if (accion.equalsIgnoreCase("Cerrar Sesión")) {
-            request.getSession().setAttribute("usuarioSesion", null);
+            request.getSession().setAttribute("usuarioSesion", "");
             request.getSession().setAttribute("mostrarAgronomo", "none");
             request.getSession().setAttribute("displayNoneLogin", "");
             request.getSession().setAttribute("displayNoneUsuario", "none");
@@ -301,14 +348,13 @@ public class LogueoServlet extends HttpServlet {
         } else if (accion.equalsIgnoreCase("X")) {
             request.getSession().setAttribute("mostrarNotif", "");
             if (pagina.equals("Blog")) {
-                    request.getRequestDispatcher("PublicacionesServlet" ).forward(request, response);
-                } else if (pagina.equals("Agronomos")) {
-                    request.getRequestDispatcher("AgronomoServlet" ).forward(request, response);
-                }else{
-                   request.getRequestDispatcher(pagina + ".jsp?").forward(request, response);
-                }
-            
-            
+                request.getRequestDispatcher("PublicacionesServlet").forward(request, response);
+            } else if (pagina.equals("Agronomos")) {
+                request.getRequestDispatcher("AgronomoServlet").forward(request, response);
+            } else {
+                request.getRequestDispatcher(pagina + ".jsp?").forward(request, response);
+            }
+
         } else {
             request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
         }

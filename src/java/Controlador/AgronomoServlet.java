@@ -37,6 +37,7 @@ public class AgronomoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+             request.getSession().setAttribute("mostrarNotif","");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -67,6 +68,7 @@ public class AgronomoServlet extends HttpServlet {
         agronomoDao = new AgronomoDAO();
         System.out.println("SERVLET AGRO1");
         RequestDispatcher dispatcher = null;
+             request.getSession().setAttribute("mostrarNotif","");
         //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
         //ResultSet rs = agronomoDao.buscarAgronomo("",1, 5);
         //request.setAttribute("lista", listaAgronomos);

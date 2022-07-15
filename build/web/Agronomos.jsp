@@ -535,28 +535,29 @@
                 background-color: #1aafa0;
             }
 
-            #hellobar-bar {
+           #hellobar-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
-                width: 40%;
-                left:30%;
                 margin: -15px;
-                height: 30px;
-                color: white;
+                width: 100%;
+                left:1%;
+                height: 50px;
                 border-radius: 6px;
                 font-size: 20px;
                 font-weight: 400;
                 padding: .33em .5em;
                 -webkit-font-smoothing: antialiased;
-                background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
+                color:#721c24;
+                background-color:#f8d7da;
+                border-color:#f8d7da;
             }
-            #hellobar-bar.regular {
-                height: 30px;
+            #hellobar-bar {
                 font-size: 14px;
                 padding: .2em .5em;
             }
+            
             .hb-content-wrapper {
                 text-align: center;
                 text-align: center;
@@ -1127,7 +1128,7 @@
     %>
 
     <body onload="fn_cargarNotif()">
-        <div id="hellobar-bar" class="regular closable" style="display:none">
+       <div id="hellobar-bar" class="regular closable" style="display: none">
             <div class="hb-content-wrapper">
                 <div class="hb-text-wrapper">
                     <div class="hb-headline-text">
