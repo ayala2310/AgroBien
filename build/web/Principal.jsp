@@ -14,6 +14,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
+              html {
+                min-height: 100%;
+                position: relative;
+            }
             body {
                 font-family: 'Varela Round', sans-serif;
             }
@@ -380,7 +384,6 @@
 
             .columnaBlog{
                 float:left;
-                height: 40%;
             }
             .columnaBlog1 {
                 width:15%;
@@ -471,7 +474,7 @@
             .main {
                 margin-top: -30px;
                 padding: 10px;
-                height: 1500px; /* Used in this example to enable scrolling */
+                height: auto; /* Used in this example to enable scrolling */
             }
             .textArea{
                 width: 50%;
@@ -521,7 +524,7 @@
             .searchBtnBlog:hover {
                 background-color: #1aafa0;
             }
-          
+
             #hellobar-bar {
                 position: fixed;
                 display: table;
@@ -629,7 +632,47 @@
                 border-color:#f8d7da;
             }
 
+            .botonBloqueado{
+                color: red;
+            }
 
+            .panelBlog{
+                border: 1px solid #1aafa0;
+                border-radius: 4px;
+                padding:0.01em 16px;
+                background-color:#F7F2F1;
+                box-shadow: 0px 0px 10px;
+            }
+
+            .idAsunto{
+                border: 1px solid #1aafa0;
+                border-radius: 7px;
+                background-color:#22af73;
+                cursor:default;
+            }
+
+
+            .footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #1aafa0;
+                color: white;
+                text-align: center;
+            }
+            
+             .ir-arriba {
+                   top: 530px;
+                height: 50px;
+                display:none;
+                cursor:pointer;
+                position: fixed;
+                bottom:20px;
+                right:10px;
+                background-color: #1aafa0;
+                box-shadow: 0px 0px 10px;
+            }
         </style>
         <script>
 
@@ -774,16 +817,34 @@
             //document.getElementById("idMostrarNotif").value = "";
             //document.getElementById("idMostrarNotif").innerHTML = "";
             function fn_cargarNotif() {
+
+                var ini = document.getElementById("idInicio").value;
+
+
+                if (ini === "") {
+                    document.getElementById("idAgronomo").style.display = "none";
+                    document.getElementById("idUsuario").style.display = "none";
+                } else {
+                    var perfTipoUsu = document.getElementById("idPerfilTipoUsuario").value;
+                    if (perfTipoUsu === "Agricultor") {
+                        document.getElementById("idAgronomo").style.display = "block";
+                    } else {
+                        document.getElementById("idAgronomo").style.display = "none";
+                    }
+
+                    document.getElementById("idUsuario").style.display = "block";
+                }
+
                 var notif = document.getElementById("idMostrarNotif").value;
-            if (notif === "" || notif === null) {
-                document.getElementById("hellobar-bar").style.display = "none";
-               //document.getElementById("idMostrarNotif").value = "";
-                //document.getElementById("idMostrarNotif").innerHTML = "";
-            } else {
-                document.getElementById("hellobar-bar").style.display = "";
-                //document.getElementById("idMostrarNotif").value = "";
-                //document.getElementById("idMostrarNotif").innerHTML = "";
-            }
+                if (notif === "" || notif === null) {
+                    document.getElementById("hellobar-bar").style.display = "none";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
+                } else {
+                    document.getElementById("hellobar-bar").style.display = "";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
+                }
                 //alert(notif)
             }
 
@@ -796,7 +857,24 @@
                 document.getElementById("notif-bar").style.display = "none";
             }
 
+   $(document).ready(function () {
 
+                $('.ir-arriba').click(function () {
+                    $('body, html').animate({
+                        scrollTop: '0px'
+                    }, 300);
+                });
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 0) {
+                        $('.ir-arriba').slideDown(300);
+                    } else {
+                        $('.ir-arriba').slideUp(300);
+                    }
+                });
+
+            });
+            
         </script>
         <input value="${mostrarNotif}" id="idMostrarNotif" style="display: none "></input>
         <nav class="menu navbar navbar-default navbar-expand-lg navbar-light">
@@ -841,8 +919,12 @@
                     </form>
                 -->
 
+                <input id="idInicio" type="text" value="${idUsuarioSesion}" style="display:none"></input>
+                <input id="idPerfilTipoUsuario" type="text" value="${perfilTipoUsuario}" style="display:none"></input>
+
                 <ul id="idUsuario" class="nav navbar-nav navbar-right" style="display: ${displayNoneUsuario}">
-                    <li class="dropdown">
+                    <li class="dropdown"> 
+
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
@@ -932,6 +1014,7 @@
                                         <div class="inputContainer">
                                             <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
                                             <label for="" class="label">Correo</label>
+                                            <span id="emailOK"></span>
                                         </div>
 
                                         <div class="inputContainer">
@@ -970,7 +1053,7 @@
                                         </div>
                                     </div>
 
-                                    <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+                                    <input  id="idBtnRegistrar" type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
                                     <%
                                         /*if (request.getAttribute("displayNoneUsuario").equals("")) {
                                             request.setAttribute("displayNoneLogin", "");
@@ -1035,25 +1118,19 @@
     <body onload="fn_cargarNotif()">
         <div id="hellobar-bar" class="regular closable" style="display: none">
             <!--<div id="notif-bar" role="alert" style="display: none">-->
-            <div>
+
             <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="hb-close-wrapper">
                 <form action="LogueoServlet" method="POST">
+                    ${mostrarNotif}
                     <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
                     <input  class="idX" type="submit" name="accion" value="X"></input>
-                    
+
                     <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
                 </form>
+                <a href="${recuperaPassCuenta}.jsp">${ValorCuentaBloqueada}</a>
             </div>
-            </div>
-                    <div><a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a></div>
- 
+
+
         </div>
         <main class="main">
             <div class="columnaBlog columnaBlog1">
@@ -1104,5 +1181,55 @@
                 <p><a href="#">Organismos Locales</a></p>
             </div>
         </main>
+
+
+<span class="ir-arriba"><img src="imagenes/volverArriba.png" alt="50" width="50"/></span>
     </body>
+
+
+    <script>
+        /*.submitBtn {
+         background-color:#31bfb1;
+         color: white;
+         cursor: pointer;
+         }
+         
+         .submitBtn:hover {
+         background-color: #1aafa0;
+         }*/
+        document.getElementById('txtCorreo').addEventListener('input', function () {
+            campo = event.target;
+            valido = document.getElementById('emailOK');
+
+            emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            //valido.innerText = "";
+            //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+            if (emailRegex.test(campo.value)) {
+                document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+                document.getElementById("idBtnRegistrar").disabled = false;
+                document.getElementById("idBtnRegistrar").style = "background-color: #31bfb1";
+                document.getElementById("idBtnRegistrar").style.cursor = "";
+            } else {
+                //valido.innerText = "incorrecto";
+                document.getElementById("txtCorreo").style.border = "1px solid red";
+                document.getElementById("idBtnRegistrar").disabled = true;
+                document.getElementById("idBtnRegistrar").style = "background-color: grey";
+            }
+        });
+    </script>
+
+    <footer class="footer">
+
+        <div >
+            <a href="#"><img src="imagenes/facebook.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/instagram.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/whatsapp.png" alt="30" width="30"/></a>
+        </div>
+
+        <div class="footer-center">
+            <p>Derechos Reservados &copy; 2022</p>
+        </div>
+
+    </footer>
+
 </html>                                                        

@@ -26,20 +26,26 @@ public class Notificacion {
                     + "\n"
                     + "Soporte de Servicio AgroBien.";
 
-            String mensajeNotificarContacto = "Hola " + nombreUsuario + ",\n"
+            String mensajeRecuperarCuenta = "Hola " + nombreUsuario + ",\n"
                     + "\n"
-                    + "Se realizado una solicitud para reestablecer su contraseña.\n"
-                    + "Para continuar, ingrese al siguiente enlace: http://localhost:8080/AgroBien/Login.jsp \n"
+                    + "Se realizado una solicitud para recuperar su cuenta.\n"
+                    + "Para continuar, ingrese al siguiente enlace: http://localhost:8080/AgroBien/DesbloquearCuenta.jsp \n"
                     + "\n"
                     + "Si no fue usted, por favor comuníquese al correo soporte@agrobien.com\n"
                     + "\n"
                     + "Soporte de Servicio AgroBien.";
 
-            if(asunto.equals("Recuperación de contraseña")){
+            String mensajeNotificarContacto = "Hola, soy " + nombreUsuario +",\n"
+                    + asunto + "";
+
+            if (asunto.equals("Recuperación de contraseña")) {
                 cuerpoMensaje = mensajeRecuperarPass;
-            }else{
+            } else if (asunto.equals("Recuperación de cuenta")) {
+                cuerpoMensaje = mensajeRecuperarCuenta;
+            } else {
                 cuerpoMensaje = mensajeNotificarContacto;
             }
+            
             System.out.println("cuerpoMensaje: " + cuerpoMensaje);
             Properties p = new Properties();
             p.put("mail.smtp.host", "smtp.gmail.com");
@@ -58,7 +64,7 @@ public class Notificacion {
             mensaje.setText(cuerpoMensaje);
             // Envia el mensaje
             Transport t = s.getTransport("smtp");
-            System.out.println("correo: "+correo);
+            System.out.println("correo: " + correo);
             t.connect(correo, contra);
             //t.connect();
             t.sendMessage(mensaje, mensaje.getAllRecipients());
@@ -67,7 +73,7 @@ public class Notificacion {
             System.out.println("error: " + ex);
             return "ERROR";
         }
-        
+
         return "";
     }
 }

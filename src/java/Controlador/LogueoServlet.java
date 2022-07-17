@@ -68,12 +68,15 @@ public class LogueoServlet extends HttpServlet {
             throws ServletException, IOException {
         request.getSession().setAttribute("displayNoneLogin", "");
         request.getSession().setAttribute("mostrarNotif", "");
+        request.getSession().setAttribute("mostrarAgronomo", "none");
         String accion;
         RequestDispatcher dispatcher = null;
 
         accion = request.getParameter("accion");
         System.out.println("accion GET: " + accion);
         String usuario = request.getSession().getAttribute("usuarioSesion").toString();
+        String idUsuario = request.getSession().getAttribute("idUsuarioSesion").toString();
+        String perfilUsuario = request.getSession().getAttribute("perfilTipoUsuario").toString();
 
         System.out.println("accion GET usuario: " + usuario);
         if (accion.equals("Mi Perfil")) {
@@ -89,6 +92,15 @@ public class LogueoServlet extends HttpServlet {
             request.setAttribute("perfilCiudad", lista.get(6).toString());
             request.setAttribute("perfilCorreo", lista.get(7).toString());
             request.setAttribute("perfilColegiatura", lista.get(8).toString());
+            if (lista.get(3).toString().equals("Agricultor")) {
+                request.setAttribute("mostrarColegiatura", "none");
+            } else {
+                request.setAttribute("mostrarColegiatura", "block");
+            }
+                request.getSession().setAttribute("usuarioSesion", usuario);
+                request.getSession().setAttribute("idUsuarioSesion", idUsuario);
+                request.getSession().setAttribute("perfilTipoUsuario", perfilUsuario);
+ request.getSession().setAttribute("displayNoneLogin", "none");
             dispatcher = request.getRequestDispatcher("EditarPerfil.jsp");
             dispatcher.forward(request, response);
         }
@@ -146,9 +158,9 @@ public class LogueoServlet extends HttpServlet {
             } catch (SQLException ex) {
                 idExiste = 0;
             }
-       
+
             if (idExiste > 0) {
-                
+
                 ResultSet validado2 = udao.validarAcceso(user, pass);
                 int idExiste2 = 0;
 
@@ -161,11 +173,13 @@ public class LogueoServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     idExiste2 = 0;
                 }
-               
+
                 System.out.println("ACCESOS idExiste2: " + idExiste2);
                 if (idExiste2 > 0) {
                     if (estado.equals("ACTIVO")) {
                         request.getSession().setAttribute("usuarioSesion", user);
+                        request.getSession().setAttribute("idUsuarioSesion", idExiste2);
+                        request.getSession().setAttribute("perfilTipoUsuario", tipoUsuario);
                         if (tipoUsuario.equals("Agricultor")) {
                             request.getSession().setAttribute("mostrarAgronomo", "block");
                         } else {
@@ -175,6 +189,9 @@ public class LogueoServlet extends HttpServlet {
                         request.getSession().setAttribute("displayNoneLogin", "none");
                         request.getSession().setAttribute("displayNoneUsuario", "block");
                         request.getSession().setAttribute("mostrarNotif", "");
+
+                        udao.actualizarIntentosPermitidos(user, 3, "ACTIVO");
+
                         if (pagina.equals("Principal")) {
                             request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
                         } else if (pagina.equals("Blog")) {
@@ -187,36 +204,45 @@ public class LogueoServlet extends HttpServlet {
                             request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
                         }
                     } else {
+                        request.getSession().setAttribute("perfilTipoUsuario", "");
                         request.getSession().setAttribute("displayNoneLogin", "");
                         request.getSession().setAttribute("displayNoneUsuario", "none");
+                        request.getSession().setAttribute("recuperaPassCuenta", "RecuperarCuenta");
+                        request.getSession().setAttribute("ValorCuentaBloqueada", "¿Desea desbloquear su cuenta?");
                         request.getSession().setAttribute("mostrarNotif", "Su cuenta ha sido bloqueada.");
                         request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
                     }
                 } else {
                     String mensajeError = "";
                     String estadoUsuario = "";
+                    request.getSession().setAttribute("perfilTipoUsuario", "");
                     request.getSession().setAttribute("usuarioSesion", "");
-                    //request.getSession().setAttribute("usuarioSesion", null);
+                    request.getSession().setAttribute("idUsuarioSesion", "");
                     request.getSession().setAttribute("displayNoneLogin", "");
                     request.getSession().setAttribute("displayNoneUsuario", "none");
 
                     if (cantidadIntentosRestantes == 3) {
                         cantidadIntentosRestantes = cantidadIntentosRestantes - 1;
+                        request.getSession().setAttribute("recuperaPassCuenta", "RecuperarPassword");
+                        request.getSession().setAttribute("ValorCuentaBloqueada", "¿Desea recuperar su contraseña?");
                         mensajeError = "Contraseña incorrecta.";
                         estadoUsuario = "ACTIVO";
                     } else if (cantidadIntentosRestantes == 2) {
                         cantidadIntentosRestantes = cantidadIntentosRestantes - 1;
+                        request.getSession().setAttribute("recuperaPassCuenta", "RecuperarPassword");
+                        request.getSession().setAttribute("ValorCuentaBloqueada", "¿Desea recuperar su contraseña?");
                         mensajeError = "Contraseña incorrecta. Lequeda un intento.";
                         estadoUsuario = "ACTIVO";
                     } else {
                         cantidadIntentosRestantes = 0;
                         request.getSession().setAttribute("bloqueado", null);
+                        request.getSession().setAttribute("recuperaPassCuenta", "RecuperarCuenta");
+                        request.getSession().setAttribute("ValorCuentaBloqueada", "¿Desea desbloquear su cuenta?");
                         mensajeError = "Contraseña incorrecta. Su cuenta ha sido bloqueada.";
                         estadoUsuario = "BLOQUEADO";
                     }
-                    
 
-                    udao.actualizarIntentosPermitidos(user, cantidadIntentosRestantes,"");
+                    udao.actualizarIntentosPermitidos(user, cantidadIntentosRestantes, estadoUsuario);
 
                     request.getSession().setAttribute("mostrarNotif", mensajeError);
                     // request.getRequestDispatcher(pagina + ".jsp?error=" + "Le queda un intento.").forward(request, response);
@@ -224,10 +250,13 @@ public class LogueoServlet extends HttpServlet {
                 }
 
             } else {
+                request.getSession().setAttribute("perfilTipoUsuario", "");
                 request.getSession().setAttribute("usuarioSesion", "");
+                request.getSession().setAttribute("idUsuarioSesion", "");
                 request.getSession().setAttribute("displayNoneLogin", "");
                 request.getSession().setAttribute("displayNoneUsuario", "none");
                 request.getSession().setAttribute("mostrarNotif", "Usuario no existe.");
+                request.getSession().setAttribute("ValorCuentaBloqueada", "");
                 request.getRequestDispatcher(pagina + ".jsp").forward(request, response);
             }
 
@@ -278,7 +307,9 @@ public class LogueoServlet extends HttpServlet {
             }
 
         } else if (accion.equalsIgnoreCase("Cerrar Sesión")) {
+            request.getSession().setAttribute("perfilTipoUsuario", "");
             request.getSession().setAttribute("usuarioSesion", "");
+            request.getSession().setAttribute("idUsuarioSesion", "");
             request.getSession().setAttribute("mostrarAgronomo", "none");
             request.getSession().setAttribute("displayNoneLogin", "");
             request.getSession().setAttribute("displayNoneUsuario", "none");

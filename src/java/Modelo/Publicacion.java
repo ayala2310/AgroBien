@@ -13,14 +13,16 @@ public class Publicacion {
 
     private Integer id;
     private String asunto;
+    private Integer idUsuario;
     private String cuerpo;
     private String fecha;
     private String usuario;
     private Integer cantidadRespuestas;
 
-    public Publicacion(Integer id, String asunto, String cuerpo, String fecha, String usuario, Integer cantidadRespuestas) {
+    public Publicacion(Integer id, String asunto,int idUsuario, String cuerpo, String fecha, String usuario, Integer cantidadRespuestas) {
         this.id = id;
         this.asunto = asunto;
+        this.idUsuario = idUsuario;
         this.cuerpo = cuerpo;
         this.fecha = fecha;
         this.usuario = usuario; 
@@ -78,6 +80,12 @@ public class Publicacion {
         this.cantidadRespuestas = cantidadRespuestas;
     }
     
-    
+      public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
 }

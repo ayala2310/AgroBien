@@ -30,11 +30,12 @@ public class PublicacionDAO {
     public boolean publicarBlog(Publicacion publicacion) {
         PreparedStatement ps;
         try {
-            ps = cn.prepareStatement("INSERT INTO PUBLICACIONES VALUES(NULL, ?, ?, ?, ?)");
-            ps.setString(1, publicacion.getUsuario());
-            ps.setString(2, publicacion.getAsunto());
-            ps.setString(3, publicacion.getFecha());
-            ps.setString(4, publicacion.getCuerpo());
+            ps = cn.prepareStatement("INSERT INTO PUBLICACIONES VALUES(NULL, ?, ?, ?, ?, ?)");
+            ps.setInt(1, publicacion.getIdUsuario());
+            ps.setString(2, publicacion.getUsuario());
+            ps.setString(3, publicacion.getAsunto());
+            ps.setString(4, publicacion.getFecha());
+            ps.setString(5, publicacion.getCuerpo());
             ps.execute();
             System.out.println("INSERT OK: ");
             return true;
@@ -58,12 +59,13 @@ public class PublicacionDAO {
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 String asunto = rs.getString("ASUNTO");
+                int idUsuario = rs.getInt("ID_USUARIO");
                 String cuerpo = rs.getString("CUERPO");
                 String fecha = rs.getString("FECHA");
                 String usuario = rs.getString("USUARIO");
                 int cantidadRespuestas = Integer.parseInt(rs.getString("RESPUESTAS"));
 
-                Publicacion publicacion = new Publicacion(id, asunto, cuerpo, fecha, usuario, cantidadRespuestas);
+                Publicacion publicacion = new Publicacion(id, asunto, idUsuario, cuerpo, fecha, usuario, cantidadRespuestas);
                 lista.add(publicacion);
             }
         } catch (SQLException e) {
@@ -93,11 +95,12 @@ public class PublicacionDAO {
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 String asunto = rs.getString("ASUNTO");
+                int idUsuario = rs.getInt("ID_USUARIO");
                 String cuerpo = rs.getString("CUERPO");
                 String fecha = rs.getString("FECHA");
                 String usuario = rs.getString("USUARIO");
 
-                Publicacion publicacion = new Publicacion(id, asunto, cuerpo, fecha, usuario, null);
+                Publicacion publicacion = new Publicacion(id, asunto, idUsuario, cuerpo, fecha, usuario, null);
                 lista.add(publicacion);
             }
         } catch (SQLException e) {
@@ -107,22 +110,6 @@ public class PublicacionDAO {
         return lista;
     }
 
-    public boolean comentarPublicacion(Integer idPublicacion) {
-        PreparedStatement ps;
-        try {
-            ps = cn.prepareStatement("INSERT INTO PUBLICACIONES VALUES(NULL, ?, ?, ?, ?)");
-            /*ps.setString(1, publicacion.getUsuario());
-            ps.setString(2, publicacion.getAsunto());
-            ps.setString(3, publicacion.getFecha());
-            ps.setString(4, publicacion.getCuerpo());*/
-            ps.execute();
-            System.out.println("INSERT OK: ");
-            return true;
-        } catch (SQLException e) {
-            System.out.println("ERROR INSERT: " + e);
-            return false;
-        }
 
-    }
 
 }

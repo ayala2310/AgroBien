@@ -7,6 +7,7 @@ package Controlador;
 
 import DAO.AgronomoDAO;
 import Modelo.Agronomo;
+import Utilitario.Notificacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class AgronomoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-             request.getSession().setAttribute("mostrarNotif","");
+        request.getSession().setAttribute("mostrarNotif", "");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -68,7 +69,7 @@ public class AgronomoServlet extends HttpServlet {
         agronomoDao = new AgronomoDAO();
         System.out.println("SERVLET AGRO1");
         RequestDispatcher dispatcher = null;
-             request.getSession().setAttribute("mostrarNotif","");
+        request.getSession().setAttribute("mostrarNotif", "");
         //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
         //ResultSet rs = agronomoDao.buscarAgronomo("",1, 5);
         //request.setAttribute("lista", listaAgronomos);
@@ -94,7 +95,7 @@ public class AgronomoServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
 
         accion = request.getParameter("accion");
-
+        
         if (accion.equals("buscar")) {
             String buscar = request.getParameter("txtBuscar").toUpperCase();
             String pag = request.getParameter("pag");
@@ -102,12 +103,27 @@ public class AgronomoServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher("Agronomos.jsp");
             ResultSet buscarAgronomos = agronomoDao.buscarAgronomo(buscar, 1, 5);
             request.setAttribute("lista", buscarAgronomos);
+            request.getRequestDispatcher("Agronomos.jsp").forward(request, response);
+        }else if (accion.equals("contactarAgronomo")) {
+            String correo = request.getParameter("correo");
+            System.out.println("CORREO: "+ correo);
+            request.getSession().setAttribute("correoContacto", correo);
+            request.getRequestDispatcher("ContactarAgronomo.jsp").forward(request, response);;
+        }else if (accion.equals("enviarCorreoAgronomo")) {
+            Notificacion notif = new Notificacion();
+            String correo = request.getParameter("correoAgronomo");
+            String mensaje = request.getParameter("mensajeAgronomo");
+            String usuario = request.getSession().getAttribute("usuarioSesion").toString();
+            notif.enviarCorreo(usuario, correo, mensaje);
+            request.getSession().setAttribute("correoContacto", correo);
+            request.getRequestDispatcher("ContactarAgronomo.jsp").forward(request, response);;
         } else {
             //List<Agronomo> listaAgronomos = agronomoDao.listarAgronomos();
             request.setAttribute("lista", "");
+            request.getRequestDispatcher("Agronomos.jsp").forward(request, response);
         }
 
-        request.getRequestDispatcher("Agronomos.jsp").forward(request, response);
+        
 
     }
 

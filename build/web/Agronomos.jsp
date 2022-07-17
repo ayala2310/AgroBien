@@ -27,6 +27,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
+            html {
+                min-height: 100%;
+                position: relative;
+            }
             body {
                 font-family: 'Varela Round', sans-serif;
             }
@@ -393,7 +397,6 @@
 
             .columnaBlog{
                 float:left;
-                height: 40%;
             }
             .columnaBlog1 {
                 width:15%;
@@ -484,7 +487,7 @@
             .main {
                 margin-top: -30px;
                 padding: 10px;
-                height: 1500px; /* Used in this example to enable scrolling */
+                height: auto; /* Used in this example to enable scrolling */
             }
             .textArea{
                 width: 50%;
@@ -535,7 +538,7 @@
                 background-color: #1aafa0;
             }
 
-           #hellobar-bar {
+            #notif-bar {
                 position: fixed;
                 display: table;
                 z-index: 5;
@@ -557,7 +560,7 @@
                 font-size: 14px;
                 padding: .2em .5em;
             }
-            
+
             .hb-content-wrapper {
                 text-align: center;
                 text-align: center;
@@ -638,8 +641,28 @@
                 border-radius: 7px;
                 font-size: 16px;
                 outline: none;
+                color:black;
+                background: #f8d7da;
+                border-color:#f8d7da;
+            }
+
+            .botonBloqueado{
                 color: red;
-                background: white;
+            }
+
+            .panelBlog{
+                border: 1px solid #1aafa0;
+                border-radius: 4px;
+                padding:0.01em 16px;
+                background-color:#F7F2F1;
+                box-shadow: 0px 0px 10px;
+            }
+
+            .idAsunto{
+                border: 1px solid #1aafa0;
+                border-radius: 7px;
+                background-color:#22af73;
+                cursor:default;
             }
 
 
@@ -734,10 +757,30 @@
 
 
 
-
-
             ::-webkit-scrollbar {
                 display: none;
+            }
+
+            .footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #1aafa0;
+                color: white;
+                text-align: center;
+            }
+
+            .ir-arriba {
+                top: 530px;
+                height: 50px;
+                display:none;
+                cursor:pointer;
+                position: fixed;
+                bottom:20px;
+                right:10px;
+                background-color: #1aafa0;
+                box-shadow: 0px 0px 10px;
             }
 
         </style>
@@ -885,23 +928,62 @@
             //document.getElementById("idMostrarNotif").value = "";
             //document.getElementById("idMostrarNotif").innerHTML = "";
             function fn_cargarNotif() {
+                var ini = document.getElementById("idInicio").value;
+
+
+                if (ini === "") {
+                    document.getElementById("idAgronomo").style.display = "none";
+                    document.getElementById("idUsuario").style.display = "none";
+                } else {
+                    var perfTipoUsu = document.getElementById("idPerfilTipoUsuario").value;
+                    if (perfTipoUsu === "Agricultor") {
+                        document.getElementById("idAgronomo").style.display = "block";
+                    } else {
+                        document.getElementById("idAgronomo").style.display = "none";
+                    }
+
+                    document.getElementById("idUsuario").style.display = "block";
+                }
+
                 var notif = document.getElementById("idMostrarNotif").value;
                 if (notif === "" || notif === null) {
                     document.getElementById("hellobar-bar").style.display = "none";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
 
                 } else {
                     document.getElementById("hellobar-bar").style.display = "";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
 
                 }
                 //alert(notif)
             }
 
+            function fn_ocultarNotif() {
 
+                document.getElementById("idMostrarNotif").value = "qqqq";
+                document.getElementById("idMostrarNotif").innerHTML = "wwww";
+                document.getElementById("notif-bar").style.display = "none";
+            }
 
+            $(document).ready(function () {
+
+                $('.ir-arriba').click(function () {
+                    $('body, html').animate({
+                        scrollTop: '0px'
+                    }, 300);
+                });
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 0) {
+                        $('.ir-arriba').slideDown(300);
+                    } else {
+                        $('.ir-arriba').slideUp(300);
+                    }
+                });
+
+            });
 
         </script>
 
@@ -926,7 +1008,7 @@
                             </ul>
                     </li>
                     -->
-                    <li class="active" style="display:${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
+                    <li id="idAgronomo"  class="active" style="display:${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
                     <li><a href="Noticias.jsp">Noticias</a></li>
 
                 </ul>
@@ -938,13 +1020,15 @@
                             </div>
                     </form>
                 -->
-
-                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
+                <input id="idInicio" type="text" value="${idUsuarioSesion}" style="display:none"></input>
+                <input id="idPerfilTipoUsuario" type="text" value="${perfilTipoUsuario}" style="display:none"></input>
+                <ul  id="idUsuario" class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
+
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
+                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
+                            <!--<li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
                             <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
                             <li class="divider"></li>
                             <form action="LogueoServlet" method="POST">
@@ -955,7 +1039,7 @@
                     </li>
                 </ul>   
 
-                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneLogin}">
+                <ul id="login" class="nav navbar-nav navbar-right" style="display:${displayNoneLogin}">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Iniciar Sesión</a>
                         <ul class="dropdown-menu form-wrapper">					
@@ -975,11 +1059,12 @@
                                         <label for="" class="label1">Usuario</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="password" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                        <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
                                         <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                         <label for="" class="label2">Contraseña</label>
                                     </div>
-                                    <%                                        if (request.getParameter("error") == null) {
+                                    <%
+                                        if (request.getParameter("error") == null) {
 
                                         } else if (request.getParameter("error") != "") {
                                     %>
@@ -992,7 +1077,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
 
                                     <div class="form-footer">
-                                    <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
+                                        <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
                                 </form>
                             </li>
@@ -1027,6 +1112,7 @@
                                         <div class="inputContainer">
                                             <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
                                             <label for="" class="label">Correo</label>
+                                            <span id="emailOK"></span>
                                         </div>
 
                                         <div class="inputContainer">
@@ -1065,7 +1151,7 @@
                                         </div>
                                     </div>
 
-                                    <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+                                    <input id="idBtnRegistrar" type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
 
                                     <%
                                         System.out.println("respuesta: " + request.getParameter("error"));
@@ -1128,30 +1214,22 @@
     %>
 
     <body onload="fn_cargarNotif()">
-       <div id="hellobar-bar" class="regular closable" style="display: none">
+        <div id="hellobar-bar" class="regular closable" style="display: none">
+            <!--<div id="notif-bar" role="alert" style="display: none">-->
+
             <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
-                    </div>
-                </div>
-                <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
-                    <div class="hb-text-holder">
-                        <p>Regístrate</p>
-                    </div>
-                </a>
-            </div>
-            <div class="hb-close-wrapper">
                 <form action="LogueoServlet" method="POST">
-                    <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                    ${mostrarNotif}
+                    <input type="text" name="txtPaginaActual" value="Agronomos" style="display:none"></input>
                     <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
+
+                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
                 </form>
-
+                <a href="${recuperaPassCuenta}.jsp">${ValorCuentaBloqueada}</a>
             </div>
+
+
         </div>
-
-
         <main class="main">
             <div class="columnaBlog columnaBlog1">
                 <h5>Entidades Gubernamentales</h5>
@@ -1212,6 +1290,7 @@
                                     <th>APELLIDOS</th>
                                     <th>CIUDAD</th>
                                     <th>CORREO</th>
+                                    <th>CONTACTAR</th>
                                 </tr>
                             </thead>
 
@@ -1230,12 +1309,17 @@
                                     <td><%=rs.getString(4)%></td>
                                     <td><%=rs.getString(5)%></td>
                                     <td><%=rs.getString(6)%></td>
-                                    <!-- <td>
-                                         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                     </td>
-                                    -->
+                                    <td>
+                                        <form class="publicarBlog" action="AgronomoServlet?accion=contactarAgronomo" method="POST">
+                                             
+                                             <input type="text" name="correo" style="display:none" value="<%=rs.getString(6)%>"> 
+                                             <button type="submit" class="btn btn-primary" >&#9993;</button>
+                                        </form>
+                                        <!--<a href="AgronomoServlet" ><i class="material-icons">&#9993;</i></a>
+                                        <!--<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
+                                    </td>
+
 
                                 </tr>
                                 <%
@@ -1313,6 +1397,53 @@
             </div>
         </main>
 
-
+        <span class="ir-arriba"><img src="imagenes/volverArriba.png" alt="50" width="50"/></span>
     </body>
+
+
+    <script>
+        /*.submitBtn {
+         background-color:#31bfb1;
+         color: white;
+         cursor: pointer;
+         }
+         
+         .submitBtn:hover {
+         background-color: #1aafa0;
+         }*/
+        document.getElementById('txtCorreo').addEventListener('input', function () {
+            campo = event.target;
+            valido = document.getElementById('emailOK');
+
+            emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            //valido.innerText = "";
+            //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+            if (emailRegex.test(campo.value)) {
+                document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+                document.getElementById("idBtnRegistrar").disabled = false;
+                document.getElementById("idBtnRegistrar").style = "background-color: #31bfb1";
+                document.getElementById("idBtnRegistrar").style.cursor = "";
+            } else {
+                //valido.innerText = "incorrecto";
+                document.getElementById("txtCorreo").style.border = "1px solid red";
+                document.getElementById("idBtnRegistrar").disabled = true;
+                document.getElementById("idBtnRegistrar").style = "background-color: grey";
+            }
+        });
+    </script>
+
+    <footer class="footer">
+
+        <div >
+            <a href="#"><img src="imagenes/facebook.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/instagram.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/whatsapp.png" alt="30" width="30"/></a>
+        </div>
+
+        <div class="footer-center">
+            <p>Derechos Reservados &copy; 2022</p>
+        </div>
+
+    </footer>
+
 </html>

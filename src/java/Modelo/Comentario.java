@@ -13,13 +13,15 @@ public class Comentario {
     
     private Integer id;
     private Integer idAsunto;
+    private Integer idUsuario;
     private String comentario;
     private String usuario;
     private String fechaComentario;
 
-    public Comentario(Integer id, Integer idAsunto, String comentario, String usuario, String fechaComentario) {
+    public Comentario(Integer id, Integer idAsunto, Integer idUsuario, String comentario, String usuario, String fechaComentario) {
         this.id = id;
         this.idAsunto = idAsunto;
+        this.idUsuario = idUsuario;
         this.comentario = comentario;
         this.usuario = usuario;
         this.fechaComentario = fechaComentario;
@@ -63,6 +65,14 @@ public class Comentario {
 
     public void setIdAsunto(Integer idAsunto) {
         this.idAsunto = idAsunto;
+    }
+    
+     public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     

@@ -34,11 +34,10 @@ public class UsuarioDAO {
         try {
             // registrar
             ps = cn.prepareStatement("UPDATE USUARIO U \n"
-                    + "   SET U.PASSWORD = ? \n"
+                    + "   SET U.PASSWORD = ? , INTENTOS_PERMITIDOS = 3, ESTADO = 'ACTIVO' \n"
                     + " WHERE U.ID = (SELECT X.ID \n"
                     + "                 FROM USUARIO X \n"
-                    + "                WHERE X.USUARIO = ? \n"
-                    + "                  AND X.ESTADO = 'ACTIVO')");
+                    + "                WHERE X.USUARIO = ? )");
             ps.setString(1, newPassword);
             ps.setString(2, usuario);
             ps.execute();
@@ -60,8 +59,8 @@ public class UsuarioDAO {
                     + "   SET INTENTOS_PERMITIDOS = ?, FECHA_ACTUALIZACION = NULL, ESTADO = ?\n"
                     + " WHERE ID = (SELECT X.ID FROM USUARIO X WHERE X.USUARIO = ?)");
             ps.setInt(1, cantidadIntentos);
-            ps.setString(2, usuario);
-            ps.setString(3, estado);
+            ps.setString(2, estado);
+            ps.setString(3, usuario);
             ps.execute();
 
         } catch (SQLException e) {
@@ -107,7 +106,7 @@ public class UsuarioDAO {
         } else {
             try {
                 // registrar
-                ps = cn.prepareStatement("INSERT INTO USUARIO VALUES(NULL,?, ?, ?,'ACTIVO')");
+                ps = cn.prepareStatement("INSERT INTO USUARIO VALUES(NULL,?, ?, ?,'ACTIVO', 3, NULL)");
                 ps.setString(1, usuario);
                 ps.setString(2, password);
                 ps.setString(3, tipoUsuario);

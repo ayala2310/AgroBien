@@ -30,11 +30,12 @@ public class ComentarioDAO {
      public boolean comentarPublicacion(Comentario comentario) {
         PreparedStatement ps;
         try {
-            ps = cn.prepareStatement("INSERT INTO COMENTARIOS VALUES(NULL, ?, ?, ?, ?)");
+            ps = cn.prepareStatement("INSERT INTO COMENTARIOS VALUES(NULL, ?, ?, ?, ?, ?)");
             ps.setInt(1, comentario.getIdAsunto());
-            ps.setString(2, comentario.getComentario());
-            ps.setString(3, comentario.getUsuario());
-            ps.setString(4, comentario.getFechaComentario());
+            ps.setInt(2, comentario.getIdUsuario());
+            ps.setString(3, comentario.getComentario());
+            ps.setString(4, comentario.getUsuario());
+            ps.setString(5, comentario.getFechaComentario());
             ps.execute();
             System.out.println("INSERT OK: ");
             return true;
@@ -58,11 +59,12 @@ public class ComentarioDAO {
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 int idBlog = rs.getInt("ID_PUBLICACION");
+                int idUsuario = rs.getInt("ID_USUARIO");
                 String comenta = rs.getString("COMENTARIO");
                 String usuario = rs.getString("USUARIO");
                 String fecha = rs.getString("FECHA_COMENTARIO");
 
-                Comentario comentario = new Comentario(id, idBlog, comenta, usuario, fecha);
+                Comentario comentario = new Comentario(id, idBlog, idUsuario, comenta, usuario, fecha);
                 lista.add(comentario);
             }
         } catch (SQLException e) {

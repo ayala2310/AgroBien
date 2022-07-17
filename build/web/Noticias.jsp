@@ -8,6 +8,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <header>
 
 
@@ -22,6 +25,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
+            html {
+                min-height: 100%;
+                position: relative;
+            }
             body {
                 font-family: 'Varela Round', sans-serif;
             }
@@ -388,7 +395,6 @@
 
             .columnaBlog{
                 float:left;
-                height: 40%;
             }
             .columnaBlog1 {
                 width:15%;
@@ -479,7 +485,7 @@
             .main {
                 margin-top: -30px;
                 padding: 10px;
-                height: 1500px; /* Used in this example to enable scrolling */
+                height: auto; /* Used in this example to enable scrolling */
             }
             .textArea{
                 width: 50%;
@@ -534,21 +540,21 @@
                 position: fixed;
                 display: table;
                 z-index: 5;
-                width: 40%;
-                left:30%;
                 margin: -15px;
-                height: 30px;
-                color: white;
+                width: 100%;
+                left:1%;
+                height: 50px;
                 border-radius: 6px;
                 font-size: 20px;
                 font-weight: 400;
                 padding: .33em .5em;
                 -webkit-font-smoothing: antialiased;
-                background-color:darksalmon;
                 box-shadow: 0 1px 3px 2px rgba(0,0,0,0.15);
+                color:#721c24;
+                background-color:#f8d7da;
+                border-color:#f8d7da;
             }
-            #hellobar-bar.regular {
-                height: 30px;
+            #hellobar-bar {
                 font-size: 14px;
                 padding: .2em .5em;
             }
@@ -571,7 +577,7 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-            #hellobar-bar .hb-cta {
+            #notif-bar .hb-cta {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 5px 0;
@@ -632,13 +638,51 @@
                 border-radius: 7px;
                 font-size: 16px;
                 outline: none;
-                color: red;
-                background: white;
-            }
-            .table-responsive{
-                max-width: 80%;
+                color:black;
+                background: #f8d7da;
+                border-color:#f8d7da;
             }
 
+            .botonBloqueado{
+                color: red;
+            }
+
+            .panelBlog{
+                border: 1px solid #1aafa0;
+                border-radius: 4px;
+                padding:0.01em 16px;
+                background-color:#F7F2F1;
+                box-shadow: 0px 0px 10px;
+            }
+
+            .idAsunto{
+                border: 1px solid #1aafa0;
+                border-radius: 7px;
+                background-color:#22af73;
+                cursor:default;
+            }
+
+            .footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #1aafa0;
+                color: white;
+                text-align: center;
+            }
+            
+             .ir-arriba {
+                   top: 530px;
+                height: 50px;
+                display:none;
+                cursor:pointer;
+                position: fixed;
+                bottom:20px;
+                right:10px;
+                background-color: #1aafa0;
+                box-shadow: 0px 0px 10px;
+            }
 
         </style>
 
@@ -686,7 +730,7 @@
 
             function fn_mostrarColegiatura() {
                 tipo = document.getElementById("txtTipo").value;
-                if (tipo === "agronomo") {
+                if (tipo === "Agrónomo") {
                     document.getElementById("divColegiatura").style.display = "block";
                 } else {
                     document.getElementById("divColegiatura").style.display = "none";
@@ -785,30 +829,62 @@
             //document.getElementById("idMostrarNotif").value = "";
             //document.getElementById("idMostrarNotif").innerHTML = "";
             function fn_cargarNotif() {
+
+                var ini = document.getElementById("idInicio").value;
+
+
+                if (ini === "") {
+                    document.getElementById("idAgronomo").style.display = "none";
+                    document.getElementById("idUsuario").style.display = "none";
+                } else {
+                    var perfTipoUsu = document.getElementById("idPerfilTipoUsuario").value;
+                    if (perfTipoUsu === "Agricultor") {
+                        document.getElementById("idAgronomo").style.display = "block";
+                    } else {
+                        document.getElementById("idAgronomo").style.display = "none";
+                    }
+
+                    document.getElementById("idUsuario").style.display = "block";
+                }
+
                 var notif = document.getElementById("idMostrarNotif").value;
                 if (notif === "" || notif === null) {
                     document.getElementById("hellobar-bar").style.display = "none";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
 
                 } else {
                     document.getElementById("hellobar-bar").style.display = "";
-                    document.getElementById("idMostrarNotif").value = "";
-                    document.getElementById("idMostrarNotif").innerHTML = "";
+                    //document.getElementById("idMostrarNotif").value = "";
+                    //document.getElementById("idMostrarNotif").innerHTML = "";
 
                 }
                 //alert(notif)
             }
 
-
-
             function fn_ocultarNotif() {
 
                 document.getElementById("idMostrarNotif").value = "qqqq";
                 document.getElementById("idMostrarNotif").innerHTML = "wwww";
-                document.getElementById("hellobar-bar").style.display = "none";
+                document.getElementById("notif-bar").style.display = "none";
             }
+   $(document).ready(function () {
 
+                $('.ir-arriba').click(function () {
+                    $('body, html').animate({
+                        scrollTop: '0px'
+                    }, 300);
+                });
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 0) {
+                        $('.ir-arriba').slideDown(300);
+                    } else {
+                        $('.ir-arriba').slideUp(300);
+                    }
+                });
+
+            });
 
         </script>
 
@@ -821,38 +897,19 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="Principal.jsp">Inicio</a></li>
-                    <li><a href="PublicacionesServlet">Blog</a></li>	
-                    <!--
-                    <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
-                            <ul class="dropdown-menu">					
-                                    <li><a href="#">Web Design</a></li>
-                                    <li><a href="#">Web Development</a></li>
-                                    <li><a href="#">Graphic Design</a></li>
-                                    <li><a href="#">Digital Marketing</a></li>
-                            </ul>
-                    </li>
-                    -->
-                    <li class="active" style="display:${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
-                    <li><a href="Noticias.jsp">Noticias</a></li>
+                    <li><a href="PublicacionesServlet">Blog</a></li>
+                    <li id="idAgronomo"  style="display:${mostrarAgronomo}"><a href="AgronomoServlet">Agrónomos</a></li>
+                    <li class="active"><a href="Noticias.jsp">Noticias</a></li>
 
                 </ul>
-                <!--
-                    <form class="navbar-form form-inline">
-                            <div class="input-group search-box">								
-                                    <input type="text" id="search" class="form-control" placeholder="Search here...">
-                                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-                            </div>
-                    </form>
-                -->
-
-                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
+                <input id="idInicio" type="text" value="${idUsuarioSesion}" style="display:none"></input>
+                <input id="idPerfilTipoUsuario" type="text" value="${perfilTipoUsuario}" style="display:none"></input>
+                <ul  id="idUsuario" class="nav navbar-nav navbar-right" style="display:${displayNoneUsuario}">
                     <li class="dropdown">
+
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="imagenes/iconoLogin.png" class="avatar" alt="Avatar"> ${usuarioSesion} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <!--<li><a href="#"><i class="fa fa-user-o"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-                            <li><a href="#"><i class="fa fa-sliders"></i> Settings</a></li>-->
+                            <li><a href="LogueoServlet?accion=Mi Perfil"><i class="fa fa-user-o"></i> Mi Perfil</a></li>
                             <li class="divider"></li>
                             <form action="LogueoServlet" method="POST">
                                 <input type="text" name="txtPaginaActual" value="Noticias" style="display:none"></input>
@@ -862,27 +919,20 @@
                     </li>
                 </ul>   
 
-                <ul class="nav navbar-nav navbar-right" style="display:${displayNoneLogin}">
+                <ul id="login" class="nav navbar-nav navbar-right" style="display:${displayNoneLogin}">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Iniciar Sesión</a>
                         <ul class="dropdown-menu form-wrapper">					
                             <li>
                                 <form action="LogueoServlet" method="POST">
                                     <p class="hint-text">Inicie sesión con su usuario y contraseña.</p>
-                                    <!--
-                                    <div class="form-group social-btn clearfix">
-                                        <a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
-                                        <a href="#" class="btn btn-info pull-right"><i class="fa fa-twitter"></i> Twitter</a>
-                                    </div>
-                                    <div class="or-seperator"><b>or</b></div>
-                                    -->
                                     <input type="text" name="txtPaginaActual" value="Noticias" style="display:none"></input>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="txtUsuario" placeholder="Username" required="required">
                                         <label for="" class="label1">Usuario</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="password" class="form-control" name="txtPassword" placeholder="Password" required="required">
+                                        <input type="password" id="txtPassword" class="form-control" name="txtPassword" placeholder="Password" required="required">
                                         <!--  <img id="icon1" class="icono" src="imagenes/iconoMostrar.png" onclick="mostrarContrasena()"/>-->
                                         <label for="" class="label2">Contraseña</label>
                                     </div>
@@ -900,7 +950,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="accion" value="Iniciar Sesión">
 
                                     <div class="form-footer">
-                                        <a href="#">¿Olvidó su contraseña?</a>
+                                        <a href="RecuperarPassword.jsp">¿Olvidó su contraseña?</a>
                                     </div>
                                 </form>
                             </li>
@@ -919,7 +969,7 @@
                             <div id="idRegistro" class="signupFrm">
                                 <form id="formRegistro" name="formRegistro" class="form" action="LogueoServlet" method="POST" novalidate>
                                     <div class="columna columna1">
-                                        <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
+                                        <input type="text" name="txtPaginaActual" value="Noticias" style="display:none"></input>
 
                                         <div class="inputContainer">
                                             <input type="text" class="input" id="txtNombres" name="txtNombres" placeholder="Juan"  required="required">
@@ -935,6 +985,7 @@
                                         <div class="inputContainer">
                                             <input type="email" class="input" id="txtCorreo"  name="txtCorreo" placeholder="juan@gmail.com"  required="required">
                                             <label for="" class="label">Correo</label>
+                                            <span id="emailOK"></span>
                                         </div>
 
                                         <div class="inputContainer">
@@ -965,7 +1016,7 @@
                                         </div>
 
                                         <div class="inputContainer"> <!--onclick="javascript:IrAServletUsandoPost();" -->
-                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required">
+                                            <input type="password" id="txtPasswordReg"  name="txtPasswordReg" class="input" placeholder=" " required="required" minlength="8">
                                             <label for="" class="label">Contraseña</label>
                                         </div>
                                         <div class="inputContainer">
@@ -973,7 +1024,7 @@
                                         </div>
                                     </div>
 
-                                    <input type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
+                                    <input  id="idBtnRegistrar" type="submit" class="submitBtn" name="accion" value="Registrar" onclick="mostrarRegistro()">
 
                                     <%
                                         System.out.println("respuesta: " + request.getParameter("error"));
@@ -1030,27 +1081,21 @@
 
 
     <body onload="fn_cargarNotif()">
-        <div id="hellobar-bar" class="regular closable" style="display:none">
+        <div id="hellobar-bar" class="regular closable" style="display: none">
+            <!--<div id="notif-bar" role="alert" style="display: none">-->
+
             <div class="hb-content-wrapper">
-                <div class="hb-text-wrapper">
-                    <div class="hb-headline-text">
-                        <p><span>${mostrarNotif}</span></p>
-                    </div>
-                </div>
-                <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button" style="display:none">
-                    <div class="hb-text-holder">
-                        <p>Regístrate</p>
-                    </div>
-                </a>
-            </div>
-            <div class="hb-close-wrapper">
                 <form action="LogueoServlet" method="POST">
+                    ${mostrarNotif}
                     <input type="text" name="txtPaginaActual" value="Principal" style="display:none"></input>
                     <input  class="idX" type="submit" name="accion" value="X"></input>
-                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">X</a>-->
-                </form>
 
+                    <!--<a href="javascript:void(0);" class="icon-close" onclick="$('#notif-bar').fadeOut()">X</a>-->
+                </form>
+                <a href="${recuperaPassCuenta}.jsp">${ValorCuentaBloqueada}</a>
             </div>
+
+
         </div>
 
 
@@ -1061,12 +1106,81 @@
                 <p><a href="https://es-la.facebook.com/minagriperu/">Ministerio de Agricultura Facebook</a></p>
                 <p><a href="https://www.gob.pe/institucion/midagri/noticias"><img src="imagenes/enlaceMidagri.png" alt="30" width="30"/></a></p>
             </div>
-            <div class="columnaBlog columnaBlog2"> 
-                <p>
 
-                <div class="container">
-                    Página en construcción...     
-                </div>    
+            <div class="columnaBlog columnaBlog2"> 
+                <div class="w3-row-padding">
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://rpp.pe/economia/economia/llegada-de-fertilizantes-solo-cubrira-el-25-de-la-demanda-en-peru-noticia-1410495"><img src="imagenes/noticias1.png" alt="Norway" style="width:100%;height:150px" class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: RPP Noticias</b></p>
+                            <p>Llegada de fertilizantes solo cubrirá el 25 % de la demanda en Perú.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://agronoticias.pe/ultimas-noticias/san-martin-se-posiciona-como-la-region-con-mayor-produccion-de-cafe/"><img src="imagenes/noticias2.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Revista AgroNoticias</b></p>
+                            <p>San Martín se posiciona como la región con mayor producción de café.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://www.regionsanmartin.gob.pe/Noticias?url=noticia&id=6899"><img src="imagenes/noticias3.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Gobierno Regional San Martín</b></p>
+                            <p>Agricultores aumentan producción de naranja de 10 a 50 toneladas.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Second Photo Grid-->
+                <div class="w3-row-padding">
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://comunicaciones.congreso.gob.pe/noticias/legisladores-de-peru-democratico-fiscalizan-sectores-de-la-agricultura-y-acuicultura-regionales/"><img src="imagenes/noticias4.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Congreso dela República</b></p>
+                            <p>Legisladores de Perú Democrático fiscalizan sectores de la agricultura y acuicultura regionales.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://comunicaciones.congreso.gob.pe/noticias/congreso-ha-impulsado-seis-leyes-en-favor-de-mas-de-dos-millones-de-pequenos-agricultores/"><img src="imagenes/noticias5.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Congreso dela República</b></p>
+                            <p>Congreso ha impulsado seis leyes en favor de más de dos millones de pequeños agricultores.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://rpp.pe/economia/economia/llegada-de-fertilizantes-solo-cubrira-el-25-de-la-demanda-en-peru-noticia-1410495"><img src="imagenes/noticias6.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: RPP Noticias</b></p>
+                            <p>Llegada de fertilizantes solo cubrirá el 25 % de la demanda en Perú</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-row-padding">
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://www.tvperu.gob.pe/noticias/locales/exceso-de-plaguicidas-en-cultivos-pone-en-riesgo-a-pobladores"><img src="imagenes/noticias7.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: TvPerú Noticias</b></p>
+                            <p>Exceso de plaguicidas en cultivos pone en riesgo a pobladores.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://www.rumbominero.com/peru/apoyo-anglo-american-agricultores-tumilaca-biofertilizante/"><img src="imagenes/noticias8.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Rumbo Minero</b></p>
+                            <p>Con apoyo de Anglo American, agricultores de Tumilaca crean propio biofertilizante.</p>
+                        </div>
+                    </div>
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <a href="https://www.gob.pe/institucion/defensoria-del-pueblo/noticias/628161-defensoria-del-pueblo-demanda-a-agrorural-garantizar-compra-de-fertilizantes-en-tercera-convocatoria"><img src="imagenes/noticias9.png" alt="Norway" style="width:100%;height:150px"  class="w3-hover-opacity"></href></a>
+                        <div class="w3-container w3-white">
+                            <p><b>Fuente: Plataforma digital única del Estado Peruano</b></p>
+                            <p>Defensoría del Pueblo demanda a Agrorural garantizar compra de fertilizantes en tercera convocatoria.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="columnaBlog columnaBlog3">
@@ -1075,6 +1189,51 @@
             </div>
         </main>
 
-
+<span class="ir-arriba"><img src="imagenes/volverArriba.png" alt="50" width="50"/></span>
     </body>
+
+    <script>
+        /*.submitBtn {
+         background-color:#31bfb1;
+         color: white;
+         cursor: pointer;
+         }
+         
+         .submitBtn:hover {
+         background-color: #1aafa0;
+         }*/
+        document.getElementById('txtCorreo').addEventListener('input', function () {
+            campo = event.target;
+            valido = document.getElementById('emailOK');
+
+            emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            //valido.innerText = "";
+            //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+            if (emailRegex.test(campo.value)) {
+                document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+                document.getElementById("idBtnRegistrar").disabled = false;
+                document.getElementById("idBtnRegistrar").style = "background-color: #31bfb1";
+                document.getElementById("idBtnRegistrar").style.cursor = "";
+            } else {
+                //valido.innerText = "incorrecto";
+                document.getElementById("txtCorreo").style.border = "1px solid red";
+                document.getElementById("idBtnRegistrar").disabled = true;
+                document.getElementById("idBtnRegistrar").style = "background-color: grey";
+            }
+        });
+    </script>
+    <footer class="footer">
+
+        <div >
+            <a href="#"><img src="imagenes/facebook.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/instagram.png" alt="30" width="30"/></a>
+            <a href="#"><img src="imagenes/whatsapp.png" alt="30" width="30"/></a>
+        </div>
+
+        <div class="footer-center">
+            <p>Derechos Reservados &copy; 2022</p>
+        </div>
+
+    </footer>
+
 </html>

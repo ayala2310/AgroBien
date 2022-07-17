@@ -10,7 +10,10 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-            /* Get rid of all default margins/paddings. Set typeface */
+             html {
+                min-height: 100%;
+                position: relative;
+            }
             body {
                 box-sizing: border-box;
                 margin: 0;
@@ -120,6 +123,28 @@
                 left: 270px;
                 cursor: pointer;
             }
+            
+             .footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #1aafa0;
+                color: white;
+                text-align: center;
+            }
+            
+             .ir-arriba {
+                   top: 530px;
+                height: 50px;
+                display:none;
+                cursor:pointer;
+                position: fixed;
+                bottom:20px;
+                right:10px;
+                background-color: #1aafa0;
+                box-shadow: 0px 0px 10px;
+            }
 
         </style>
 
@@ -145,6 +170,25 @@
             function fn_coincidirPassword() {
                 alert()
             }
+            
+               $(document).ready(function () {
+
+                $('.ir-arriba').click(function () {
+                    $('body, html').animate({
+                        scrollTop: '0px'
+                    }, 300);
+                });
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 0) {
+                        $('.ir-arriba').slideDown(300);
+                    } else {
+                        $('.ir-arriba').slideUp(300);
+                    }
+                });
+
+            });
+            
         </script>
     </header>
     <body>
@@ -196,5 +240,41 @@
                 </div>
 
             </div>
-    </body>
+    
+        <span class="ir-arriba"><img src="imagenes/volverArriba.png" alt="50" width="50"/></span>
+        </body>
+    
+<script>
+     /*.submitBtn {
+            background-color:#31bfb1;
+            color: white;
+            cursor: pointer;
+        }
+
+        .submitBtn:hover {
+            background-color: #1aafa0;
+        }*/
+    document.getElementById('txtCorreo').addEventListener('input', function () {
+        campo = event.target;
+        valido = document.getElementById('emailOK');
+
+        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            //valido.innerText = "";
+        //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+        if (emailRegex.test(campo.value)) { 
+            document.getElementById("txtCorreo").style.border = "1px solid #1aafa0";
+            document.getElementById("idBtnRegistrar").disabled = false;
+            document.getElementById("idBtnRegistrar").style = "background-color: #31bfb1";
+            document.getElementById("idBtnRegistrar").style.cursor = "";
+        } else {
+            //valido.innerText = "incorrecto";
+            document.getElementById("txtCorreo").style.border = "1px solid red";
+            document.getElementById("idBtnRegistrar").disabled = true;
+            document.getElementById("idBtnRegistrar").style = "background-color: grey";
+        }
+    });
+</script>
+
+
+
 </html>

@@ -40,7 +40,7 @@ public class PublicacionesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+ System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         response.setContentType("text/html;charset=UTF-8");
              request.getSession().setAttribute("mostrarNotif","");
         try (PrintWriter out = response.getWriter()) {
@@ -109,8 +109,10 @@ public class PublicacionesServlet extends HttpServlet {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
         String varUsuario = "";
+        int varIdUsuario = 0;
         try {
             varUsuario = request.getSession().getAttribute("usuarioSesion").toString();
+            varIdUsuario = Integer.parseInt(request.getSession().getAttribute("idUsuarioSesion").toString());
         } catch (Exception e) {
             varUsuario = "";
         }
@@ -139,7 +141,7 @@ public class PublicacionesServlet extends HttpServlet {
 
                 String usuario = request.getSession().getAttribute("usuarioSesion").toString();
 
-                Publicacion publicacion = new Publicacion(null, asunto, cuerpo, fecha, usuario, null);
+                Publicacion publicacion = new Publicacion(null, asunto, varIdUsuario, cuerpo, fecha, usuario, null);
                 publicacionDao.publicarBlog(publicacion);
 
                 dispatcher = request.getRequestDispatcher("Blog.jsp");
@@ -153,7 +155,7 @@ public class PublicacionesServlet extends HttpServlet {
             //String usuario = request.getSession().getAttribute("usuarioSesion").toString();
             String fecha = formateador.format(ahora);
 
-            Comentario comentario = new Comentario(null, idAsunto, comentarios, varUsuario, fecha);
+            Comentario comentario = new Comentario(null, idAsunto, varIdUsuario, comentarios, varUsuario, fecha);
             comentarioDao.comentarPublicacion(comentario);
 
             List<Comentario> listarComentarios = comentarioDao.listarComentarios(idAsunto);
