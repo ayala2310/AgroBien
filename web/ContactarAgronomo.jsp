@@ -1275,7 +1275,7 @@
 
             <div class="columnaBlog columnaBlog3">
                 <h5>Organismos Locales</h5>
-                <p><a href="#">Organismos Locales</a></p>
+                <p><a href="http://siar.regionsanmartin.gob.pe/tematica/agricultura">Sistema de Información Regional Ambiental</a></p>
             </div>
         </main>
 
